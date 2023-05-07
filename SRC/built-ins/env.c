@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/07 16:14:05 by jsebasti         ###   ########.fr       */
+/*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
+/*   Updated: 2023/05/07 16:18:23 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_env(t_mini *mini, char **env)
 	while (env[i])
 	{
 		mini->env[i].word = env[i];
+		printf("%s\n", mini->env[i].word);
 		i++;
 	}
 }
