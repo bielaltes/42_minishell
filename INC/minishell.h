@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/07 15:52:08 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/07 16:14:32 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ typedef struct	s_mini
 	int		out;
 	int		pid;
 }	t_mini;
+
+void	init_env(t_mini *mini, char **env);
 
 #endif
