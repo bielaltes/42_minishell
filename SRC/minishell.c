@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/07 00:53:32 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/07 13:45:43 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int	main(int ac, char **av, char **env)
 {
+	if (ac != 1)
+		return (1);
+	if (!av[0])
+		return (1);
+	printf("%s", env[1]);
 	return (0);
 }
