@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/06 20:04:05 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/07 10:55:36 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ typedef struct  s_token
     t_token *next;
 }       t_token;
 
-typedef struct s_mini
+typedef struct s_cmdline
 {
     t_env   *env;
     t_token *tok;
     int     in;
     int     out;
     int     pid;
-}   t_mini;
+}   t_cmdline;
 
 #endif
