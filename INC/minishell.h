@@ -6,12 +6,16 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/07 16:18:54 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:22:48 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
 # include <unistd.h>
 # include <stdio.h>
@@ -45,6 +49,7 @@ typedef struct	s_mini
 	t_token	*tok;
 	int		in;
 	int		out;
+	int		ext;
 	int		pid;
 }	t_mini;
 
