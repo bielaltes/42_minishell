@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/07 14:13:55 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/07 15:52:08 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-enum type
-{
-	pipes,
-	and,
-	dolar,
-	minor,
-	major,
-	slash,
-};
-
 typedef struct	s_env
 {
 	char			*word;
-	struct s_env	*next;
 }	t_env;
 
 typedef struct	s_token
 {
 	char*			word;
-	enum			type;
+	int				type;
 	struct s_token	*next;
 }	t_token;
 
