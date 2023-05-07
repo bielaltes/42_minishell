@@ -1,0 +1,67 @@
+PASSOS MINISHELL
+
+a cada iteracio es fan 4 operacions: LEXER, SYNTAX, EXPANDER i EXECUTER
+
+LEXER:
+Agafa l'input i et parteix en tokens, els tokens paraules basicament. Es com fer un split. Jo tinc una cosa del pipex que podriem
+reutilitzar facilment perque ja ho vaig haver de fer. Nomes caldria classificar aquests tokens entre les diferents possibilitats.
+Per exemple:
+cat <in.txt | grep hola >out.txt
+el lexer faria:
+    cat         ->cmd
+    <in.txt     ->redirect
+    |           ->pipe
+    grep        ->cmd
+    hola        ->atribut
+    >out.txt    ->redirect
+M'he inventat les categories, s'haurien de mirar quines hi haurien
+
+SYNTAX:
+Una vegada tenim tot separat en paraules, hem de fer un analisis sintantic, aixo basicament vol dir agruparho tot en comandes,
+per exemple en aquest cas seria:
+
+    1-
+        comanda + atributs:     cat
+        redireccions:           INPUT       in.txt
+    2-
+        comanda + atributs:     grep + hola
+        redireccions:           OUTPUT      out.txt
+
+EXPANDER:
+Simplement agafa cadascuna de les comandes i expandeix els valors. Aixo son expansions de rutes a partir del PWD, variables $...
+
+EXECUTER:
+Arribats a aqui es basicament el pipex, s'han dagafar cadascuns dels comandos i pasarlos. MOLT IMPORTANT, les redireccions tenen
+mes importancia que les pipes. Per tant, si fas cat file1 | cat file2. El segon cat NO LLEGEIX de la pipe, sino que llegeix de
+el file 2 i per tant el primer comando es totalment inutil. Per aconseguir aixo es tant facil com primer redireccionar la pipe
+i despres mirar les redireccions, per tant si nhi ha alguna es carregara la de la pipe i andiamo. Un cop fet aixo execve i ya. 
+Aqui sha de buscar el comando començant per els built-ins.
+
+Dit aixo, crec que hauriem de redefinir mesomenys les estructures. Es a dir, al principi tenim una entrada que ens ve del readline, 
+aquesta entrada la trosegem al estil split (de fet per fer proves senzilles amb el split normal ens funcionaria). Per tant fins aqui tindrem
+una llista de paraules (aka tokens), i es lanalitzador sintactic el que ens les posara dins duna llista de comandes. Seria algo aixi:
+
+t_token
+{
+    char *word;
+    enum TYPE
+    t_token next;
+}
+
+t_minishell
+{
+    llista t_tokens     //sortida analitzador lexic.
+    llista t_commando   //sortida del analitzador sinactic.
+}
+
+t_commando
+{
+    llista/array t_tokens;
+    input fd;
+    output fd;
+}
+
+A partir d'aqui haurem de veure que fem si llistes o arrays, Jo crec que per als comandos es poden fer arrays perque es una cosa
+fixa que podem comptar facilment (crec que lunica manera de que hi hagi mes d'un comando es amb pipes, per tant hi ha tants cmd
+com pipes +1). Els tokens si que poden ser una llista i potser millor. Jo vec la llista de comandos com una taula, aquesta taula 
+te columnes comanda + atributs i redireccions per al moment, nose si se n'hauran de posar mes.
