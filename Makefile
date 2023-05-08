@@ -20,10 +20,8 @@ OBJ_DIR		= OBJ/
 
 # ----Libraryes----
 PW_HEADER	= $(INC_DIR)/minishell.h
-LIB			= INC/libft/libft.a
-LIB_M 		= INC/libft/
-PRINTF		= Libs/printf/libftprintf.a
-PRINTF_M	= Libs/printf/
+LIB			= $(INC_DIR)/libft/libft.a
+LIB_M 		= $(INC_DIR)/libft/
 # =============
 
 # -------------
@@ -33,7 +31,7 @@ CFLAGS = #-Werror -Wextra -Wall -O2 #-fsanitize=address
 LIBC = ar -rcs
 # =============
 
-SRC_L	=	minishell.c 				\
+SRC_L	=	main/minishell.c 				\
 			parser/lexer.c				\
 			parser/ft_split_tokens.c \
 			parser/ft_split_tokens_utils.c \
@@ -56,13 +54,13 @@ DEP = $(addsuffix .d, $(basename $(OBJ)))
 
 $(OBJ_DIR)%.o: %.c $(MKFL)
 	@$(MP) $(dir $@)
-	$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -c $< -o $@
 
 all:
-	@$(MAKE) -C $(LIB_M)
-	@$(MAKE) $(NAME)
+	@$(MAKE) -C $(LIB_M) --no-print-directory
+	@$(MAKE) $(NAME) --no-print-directory
 
-$(NAME):: $(OBJ)
+$(NAME):: $(OBJ) $(LIB)
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -o $(NAME)
 
 $(NAME)::
@@ -71,13 +69,15 @@ $(NAME)::
 -include $(DEP)
 
 clean:
+	@$(MAKE) clean -C $(LIB_M) --no-print-directory
 	$(RM) $(OBJ_DIR)
 
 fclean: clean
+	@$(MAKE) fclean -C $(LIB_M) --no-print-directory
 	$(RM) $(NAME)
 
 re:
-	@$(MAKE) fclean
-	@$(MAKE)
+	@$(MAKE) fclean --no-print-directory
+	@$(MAKE) --no-print-directory
 
 .PHONY: all clean fclean re

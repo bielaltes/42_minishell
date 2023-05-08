@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/08 09:45:26 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:17:17 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ enum	e_type
 	ERROR,
 };
 
+typedef struct s_signal
+{
+	int		exit;
+	int		sigint;
+	int		sigout;
+	pid_t	pid;
+}	t_signal;
+
 typedef struct	s_token
 {
 	char*			word;
@@ -66,23 +74,26 @@ typedef struct	s_mini
 	t_env	*env;
 	t_token	*tok;
 	t_token *tok_lex;
-	char * cmdline;
+	char	*cmdline;
 	int		in;
 	int		out;
-	int		ext;
-	int		pid;
 }	t_mini;
 
 void	init_env(t_mini *mini, char **env);
 
 //PARSER
-void 	lexer(t_mini *mini);
-t_token*	ft_split_tokens(char *s, char c);
-void	ft_check_escaped(char *str);
-int		ft_isquote(char *s, char quote);
-int		ft_isscaped(char *s);
-enum e_type choose_type(char *word);
 
+void 		lexer(t_mini *mini);
+t_token*	ft_split_tokens(char *s, char c);
+void		ft_check_escaped(char *str);
+int			ft_isquote(char *s, char quote);
+int			ft_isscaped(char *s);
+enum e_type	choose_type(char *word);
+
+
+//SIGNALS
+
+void		set_signals(void);
 
 
 
