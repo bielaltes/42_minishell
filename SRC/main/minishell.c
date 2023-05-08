@@ -1,42 +1,18 @@
-/* ************************************************************************** */
+1/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/08 09:44:36 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:14:40 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	init_signal(void)
-// {
-// 	signal();
-// }
-
-/*int	main(int ac, char **av, char **env)
-{
-	t_mini	mini;
-
-	(void)ac;
-	(void)av;
-	mini.in = dup(STDIN);
-	mini.out = dup(STDOUT);
-	mini.ext = 0;
-	init_env(&mini, env);
-	if (!mini.env)
-		return (1);
-	while (mini.ext == 0)
-	{
-		sleep(5);
-		mini.ext = 1;
-	}
-	free(mini.env);
-	return (0);
-}*/
+t_signal	g_sig;
 
 int main(int argc, char **argv, char **env)
 {
@@ -47,8 +23,8 @@ int main(int argc, char **argv, char **env)
 	init_env(&mini, env);
 	while (42)
 	{
-		//set_signals();
-		mini.cmdline = readline("macroshell>");
+		set_signals();
+		mini.cmdline = readline("😇 Macroshell >");
 		add_history(mini.cmdline);
 		lexer(&mini);
 		int i = 0;
