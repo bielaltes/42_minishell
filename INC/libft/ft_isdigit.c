@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 10:54:08 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/07 10:55:18 by baltes-g         ###   ########.fr       */
+/*   Created: 2022/09/14 14:55:06 by baltes-g          #+#    #+#             */
+/*   Updated: 2022/09/21 09:10:17 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int exec(t_cmdline *cmd)
+#include "libft.h"
+
+int	ft_isdigit(int c)
 {
-    
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

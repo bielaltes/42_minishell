@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/07 21:06:30 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/08 09:44:36 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // 	signal();
 // }
 
-int	main(int ac, char **av, char **env)
+/*int	main(int ac, char **av, char **env)
 {
 	t_mini	mini;
 
@@ -36,23 +36,26 @@ int	main(int ac, char **av, char **env)
 	}
 	free(mini.env);
 	return (0);
-}
+}*/
 
-int main2(int argc, char **argv, char **env)
+int main(int argc, char **argv, char **env)
 {
-	t_cmdline cmdline;
+	t_mini mini;
 
 	if (argc != 1)
 		exit(1);
-	init_env(&cmdline, env);
+	init_env(&mini, env);
 	while (42)
 	{
-		set_signals();
-		cmdline.read = readline("macroshell>");
-		add_history(cmdline.read);
-		lexer(cmd_line);
-		syntax(cmd_line);
-		expand(cmd_line);
-		execute(cmd_line);
+		//set_signals();
+		mini.cmdline = readline("macroshell>");
+		add_history(mini.cmdline);
+		lexer(&mini);
+		int i = 0;
+		for (i = 0; mini.tok_lex[i].word != NULL; ++i)
+			printf("%s %d\n", mini.tok_lex[i].word, mini.tok_lex[i].expand);
+		//syntax(cmd_line);
+		//expand(cmd_line);
+		//execute(cmd_line);
 	}
 }

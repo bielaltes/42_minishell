@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/08 08:56:49 by baltes-g         ###   ########.fr       */
+/*   Created: 2022/09/21 15:59:47 by baltes-g          #+#    #+#             */
+/*   Updated: 2023/02/07 16:37:23 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-size_t	array_len(char **arry)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	i;
+	void	*new;
 
-	i = 0;
-	while (arry[i])
-		i++;
-	return (i);
-}
-
-void	init_env(t_mini *mini, char **env)
-{
-	int	i;
-
-	/*i = 0;
-	mini->env = malloc(sizeof(t_env) * array_len(env));
-	if (!mini->env)
-		return ;
-	while (env[i])
-	{
-		mini->env[i].word = env[i];
-		printf("%s\n", mini->env[i].word);
-		i++;
-	}*/
+	new = malloc(size * count);
+	if (!new)
+		return (NULL);
+	ft_bzero(new, size * count);
+	return (new);
 }

@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   isalnum.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 10:54:08 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/07 10:55:18 by baltes-g         ###   ########.fr       */
+/*   Created: 2022/09/14 15:08:17 by baltes-g          #+#    #+#             */
+/*   Updated: 2022/09/14 15:29:37 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int exec(t_cmdline *cmd)
+#include "libft.h"
+
+int	ft_isalnum(int c)
 {
-    
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (1);
+	return (0);
 }

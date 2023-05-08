@@ -6,11 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/05/07 10:55:36 by baltes-g         ###   ########.fr       */
-=======
-/*   Updated: 2023/05/07 17:22:48 by jsebasti         ###   ########.fr       */
->>>>>>> a3810705f0d956f89c6b65277ec72a6db885e468
+/*   Updated: 2023/05/08 09:45:26 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,41 +23,50 @@
 # include <signal.h>
 # include <dirent.h>
 # include <termios.h>
-# include <curses.h>
-# include <term.h>
+//# include <curses.h>
+//# include <term.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "libft/libft.h"
 
-<<<<<<< HEAD
-typedef struct s_cmdline
+enum	e_type
 {
-    t_env   *env;
-    t_token *tok;
-    int     in;
-    int     out;
-    int     pid;
-}   t_cmdline;
-=======
-typedef struct	s_env
-{
-	char			*word;
-}	t_env;
->>>>>>> a3810705f0d956f89c6b65277ec72a6db885e468
+	NONE,
+	ARG,
+	FILE_IN,
+	HERE_DOC,
+	FILE_OUT,
+	FILE_OUT_APP,
+	OPEN_FILE,
+	LIMITOR,
+	EXIT_FILE,
+	EXIT_FILE_APP,
+	SYN_ERROR,
+	ERROR,
+};
 
 typedef struct	s_token
 {
 	char*			word;
-	int				type;
+	enum e_type		type;
+	int				expand;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_env
+{
+	char **env;
+}	t_env;
 
 typedef struct	s_mini
 {
 	t_env	*env;
 	t_token	*tok;
+	t_token *tok_lex;
+	char * cmdline;
 	int		in;
 	int		out;
 	int		ext;
@@ -69,5 +74,19 @@ typedef struct	s_mini
 }	t_mini;
 
 void	init_env(t_mini *mini, char **env);
+
+//PARSER
+void 	lexer(t_mini *mini);
+t_token*	ft_split_tokens(char *s, char c);
+void	ft_check_escaped(char *str);
+int		ft_isquote(char *s, char quote);
+int		ft_isscaped(char *s);
+enum e_type choose_type(char *word);
+
+
+
+
+
+
 
 #endif

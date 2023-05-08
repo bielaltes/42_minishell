@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                     :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 10:54:08 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/07 10:55:18 by baltes-g         ###   ########.fr       */
+/*   Created: 2022/09/23 13:56:04 by baltes-g          #+#    #+#             */
+/*   Updated: 2022/09/23 14:05:33 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int exec(t_cmdline *cmd)
+#include "libft.h"
+
+void	ft_putendl_fd(char *s, int fd)
 {
-    
+	while (*s != '\0')
+	{
+		write(fd, s, 1);
+		++s;
+	}
+	write(fd, "\n", 1);
 }

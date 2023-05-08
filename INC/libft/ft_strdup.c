@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 08:11:54 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/08 08:47:34 by baltes-g         ###   ########.fr       */
+/*   Created: 2022/09/21 15:57:12 by baltes-g          #+#    #+#             */
+/*   Updated: 2022/09/21 16:10:57 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void lexer(t_mini *mini)
+char	*ft_strdup(const char *s1)
 {
-    mini->tok_lex = ft_split_tokens(mini->cmdline, ' ');
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = malloc(sizeof(char) *(ft_strlen(s1) + 1));
+	if (!new)
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		new[i] = s1[i];
+		++i;
+	}
+	new[i] = '\0';
+	return (new);
 }

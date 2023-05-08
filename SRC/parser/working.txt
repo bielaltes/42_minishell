@@ -1,0 +1,3 @@
+mirar redireccions: "< hola" ha de ser el mateix token 
+els ./no funcionen
+sha de mirar la longitud de les paraules perque no va be

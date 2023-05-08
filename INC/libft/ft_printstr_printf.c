@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_printstr_printf.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/08 08:56:49 by baltes-g         ###   ########.fr       */
+/*   Created: 2022/11/05 12:40:21 by baltes-g          #+#    #+#             */
+/*   Updated: 2022/12/14 16:05:43 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-size_t	array_len(char **arry)
+int	ft_printstr_printf(t_flags flags, char *str, int *error)
 {
-	size_t	i;
-
-	i = 0;
-	while (arry[i])
-		i++;
-	return (i);
-}
-
-void	init_env(t_mini *mini, char **env)
-{
+	int	aux;
 	int	i;
 
-	/*i = 0;
-	mini->env = malloc(sizeof(t_env) * array_len(env));
-	if (!mini->env)
-		return ;
-	while (env[i])
+	aux = 0;
+	if (flags.content)
+		i = 0;
+	i = 0;
+	if (!str)
+		return (ft_printstr_printf(flags, "(null)", error));
+	while (str[i] != '\0' && aux != -1 && *error != 1)
 	{
-		mini->env[i].word = env[i];
-		printf("%s\n", mini->env[i].word);
-		i++;
-	}*/
+		ft_printchar_printf(flags, str[i], error);
+		++i;
+	}
+	return (i);
 }

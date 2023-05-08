@@ -1,4 +1,4 @@
-# **************************************************************************** #
+## **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -20,8 +20,8 @@ OBJ_DIR		= OBJ/
 
 # ----Libraryes----
 PW_HEADER	= $(INC_DIR)/minishell.h
-LIB			= Libs/Libft/libft.a
-LIB_M 		= Libs/Libft/
+LIB			= INC/libft/libft.a
+LIB_M 		= INC/libft/
 PRINTF		= Libs/printf/libftprintf.a
 PRINTF_M	= Libs/printf/
 # =============
@@ -29,12 +29,14 @@ PRINTF_M	= Libs/printf/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS = -Werror -Wextra -Wall -O2 #-fsanitize=address
+CFLAGS = #-Werror -Wextra -Wall -O2 #-fsanitize=address
 LIBC = ar -rcs
 # =============
 
 SRC_L	=	minishell.c 				\
 			parser/lexer.c				\
+			parser/ft_split_tokens.c \
+			parser/ft_split_tokens_utils.c \
 			execute/exec.c				\
 			built-ins/cd.c				\
 			built-ins/env.c				\
@@ -57,10 +59,11 @@ $(OBJ_DIR)%.o: %.c $(MKFL)
 	$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -c $< -o $@
 
 all:
+	@$(MAKE) -C $(LIB_M)
 	@$(MAKE) $(NAME)
 
 $(NAME):: $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -o $(NAME)
 
 $(NAME)::
 	@echo "Hello, Minishell already compiled 😇"
