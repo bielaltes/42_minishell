@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/08 17:17:17 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/09 01:45:38 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_signal
 {
 	int		exit;
 	int		sigint;
-	int		sigout;
+	int		sigquit;
 	pid_t	pid;
 }	t_signal;
 
@@ -94,10 +94,9 @@ enum e_type	choose_type(char *word);
 //SIGNALS
 
 void		set_signals(void);
+void		sig_int(int code);
+void		sig_quit(int code);
 
-
-
-
-
+extern t_signal g_sig;
 
 #endif

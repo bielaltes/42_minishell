@@ -6,7 +6,7 @@
 #    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/05/08 19:20:42 by jsebasti         ###   ########.fr        #
+#    Updated: 2023/05/09 01:26:26 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,17 +32,18 @@ LIBC = ar -rcs
 # =============
 
 SRC_L	=	main/minishell.c 				\
-			parser/lexer.c				\
-			parser/ft_split_tokens.c \
-			parser/ft_split_tokens_utils.c \
-			execute/exec.c				\
-			built-ins/cd.c				\
-			built-ins/env.c				\
-			built-ins/pwd.c				\
-			built-ins/echo.c			\
-			built-ins/exit.c			\
-			built-ins/unset.c			\
-			built-ins/export.c			\
+			main/signals.c					\
+			parser/lexer.c					\
+			parser/ft_split_tokens.c 		\
+			parser/ft_split_tokens_utils.c	\
+			execute/exec.c					\
+			built-ins/cd.c					\
+			built-ins/env.c					\
+			built-ins/pwd.c					\
+			built-ins/echo.c				\
+			built-ins/exit.c				\
+			built-ins/unset.c				\
+			built-ins/export.c				\
 
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))
