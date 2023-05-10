@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/08 09:54:33 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:16:32 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ t_token	*ft_split_tokens(char *s, char c)
 	int		j;
 	t_token	*new;
 
-	//if (*s && *s == '.' && s[1] && s[1] == '/')
-		//return (ft_split_exe(s));
-	new = malloc(sizeof(char *) * (count_words(s, c) + 1));
+	new = malloc(sizeof(t_token *) * (count_words(s, c) + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -107,9 +105,7 @@ t_token	*ft_split_tokens(char *s, char c)
 		if (new[j].word[0] == 34 || new[j].word[0] == 39)
 			new[j].word = ft_substr(new[j].word, 1, ft_strlen(new[j].word) - 2);
 		ft_check_escaped(new[j].word);
-		//printf("%d", word_len(&s[0], c));
 		i += word_len(&s[i], c);
-		new[j].type = choose_type(new[j].word);
 	}
 	new[j].word = (NULL);
 	return (new);

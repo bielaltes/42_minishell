@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/09 01:45:38 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:20:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,31 @@
 enum	e_type
 {
 	NONE,
+	CMD,
 	ARG,
-	FILE_IN,
+	FT_FILE,
 	HERE_DOC,
-	FILE_OUT,
-	FILE_OUT_APP,
-	OPEN_FILE,
-	LIMITOR,
-	EXIT_FILE,
-	EXIT_FILE_APP,
-	SYN_ERROR,
-	ERROR,
+	REDIR_INP,
+	REDIR_OUT,
+	REDIR_HERE,
+	REDIR_APPEND,
+	PIPE,
+	END,
 };
 
 typedef struct s_signal
 {
 	int		exit;
 	int		sigint;
-	int		sigquit;
+	int		sigout;
 	pid_t	pid;
 }	t_signal;
 
 typedef struct	s_token
 {
 	char*			word;
-	enum e_type		type;
 	int				expand;
+	enum e_type		type;
 	struct s_token	*next;
 }	t_token;
 
@@ -89,14 +88,23 @@ void		ft_check_escaped(char *str);
 int			ft_isquote(char *s, char quote);
 int			ft_isscaped(char *s);
 enum e_type	choose_type(char *word);
+void    assing_type(t_token *tokens)
+int reserved(char *str);
+int assing_input(t_token *tokens, int i);
+int assing_output(t_token *tokens, int i);
+int assing_output_append(t_token *tokens, int i);
+int assing_heredoc(t_token *tokens, int i);
+int assing_command(t_token *tokens, int i);
+
 
 
 //SIGNALS
 
 void		set_signals(void);
-void		sig_int(int code);
-void		sig_quit(int code);
 
-extern t_signal g_sig;
+
+
+
+
 
 #endif
