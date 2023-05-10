@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:28:38 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:57:31 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,6 @@ static t_token	*malloc_error(t_token *new, int j)
 	}
 	free(new);
 	return (NULL);
-}
-
-static char	**ft_split_exe(char *s)
-{
-	char	**new;
-
-	if (count_words(s, ' ') > 1)
-		return (NULL);
-	new = malloc(sizeof(char *) * 2);
-	if (!new)
-		return (NULL);
-	new[0] = ft_substr(s, 0, ft_strlen(s));
-	ft_check_escaped(new[0]);
-	new[1] = NULL;
-	return (new);
 }
 
 t_token	*ft_split_tokens(char *s, char c)
