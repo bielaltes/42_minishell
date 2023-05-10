@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/08 17:17:17 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:16:53 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@
 enum	e_type
 {
 	NONE,
+	CMD,
 	ARG,
-	FILE_IN,
+	FT_FILE,
 	HERE_DOC,
-	FILE_OUT,
-	FILE_OUT_APP,
-	OPEN_FILE,
-	LIMITOR,
-	EXIT_FILE,
-	EXIT_FILE_APP,
-	SYN_ERROR,
-	ERROR,
+	REDIR_INP,
+	REDIR_OUT,
+	REDIR_HERE,
+	REDIR_APPEND,
+	PIPE,
+	END,
 };
 
 typedef struct s_signal
@@ -59,8 +58,8 @@ typedef struct s_signal
 typedef struct	s_token
 {
 	char*			word;
-	enum e_type		type;
 	int				expand;
+	enum e_type		type;
 	struct s_token	*next;
 }	t_token;
 
