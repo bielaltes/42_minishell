@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/10 15:30:43 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:57:27 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_signal	g_sig;
 
-int main(int argc, char **argv, char **env)
+int main(int argc, char **argv, char**env)
 {
 	t_mini mini;
 
-	if (argc != 1)
+	if (argc != 1 && argv[0])
 		exit(1);
 	init_env(&mini, env);
 	while (42)

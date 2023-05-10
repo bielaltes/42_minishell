@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_tokens_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:19:52 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/08 09:42:17 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:57:30 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,4 @@ void	ft_check_escaped(char *str)
 		}
 		++str;
 	}
-}
-
-enum e_type choose_type(char *word)
-{
-	return (ARG);
 }

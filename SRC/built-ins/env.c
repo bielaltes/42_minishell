@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/08 08:56:49 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:57:26 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void	init_env(t_mini *mini, char **env)
 {
 	int	i;
 
-	/*i = 0;
+	i = 0;
 	mini->env = malloc(sizeof(t_env) * array_len(env));
+	/*
 	if (!mini->env)
 		return ;
 	while (env[i])
