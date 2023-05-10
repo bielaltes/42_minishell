@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:26:59 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:20:59 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:46:26 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int assing_heredoc(t_token *tokens, int i)
 int assing_command(t_token *tokens, int i)
 {
     tokens[i++].type = CMD;
-    while (tokens[i].word != NULL && !reserved(token[i].word))
+    while (tokens[i].word != NULL && !reserved(tokens[i].word))
     {
         tokens[i].type = ARG;
         ++i;
     }
+    return (i);
 }

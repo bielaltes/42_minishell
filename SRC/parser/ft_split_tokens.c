@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:16:32 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:28:38 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_token	*ft_split_tokens(char *s, char c)
 	int		j;
 	t_token	*new;
 
-	new = malloc(sizeof(t_token *) * (count_words(s, c) + 1));
+	new = malloc(sizeof(t_token) * (count_words(s, c) + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
