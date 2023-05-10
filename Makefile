@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
+#    By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/05/08 19:20:42 by jsebasti         ###   ########.fr        #
+#    Updated: 2023/05/10 15:18:33 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ SRC_L	=	main/minishell.c 				\
 			parser/lexer.c				\
 			parser/ft_split_tokens.c \
 			parser/ft_split_tokens_utils.c \
+			parser/assing.c 				\
+			parser/token_type.c 			\
 			execute/exec.c				\
 			built-ins/cd.c				\
 			built-ins/env.c				\

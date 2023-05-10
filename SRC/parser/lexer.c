@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 08:11:54 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/08 08:47:34 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:18:39 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,7 @@
 void lexer(t_mini *mini)
 {
     mini->tok_lex = ft_split_tokens(mini->cmdline, ' ');
+    if (!mini->tok_lex)
+        exit(2);
+    assing_type(mini);
 }

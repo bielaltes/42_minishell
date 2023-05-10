@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:16:53 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:20:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,14 @@ void		ft_check_escaped(char *str);
 int			ft_isquote(char *s, char quote);
 int			ft_isscaped(char *s);
 enum e_type	choose_type(char *word);
+void    assing_type(t_token *tokens)
+int reserved(char *str);
+int assing_input(t_token *tokens, int i);
+int assing_output(t_token *tokens, int i);
+int assing_output_append(t_token *tokens, int i);
+int assing_heredoc(t_token *tokens, int i);
+int assing_command(t_token *tokens, int i);
+
 
 
 //SIGNALS

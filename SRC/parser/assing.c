@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:26:59 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:16:40 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:20:59 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int assing_input(t_token *tokens, int i)
 {
-    tokens[i].type = REDIR_INP
+    tokens[i].type = REDIR_INP;
     if (tokens[i+1].word != NULL)
         tokens[i+1].type = FT_FILE;
     else
@@ -24,7 +24,7 @@ int assing_input(t_token *tokens, int i)
 
 int assing_output(t_token *tokens, int i)
 {
-    tokens[i].type = REDIR_OUT
+    tokens[i].type = REDIR_OUT;
     if (tokens[i+1].word != NULL)
         tokens[i+1].type = FT_FILE;
     else
@@ -34,7 +34,7 @@ int assing_output(t_token *tokens, int i)
 
 int assing_output_append(t_token *tokens, int i)
 {
-    tokens[i].type = REDIR_APPEND
+    tokens[i].type = REDIR_APPEND;
     if (tokens[i+1].word != NULL)
         tokens[i+1].type = FT_FILE;
     else
@@ -44,7 +44,7 @@ int assing_output_append(t_token *tokens, int i)
 
 int assing_heredoc(t_token *tokens, int i)
 {
-    tokens[i].type = REDIR_HERE
+    tokens[i].type = REDIR_HERE;
     if (tokens[i+1].word != NULL)
         tokens[i+1].type = HERE_DOC;
     else
@@ -52,10 +52,10 @@ int assing_heredoc(t_token *tokens, int i)
     return (2);
 }
 
-int assing_command(t_tokenn *tokens, int i)
+int assing_command(t_token *tokens, int i)
 {
     tokens[i++].type = CMD;
-    while (tokens[i].word != NULL && !reserved(tokes[i].word))
+    while (tokens[i].word != NULL && !reserved(token[i].word))
     {
         tokens[i].type = ARG;
         ++i;
