@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/11 04:40:23 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:42:27 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,22 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_simple_cmd
+{
+	char	**args;
+	int		token_ini;
+	int		token_fi;
+
+}	t_simple_cmd;
+
 typedef struct	s_mini
 {
-	t_env	*env;
-	t_token	*tok;
-	t_token *tok_lex;
-	char	*cmdline;
-	int		in;
-	int		out;
+	t_env			*env;
+	t_token			*tok;
+	t_token 		*tok_lex;
+	char			*cmdline;
+	t_simple_cmd	*cmds;
+	int				n_cmds;
 }	t_mini;
 
 
@@ -101,6 +109,9 @@ int 		assing_output(t_token *tokens, int i);
 int 		assing_output_append(t_token *tokens, int i);
 int 		assing_heredoc(t_token *tokens, int i);
 int 		assing_command(t_token *tokens, int i);
+void 		syntax(t_mini *mini);
+void   		get_args(t_mini *mini, int ini, int fi, int k);	
+
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/11 05:09:26 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:32:07 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_env(t_mini *mini, char **env)
 		mini->env->data = env[i];
 		mini->env->prev = mini->env;
 		mini->env = mini->env->next;
-		printf("%d\n", i);
+		//printf("%d\n", i);
 		i++;
 	}
 	mini->env = NULL;

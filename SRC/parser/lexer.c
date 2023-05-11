@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 08:11:54 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/11 05:40:46 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:55:33 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void lexer(t_mini *mini)
 	mini->tok_lex = ft_split_tokens(mini->cmdline, ' ');
 	if (!mini->tok_lex)
 		exit(2);
-	assing_type(mini->tok_lex);
+    assing_type(mini->tok_lex);
 	check_reserved(mini);
 }
