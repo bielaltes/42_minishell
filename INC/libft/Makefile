@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+         #
+#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:10:25 by baltes-g          #+#    #+#              #
-#    Updated: 2023/02/07 16:36:49 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/05/11 05:44:19 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,9 +84,12 @@ all:	$(NAME)
 	@echo "Compilant $@" 
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS) $(INC)
+$(NAME):: $(OBJS) $(INC)
 	@echo "Creant $@"
 	@$(LIB) $(NAME) $(OBJS)
+
+$(NAME)::
+	@echo "Biel's Libft it's Up To Date. 🫡"
 
 clean:
 		${RM} ${OBJS}
