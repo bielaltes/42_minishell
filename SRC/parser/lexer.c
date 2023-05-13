@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 08:11:54 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/11 20:20:18 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/12 09:47:30 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,6 @@ void lexer(t_mini *mini)
 	if (!mini->tok_lex)
 		exit(2);
 	check_reserved(mini);
+	assing_type(mini->tok_lex);
+
 }

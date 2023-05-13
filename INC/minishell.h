@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/11 18:42:27 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/13 15:48:14 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_simple_cmd
 	char	**args;
 	int		token_ini;
 	int		token_fi;
+	pid_t	pid;
 
 }	t_simple_cmd;
 
@@ -112,6 +113,9 @@ int 		assing_command(t_token *tokens, int i);
 void 		syntax(t_mini *mini);
 void   		get_args(t_mini *mini, int ini, int fi, int k);	
 
+//EXEC
+void    exec(t_mini *mini);
+char	*get_path(char **envp, char *exe);
 
 
 
