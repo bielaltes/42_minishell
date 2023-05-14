@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 09:26:59 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:57:29 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:27:07 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ int assing_heredoc(t_token *tokens, int i)
 
 int assing_command(t_token *tokens, int i)
 {
+    int aux;
+
+    aux = i;
     tokens[i++].type = CMD;
     while (tokens[i].word != NULL && !reserved(tokens[i].word))
     {
         tokens[i].type = ARG;
         ++i;
     }
-    return (i);
+    return (i - aux);
 }

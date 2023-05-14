@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/10 15:57:27 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:32:00 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int main(int argc, char **argv, char**env)
 	while (42)
 	{
 		//set_signals();
-		mini.cmdline = readline("😇 Macroshell >");
+		mini.cmdline = readline("😇 Macroshell ~ ");
 		add_history(mini.cmdline);
 		lexer(&mini);
 		int i = 0;
 		for (i = 0; mini.tok_lex[i].word != NULL; ++i)
 			printf("%s %d %d\n", mini.tok_lex[i].word, mini.tok_lex[i].expand, mini.tok_lex[i].type);
-		//syntax(cmd_line);
+		syntax(&mini);
 		//expand(cmd_line);
 		//execute(cmd_line);
 	}

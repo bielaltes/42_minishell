@@ -6,35 +6,37 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/10 15:57:26 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:32:07 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	array_len(char **arry)
+int	exec_env(t_env *env)
 {
-	size_t	i;
-
-	i = 0;
-	while (arry[i])
-		i++;
-	return (i);
+	while (env)
+	{
+		printf("%s\n", env->data);
+		env = env->next;
+	}
+	return (0);
 }
 
 void	init_env(t_mini *mini, char **env)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	mini->env = malloc(sizeof(t_env) * array_len(env));
-	/*
-	if (!mini->env)
-		return ;
 	while (env[i])
 	{
-		mini->env[i].word = env[i];
-		printf("%s\n", mini->env[i].word);
+		mini->env = malloc(sizeof(t_env));
+		if (!mini->env)
+			return ;
+		mini->env->data = env[i];
+		mini->env->prev = mini->env;
+		mini->env = mini->env->next;
+		//printf("%d\n", i);
 		i++;
-	}*/
+	}
+	mini->env = NULL;
 }

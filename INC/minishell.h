@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:24:53 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:42:27 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,34 @@ typedef struct	s_token
 
 typedef struct s_env
 {
-	char **env;
+	char			*data;
+	struct s_env	*prev;
+	struct s_env	*next;
 }	t_env;
+
+typedef struct s_simple_cmd
+{
+	char	**args;
+	int		token_ini;
+	int		token_fi;
+
+}	t_simple_cmd;
 
 typedef struct	s_mini
 {
-	t_env	*env;
-	t_token	*tok;
-	t_token *tok_lex;
-	char	*cmdline;
-	int		in;
-	int		out;
+	t_env			*env;
+	t_token			*tok;
+	t_token 		*tok_lex;
+	char			*cmdline;
+	t_simple_cmd	*cmds;
+	int				n_cmds;
 }	t_mini;
 
-void	init_env(t_mini *mini, char **env);
+
+//ENV
+
+void		init_env(t_mini *mini, char **env);
+int			exec_env(t_env *env);
 
 //PARSER
 
@@ -88,13 +102,16 @@ void		ft_check_escaped(char *str);
 int			ft_isquote(char *s, char quote);
 int			ft_isscaped(char *s);
 enum e_type	choose_type(char *word);
-void    assing_type(t_token *tokens);
-int reserved(char *str);
-int assing_input(t_token *tokens, int i);
-int assing_output(t_token *tokens, int i);
-int assing_output_append(t_token *tokens, int i);
-int assing_heredoc(t_token *tokens, int i);
-int assing_command(t_token *tokens, int i);
+void    	assing_type(t_token *tokens);
+int 		reserved(char *str);
+int 		assing_input(t_token *tokens, int i);
+int 		assing_output(t_token *tokens, int i);
+int 		assing_output_append(t_token *tokens, int i);
+int 		assing_heredoc(t_token *tokens, int i);
+int 		assing_command(t_token *tokens, int i);
+void 		syntax(t_mini *mini);
+void   		get_args(t_mini *mini, int ini, int fi, int k);	
+
 
 
 

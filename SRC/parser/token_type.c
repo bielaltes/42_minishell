@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 08:19:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/10 15:57:32 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:27:04 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ void    assing_type(t_token *tokens)
     int i;
 
     i = 0;
-    while (tokens[i].word != NULL)
+    while (tokens[i].word != NULL && tokens[i].word[0])
     {
-        
         if (ft_strncmp(tokens[i].word, "<", 0xFF) == 0)
             i += assing_input(tokens, i);
         else if (ft_strncmp(tokens[i].word, ">", 0xFF) == 0)
