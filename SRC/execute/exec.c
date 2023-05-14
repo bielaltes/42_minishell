@@ -3,41 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/14 10:14:27 by jsebasti         ###   ########.fr       */
-=======
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/14 09:58:53 by baltes-g         ###   ########.fr       */
->>>>>>> d059a1dd8d48e8fa51c56fca3f394b4766b7a0a7
+/*   Updated: 2023/05/14 10:26:18 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD
-// void    exec(t_mini *mini)
-// {
-//     int p[2];
-//     int i;
-
-//     i = 0;
-//     while (mini->cmds[i])
-//     {
-//         if (mini->cmds[i + 1])
-//             pipe(p);
-//         mini->cmds[i].pid = fork();
-
-//         redir();
-//         do_execve();
-//         ++i;
-//     }    
-// }
-=======
 void    exec(t_mini *mini)
 {
     int p[4];
@@ -64,4 +38,3 @@ void    exec(t_mini *mini)
     close(p[0]);
     close(p[1]);
 }
->>>>>>> d059a1dd8d48e8fa51c56fca3f394b4766b7a0a7
