@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/13 15:46:29 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:22:44 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**get_paths(char **envp, char *exe)
 	{
 		paths = ft_split("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:.", ':');
 		if (!paths)
-			error_exit(2, BASH, "malloc", MALLOCER);
+			error_exit(2, "BASH", "malloc", "MALLOCER");
 	}
 	else
 	{
@@ -40,11 +40,11 @@ char	**get_paths(char **envp, char *exe)
 		{
 			*envp = ft_strjoin(*envp, ":.");
 			if (!envp)
-				error_exit(2, BASH, "malloc", MALLOCER);
+				error_exit(2, "BASH", "malloc", "MALLOCER");
 		}
 		paths = ft_split(*envp + 5, ':');
 		if (!paths)
-			error_exit(2, BASH, "malloc", MALLOCER);
+			error_exit(2, "BASH", "malloc", "MALLOCER");
 	}
 	return (paths);
 }
@@ -60,10 +60,10 @@ char	*get_path(char **envp, char *exe)
 	{
 		tmp = ft_strjoin(*paths, "/");
 		if (!tmp)
-			error_exit(2, BASH, "malloc", MALLOCER);
+			error_exit(2, "BASH", "malloc", "MALLOCER");
 		path = ft_strjoin(tmp, exe);
 		if (!path)
-			error_exit(2, BASH, "malloc", MALLOCER);
+			error_exit(2, "BASH", "malloc", "MALLOCER");
 		if (ft_strchr(exe, '/') == exe)
 			path = exe;
 		free(tmp);
@@ -74,6 +74,6 @@ char	*get_path(char **envp, char *exe)
 		free(path);
 		paths++;
 	}
-	error_exit(127, PIPEX, exe, CNF);
+	error_exit(127, "PIPEX", exe, "CNF");
 	return (NULL);
 }

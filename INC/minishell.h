@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/13 15:48:14 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:21:27 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct	s_mini
 	char			*cmdline;
 	t_simple_cmd	*cmds;
 	int				n_cmds;
+	char			**def_env;
 }	t_mini;
 
 
@@ -116,6 +117,9 @@ void   		get_args(t_mini *mini, int ini, int fi, int k);
 //EXEC
 void    exec(t_mini *mini);
 char	*get_path(char **envp, char *exe);
+void    redir_pipes(t_mini *mini, int *p, int i);
+void    redir_files(t_mini *mini, int i);
+
 
 
 
