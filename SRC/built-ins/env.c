@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/14 07:18:57 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/14 07:23:39 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_env(t_mini *mini, char **env)
 		mini->env->data = ft_strdup(env[i]);
 		aux = mini->env;
 		mini->env = mini->env->next;
-		if (i > 1)
+		if (i >= 1)
 			mini->env->prev = aux;
 		i++;
 	}
