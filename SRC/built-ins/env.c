@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/14 10:26:42 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/14 12:28:14 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	exec_env(t_env *env)
 {
-	while (env->prev)
-		env = env->prev;
 	while (env->next)
 	{
 		printf("%s\n", env->data);
@@ -52,4 +50,6 @@ void	init_env(t_mini *mini, char **env)
 			mini->env = mini->env->next;
 		i++;
 	}
+	while (mini->env->prev)
+		mini->env = mini->env->prev;
 }

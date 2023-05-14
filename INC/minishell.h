@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/13 18:21:27 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:26:47 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ typedef struct	s_mini
 //ENV
 
 void		init_env(t_mini *mini, char **env);
+
+//BUILT-INS
 int			exec_env(t_env *env);
+int			exec_pwd(t_env *env);
 
 //PARSER
 
