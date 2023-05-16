@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 08:11:54 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/14 12:00:05 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/16 01:30:41 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_reserved(t_mini *mini)
 			if (!ft_strncmp(mini->tok_lex[i].word, "env", 0xFF))
 				return (exec_env(mini->env));
 			else if (!ft_strncmp(mini->tok_lex[i].word, "cd", 0xFF))
-				return 0;
+				return (0);
 			else if (!ft_strncmp(mini->tok_lex[i].word, "echo", 0xFF))
 				return 0;
 			else if (!ft_strncmp(mini->tok_lex[i].word, "exit", 0xFF))
