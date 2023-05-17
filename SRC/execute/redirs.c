@@ -6,18 +6,18 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/17 10:39:45 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:51:13 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void    redir_files(t_mini *mini, int i)
-// {
-//     if (i)
-//         i = mini->n_cmds;
-//     return ;
-// }
+void    redir_files(t_mini *mini, int i)
+{
+    if (i)
+        i = mini->n_cmds;
+    return ;
+}
 
 void    redir_pipes(t_mini *mini, int *p, int i)
 {
