@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/14 09:58:53 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:35:57 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ void    exec(t_mini *mini)
         if (mini->cmds[i].pid == 0)
         {
             redir_files(mini, i);
-            execve(get_path(mini->def_env, mini->cmds[i].args[0]), mini->cmds[i].args, mini->def_env);
+            execve(get_path(mini->def_env, mini->cmds[i].args[0]), \
+			mini->cmds[i].args, mini->def_env);
             printf("error");
         }
         ++i;
     }
-    waitpid(0, NULL, 0);
-    dup2(p[2],0);
-    dup2(p[1],1);
-    close(p[0]);
-    close(p[1]);
+	dup2(p[2],0);
+    dup2(p[3],1);
+    close(p[2]);
+    close(p[3]);
+	while (waitpid(-1, NULL, 0) != -1);
 }
