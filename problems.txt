@@ -1,1 +1,2 @@
 1- expansions al inici (pipe es tracta cm a string)
+
