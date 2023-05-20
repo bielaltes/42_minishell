@@ -6,44 +6,58 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/20 04:00:41 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 04:27:45 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_built_in(char *cmd, t_mini *mini)
+static void	exec_built(int code, char **args, t_mini *mini)
+{
+	if (code == 1)
+		exec_env(mini->env);
+	if (code == 2)
+		exec_cd(mini, args);
+	if (code == 3)
+		exec_pwd(mini->env);
+	if (code == 4)
+		exec_exit(mini);
+}
+
+static int	is_built_in(char *cmd, int *code)
 {
 	if (!ft_strncmp(cmd, "env", 0xFF))
-		return (exec_env(mini->env));
+		*code = 1;
 	else if (!ft_strncmp(cmd, "cd", 0xFF))
-		return (exec_cd(mini));
+		*code = 2;
 	else if (!ft_strncmp(cmd, "pwd", 0xFF))
-		return (exec_pwd(mini->env));
+		*code = 3;
 	else if (!ft_strncmp(cmd, "exit", 0xFF))
-		return (exec_exit(mini));
-	return (1);
+		*code = 4;
+	return (*code);
 }
 
 void	exec(t_mini *mini)
 {
 	int	p[4];
 	int	i;
+	int code;
 
 	i = 0;
 	p[2] = dup(0);
 	p[3] = dup(1);
 	while (i < mini->n_cmds)
 	{
+		code = 0;
 		redir_pipes(mini, p, i);
 		g_sig.pid = fork();
 		if (g_sig.pid == 0)
 		{
 			redir_files(mini, i);
-			if (!is_built_in(ft_tolower(mini->tok_lex[i].word), mini))
-			{	
+			if (is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
+			{
+				exec_built(code, mini->cmds[i].args, mini);
 				i++;
-				printf("error");
 			}
 			else
 				execve(get_path(mini->def_env, mini->cmds[i].args[0]), \
