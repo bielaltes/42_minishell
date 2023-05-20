@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/18 12:03:35 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 03:31:55 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@ int	search_env(t_env *env, const char *s, int opt)
 			env = env->prev;
 		return (0);
 	}
-	return (0);
+	return (2);
 }
 
 char	*get_env_var(t_env *env, const char *s)
 {
-	char *var;
+	char	*var;
 
-	search_env(env, s, 1);
-	var = ft_split(env->data, '=')[1];
+	if (search_env(env, s, 1))
+		return (NULL);
+	var = ft_strchr(env->data, '=');
+	var++;
 	search_env(env, s, 2);
 	return (var);
 }
@@ -51,12 +53,9 @@ static int	update_oldpwd(t_env *env)
 	if (search_env(env, "OLDPWD", 1))
 		return (1);
 	env->data = ft_strjoin("OLDPWD=", tmp);
-	if (!env->data)
-	{
-		free(tmp);
-		return (1);
-	}
 	free(tmp);
+	if (!env->data)
+		return (1);
 	search_env(env, "borrar", 2); 
 	return (0);
 }

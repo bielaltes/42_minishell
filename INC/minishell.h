@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/18 12:06:14 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 04:02:03 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void		init_env(t_mini *mini, char **env);
 //BUILT-INS
 int			exec_env(t_env *env);
 int			exec_pwd(t_env *env);
+int			exec_cd(t_mini *mini);
+int			exec_exit(t_mini *mini);
 
 //PARSER
 

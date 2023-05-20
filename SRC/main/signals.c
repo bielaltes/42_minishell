@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:34:02 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/18 12:00:32 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 04:04:53 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ void	set_signals(void)
 {
 	g_sig.sigint = 0;
 	g_sig.sigquit = 0;
-	g_sig.exit = 0;
 	g_sig.pid = 0;
 }
