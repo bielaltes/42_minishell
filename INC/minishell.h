@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/20 05:48:05 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:35:22 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ enum	e_type
 
 typedef struct s_signal
 {
-	int		exit;
-	int		sigint;
-	int		sigquit;
-	int		n_nodes;
-	pid_t	pid;
+	unsigned char	exit;
+	int				sigint;
+	int				sigquit;
+	int				n_nodes;
+	pid_t			pid;
 }	t_signal;
 
 typedef struct	s_token
@@ -102,7 +102,8 @@ void		init_env(t_mini *mini, char **env);
 int			exec_env(t_env *env);
 int			exec_pwd(t_env *env);
 int			exec_cd(t_mini *mini, char **args);
-int			exec_exit(t_mini *mini);
+int			exec_exit(t_mini *mini, char *num);
+int			exec_export(t_mini *mini, char *args);
 
 //PARSER
 

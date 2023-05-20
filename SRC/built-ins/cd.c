@@ -6,31 +6,11 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/20 05:48:54 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 11:32:02 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	search_env(t_env **env, const char *s, int opt)
-{
-	if (opt == 1)
-	{
-		while (ft_strncmp((*env)->data, s, ft_strlen(s)) && (*env)->next)
-			(*env) = (*env)->next;
-		if (ft_strncmp((*env)->data, s, ft_strlen(s)) && !(*env)->next)
-			return (1);
-		else
-			return (0);
-	}
-	if (opt == 2)
-	{
-		while ((*env)->prev)
-			(*env) = (*env)->prev;
-		return (0);
-	}
-	return (2);
-}
 
 char	*get_env_var(t_env *env, const char *s)
 {
@@ -63,12 +43,10 @@ static int	update_oldpwd(t_env *env, const char *s)
 	return (0);
 }
 
-static int	change_path(t_mini *mini, int options, char **args)
+static int	options(t_mini *mini, int options)
 {
 	char	*dir;
-	int		errno;
 
-	errno = 0;
 	dir = NULL;
 	if (options == 0)
 	{
@@ -93,9 +71,22 @@ static int	change_path(t_mini *mini, int options, char **args)
 		dir = get_env_var(mini->env, "OLDPWD");
 		if (update_oldpwd(mini->env, "OLDPWD="))
 			return (1);
-
+		chdir(dir);
+		if (update_oldpwd(mini->env, "PWD="))
+			return (1);
+		return (0);
 	}
-	if (options == 2)
+	return (1);
+}
+
+static int	change_path(t_mini *mini, int option, char **args)
+{
+	int		errno;
+
+	errno = 0;
+	if (option == 0 || option == 1)
+		return (options(mini, option));
+	if (option == 2)
 	{
 		if (update_oldpwd(mini->env, "OLDPWD="))
 			return (1);

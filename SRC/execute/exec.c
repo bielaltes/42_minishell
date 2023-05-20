@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/20 04:27:45 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:34:42 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	exec_built(int code, char **args, t_mini *mini)
 	if (code == 3)
 		exec_pwd(mini->env);
 	if (code == 4)
-		exec_exit(mini);
+		exec_exit(mini, args[1]);
+	if (code == 5)
+		exec_export(mini, args[1]);
 }
 
 static int	is_built_in(char *cmd, int *code)
@@ -34,6 +36,8 @@ static int	is_built_in(char *cmd, int *code)
 		*code = 3;
 	else if (!ft_strncmp(cmd, "exit", 0xFF))
 		*code = 4;
+	else if (!ft_strncmp(cmd, "export", 0xFF))
+		*code = 5;
 	return (*code);
 }
 
@@ -50,20 +54,22 @@ void	exec(t_mini *mini)
 	{
 		code = 0;
 		redir_pipes(mini, p, i);
-		g_sig.pid = fork();
-		if (g_sig.pid == 0)
+		if (is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 		{
-			redir_files(mini, i);
-			if (is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
+			exec_built(code, mini->cmds[i].args, mini);
+			i++;
+		}
+		else
+		{
+			g_sig.pid = fork();
+			if (g_sig.pid == 0)
 			{
-				exec_built(code, mini->cmds[i].args, mini);
-				i++;
-			}
-			else
+				redir_files(mini, i);
 				execve(get_path(mini->def_env, mini->cmds[i].args[0]), \
 				mini->cmds[i].args, mini->def_env);
+			}
+			++i;
 		}
-		++i;
 	}
 	dup2(p[2],0);
 	dup2(p[3],1);

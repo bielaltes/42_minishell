@@ -6,11 +6,31 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/20 05:15:22 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 11:32:13 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	search_env(t_env **env, const char *s, int opt)
+{
+	if (opt == 1)
+	{
+		while (ft_strncmp((*env)->data, s, ft_strlen(s)) && (*env)->next)
+			(*env) = (*env)->next;
+		if (ft_strncmp((*env)->data, s, ft_strlen(s)) && !(*env)->next)
+			return (1);
+		else
+			return (0);
+	}
+	if (opt == 2)
+	{
+		while ((*env)->prev)
+			(*env) = (*env)->prev;
+		return (0);
+	}
+	return (2);
+}
 
 int	count_env(t_env *env)
 {
