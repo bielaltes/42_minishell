@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/20 04:12:29 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 05:48:05 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <termios.h>
+# include <string.h>
 //# include <curses.h>
 //# include <term.h>
 # include <sys/wait.h>
@@ -94,7 +95,7 @@ typedef struct	s_mini
 
 
 //ENV
-int			search_env(t_env *env, const char *s, int opt);
+int			search_env(t_env **env, const char *s, int opt);
 void		init_env(t_mini *mini, char **env);
 
 //BUILT-INS

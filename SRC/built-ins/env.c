@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/18 11:52:39 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/20 05:15:22 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	count_env(t_env *env)
 	}
 	if (env)
 		n_nodes++;
-	search_env(env, "go back", 2);
+	search_env(&env, "go back", 2);
 	return (n_nodes);
 }
 
