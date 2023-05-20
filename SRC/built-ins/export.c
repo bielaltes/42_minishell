@@ -6,11 +6,16 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/20 18:08:03 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/21 01:44:50 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// static int	print_all_export(t_mini *mini)
+// {
+
+// }
 
 int	exec_export(t_mini *mini, char *args)
 {
@@ -18,9 +23,12 @@ int	exec_export(t_mini *mini, char *args)
 	char	*tmp2;
 	t_env	*aux;
 
+	// if (!args)
+	// 	return (print_all_export(mini));
 	tmp = ft_strchr(args, '=');
 	if (!tmp)
 		return (1);
+	tmp++;
 	tmp2 = ft_strtrim(args, tmp);
 	if (!tmp2)
 		return (1);
