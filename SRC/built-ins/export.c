@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/18 01:59:28 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:41:33 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	exec_export(t_mini *mini, char *args)
 	char	*tmp;
 	char	*tmp2;
 
-	tmp = ft_substr(args, "=");
+	tmp = ft_strchr(args, '=');
 	if (!tmp)
 		return (1);
-	tmp2 = ft_strtrim(tmp);
+	tmp2 = ft_strtrim(args, tmp);
 	if (!tmp2)
 		return (1);
 	if (search_env(mini->env, tmp2, 1))

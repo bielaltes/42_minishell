@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/18 09:36:11 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:06:14 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_signal
 {
 	int		exit;
 	int		sigint;
-	int		sigout;
+	int		sigquit;
 	int		n_nodes;
 	pid_t	pid;
 }	t_signal;
@@ -94,7 +94,7 @@ typedef struct	s_mini
 
 
 //ENV
-
+int			search_env(t_env *env, const char *s, int opt);
 void		init_env(t_mini *mini, char **env);
 
 //BUILT-INS
@@ -132,9 +132,5 @@ void    redir_files(t_mini *mini, int i);
 
 void		set_signals(void);
 
-
-
-
-
-
+extern t_signal g_sig;
 #endif

@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/18 08:25:55 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:03:35 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ char	*get_env_var(t_env *env, const char *s)
 	return (var);
 }
 
-static int	update_oldpwd(t_env *env, t_mini *mini)
+static int	update_oldpwd(t_env *env)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	getcwd(tmp, PATH_MAX);
 	if (search_env(env, "OLDPWD", 1))
-		exec_export(mini, "OLDPWD");
+		return (1);
 	env->data = ft_strjoin("OLDPWD=", tmp);
 	if (!env->data)
 	{
@@ -68,14 +68,14 @@ static int	change_path(t_mini *mini, int options)
 	dir = NULL;
 	if (options == 0)
 	{
-		if (update_oldpwd(mini->env, mini))
+		if (update_oldpwd(mini->env))
 			return (1);
 		if (search_env(mini->env, "HOME", 1))
 		{
-			perror("cd: HOME not set.")
+			perror("cd: HOME not set.");
 			exit(1);
 		}
-		chdir((ft_split(dmini->env->data, '='))[1]);
+		chdir((ft_split(mini->env->data, '='))[1]);
 		search_env(mini->env, "borrar", 2);
 		search_env(mini->env, "PATH", 1);
 		dir = get_env_var(mini->env, "PATH");
@@ -90,7 +90,7 @@ static int	change_path(t_mini *mini, int options)
 		if (!dir)
 			return (1);
 		dir = get_env_var(mini->env, "OLDPWD");
-		if (update_oldpwd(mini->env, mini))
+		if (update_oldpwd(mini->env))
 			return (1);
 
 	}

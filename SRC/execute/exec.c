@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/18 09:31:59 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:42:30 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void    exec(t_mini *mini)
     while (i < mini->n_cmds)
     {
         redir_pipes(mini, p, i);
-        mini->cmds[i].pid = fork();
-        if (mini->cmds[i].pid == 0)
+        g_sig.pid = fork();
+        if (g_sig.pid == 0)
         {
-        	env_to_str(mini->env);
             redir_files(mini, i);
+            if (mini->tok_lex)
             execve(get_path(mini->def_env, mini->cmds[i].args[0]), \
 			mini->cmds[i].args, mini->def_env);
             printf("error");
