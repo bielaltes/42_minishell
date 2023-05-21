@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/21 01:25:59 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:31:46 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	exec(t_mini *mini)
 	{
 		code = 0;
 		redir_pipes(mini, p, i);
-		if (is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
+		if (mini->tok_lex[i].word && is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 		{
 			exec_built(code, mini->cmds[i].args, mini);
 			i++;

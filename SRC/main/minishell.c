@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/20 18:18:11 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:34:52 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ t_signal	g_sig;
 
 int main(int argc, char **argv, char**env)
 {
-	t_mini mini;
+	t_mini	mini;
+	char	**new_env;
 
 	if (argc != 1 && argv[0])
 		exit(1);
-	init_env(&mini, env);
+	new_env = getenv();
+	init_env(&mini, new_env);
 	mini.def_env = env;
 	g_sig.exit = 0;
 	while (g_sig.exit == 0)

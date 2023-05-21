@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/21 01:44:50 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:14:49 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ int	exec_export(t_mini *mini, char *args)
 		mini->env = malloc(sizeof(t_env));
 		if (!mini->env)
 			return (1);
+		printf("si");
 		mini->env->prev = aux;
 	}
 	mini->env->data = ft_strjoin(tmp2, tmp);
+	printf("data = %s", mini->env->data);
 	if (!mini->env->data)
 		return (1);
 	search_env(&mini->env, "go_back", 2);
