@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/23 00:04:02 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 00:26:09 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	option1(t_mini *mini)
 	if (update_oldpwd(mini->env, "PWD="))
 		return (1);
 	printf("%s\n", dir);
+	free(dir);
 	return (0);
 }
 
@@ -58,6 +59,7 @@ static int	option0(t_mini *mini)
 		dir = getcwd(dir, PATH_MAX);
 		if (exec_export(mini, ft_strjoin("OLDPWD=", dir)) == 1)
 			return (1);
+		free(dir);
 	}
 	if (search_env(&mini->env, "HOME=", 1))
 	{
@@ -89,12 +91,10 @@ static int	change_path(t_mini *mini, int option, char **args)
 			dir = getcwd(dir, PATH_MAX);
 			if (exec_export(mini, ft_strjoin("OLDPWD=", dir)) == 1)
 				return (1);
+			free(dir);
 		}
 		if (chdir(args[1]) == -1)
-		{
-			perror("cd");
-			strerror(errno);
-		}
+			printf("cd: No such file or directory: %s\n", args[1]);
 		if (update_oldpwd(mini->env, "PWD="))
 			return (1);
 		return (0);

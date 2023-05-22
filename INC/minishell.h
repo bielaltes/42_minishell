@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/23 00:04:18 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:12:23 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_mini
 int			search_env(t_env **env, const char *s, int opt);
 void		init_env(t_mini *mini, char **env);
 char		*get_env_var(t_env *env, const char *s);
+char		**env_to_str(t_env *env);
 
 //BUILT-INS
 int			exec_env(t_env *env);
