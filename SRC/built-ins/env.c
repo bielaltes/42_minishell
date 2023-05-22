@@ -6,11 +6,23 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/20 11:32:13 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:58:24 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_env_var(t_env *env, const char *s)
+{
+	char	*var;
+
+	if (search_env(&env, s, 1))
+		return (NULL);
+	var = ft_strchr(env->data, '=');
+	var++;
+	search_env(&env, s, 2);
+	return (var);
+}
 
 int	search_env(t_env **env, const char *s, int opt)
 {

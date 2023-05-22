@@ -6,24 +6,30 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/22 17:40:16 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:49:17 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exec_built(int code, char **args, t_mini *mini)
+static int	exec_built(int code, char **args, t_mini *mini)
 {
 	if (code == 1)
-		exec_env(mini->env);
+		if (exec_env(mini->env))
+			return (1);
 	if (code == 2)
-		exec_cd(mini, args);
+		if (exec_cd(mini, args))
+			return (1);
 	if (code == 3)
-		exec_pwd(mini->env);
+		if (exec_pwd(mini->env))
+			return (1);
 	if (code == 4)
-		exec_exit(mini, args[1]);
+		if (exec_exit(mini, args[1]))
+			return (1);
 	if (code == 5)
-		exec_export(mini, args[1]);
+		if (exec_export(mini, args[1]))
+			return (1);
+	return (0);
 }
 
 static int	is_built_in(char *cmd, int *code)
@@ -56,7 +62,8 @@ void	exec(t_mini *mini)
 		redir_pipes(mini, p, i);
 		if (mini->tok_lex[i].word && is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 		{
-			exec_built(code, mini->cmds[i].args, mini);
+			if (exec_built(code, mini->cmds[i].args, mini))
+				return ;
 			i++;
 		}
 		else
