@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/23 00:26:09 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:56:42 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	option1(t_mini *mini)
 	if (update_oldpwd(mini->env, "PWD="))
 		return (1);
 	printf("%s\n", dir);
-	free(dir);
 	return (0);
 }
 
@@ -75,10 +74,8 @@ static int	option0(t_mini *mini)
 
 static int	change_path(t_mini *mini, int option, char **args)
 {
-	int		errno;
 	char	*dir;
 
-	errno = 0;
 	dir = NULL;
 	if (option == 0)
 		return (option0(mini));
