@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/23 13:07:26 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:52:19 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static int	update_oldpwd(t_env *env, const char *s)
 
 	tmp = NULL;
 	tmp = getcwd(tmp, PATH_MAX);
+	free(tmp);
 	if (search_env(&env, s, 1))
 		return (1);
 	env->data = ft_strjoin(s, tmp);
-	free(tmp);
 	if (!env->data)
 		return (1);
 	search_env(&env, "go_back", 2); 
@@ -41,6 +41,7 @@ static int	option1(t_mini *mini)
 		printf("cd: OLDPWD not set.\n");
 		return (1);
 	}
+	free(dir);
 	chdir(dir);
 	if (update_oldpwd(mini->env, "PWD="))
 		return (1);

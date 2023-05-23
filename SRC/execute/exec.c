@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/23 13:02:28 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:26:33 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	exec_exec(t_mini *mini, int i, int	p[4])
 		}
 		else
 		{
-
 			g_sig.pid = fork();
 			if (g_sig.pid == 0)
 			{

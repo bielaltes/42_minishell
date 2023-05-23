@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 16:22:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/23 13:07:49 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:22:39 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	get_args(t_mini *mini, int ini, int fi, int k)
 
 	i = 0;
 	mini->cmds[k].args = malloc(1 + sizeof(char *) * n_args(mini->tok_lex, ini, fi));
+	if (!mini->cmds[k].args)
+		return ;
 	while (ini < fi)
 	{
 		if (mini->tok_lex[ini].type == CMD || mini->tok_lex[ini].type == ARG)
