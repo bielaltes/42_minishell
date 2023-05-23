@@ -6,16 +6,27 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/22 23:41:45 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:06:45 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static int	print_all_export(t_mini *mini)
-// {
+static int	print_all_export(t_mini *mini)
+{
+	char	**new_env;
+	int		i;
 
-// }
+	i = 0;
+	if ((new_env = env_to_str(mini->env)) == NULL)
+		return (1);
+	while (new_env[i])
+	{
+		printf("declare -x %s\n", new_env[i]);
+		i++;
+	}
+	return (0);
+}
 
 int	exec_export(t_mini *mini, char *args)
 {
@@ -23,8 +34,8 @@ int	exec_export(t_mini *mini, char *args)
 	char	*tmp2;
 	t_env	*aux;
 
-	// if (!args)
-	// 	return (print_all_export(mini));
+	if (!args)
+		return (print_all_export(mini));
 	tmp = ft_strchr(args, '=');
 	if (!tmp)
 		return (1);
@@ -41,12 +52,11 @@ int	exec_export(t_mini *mini, char *args)
 		if (!mini->env)
 			return (1);
 		aux->next = mini->env;
-		printf("si");
 		mini->env->prev = aux;
 	}
 	mini->env->data = ft_strjoin(tmp2, tmp);
 	if (!mini->env->data)
 		return (1);
 	search_env(&mini->env, "go_back", 2);
-	return (0);	
+	return (0);
 }

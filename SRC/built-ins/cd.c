@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:56:42 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:07:26 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	update_oldpwd(t_env *env, const char *s)
 
 static int	option1(t_mini *mini)
 {
-	char *dir;
+	char	*dir;
 
 	dir = malloc(sizeof(char) * PATH_MAX);
 	if (!dir)
@@ -50,7 +50,7 @@ static int	option1(t_mini *mini)
 
 static int	option0(t_mini *mini)
 {
-	char *dir;
+	char	*dir;
 
 	dir = NULL;
 	if (update_oldpwd(mini->env, "OLDPWD="))
@@ -58,7 +58,6 @@ static int	option0(t_mini *mini)
 		dir = getcwd(dir, PATH_MAX);
 		if (exec_export(mini, ft_strjoin("OLDPWD=", dir)) == 1)
 			return (1);
-		free(dir);
 	}
 	if (search_env(&mini->env, "HOME=", 1))
 	{

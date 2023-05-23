@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:12:51 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:50:55 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	count_env(t_env *env)
 	int	n_nodes;
 
 	n_nodes = 0;
-	while (env->next)
+	while (env && env->next)
 	{
 		n_nodes++;
 		env = env->next;
@@ -76,6 +76,7 @@ char	**env_to_str(t_env *env)
 		env = env->next;
 		i++;
 	}
+	new[i] = NULL;
 	return (new);
 }
 
