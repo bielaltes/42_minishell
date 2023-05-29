@@ -6,7 +6,7 @@
 #    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/05/18 12:05:30 by jsebasti         ###   ########.fr        #
+#    Updated: 2023/05/25 08:22:08 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIB_M 		= $(INC_DIR)/libft/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS = -g -Werror -Wextra -Wall #-fsanitize=address
+CFLAGS = -g #-Werror -Wextra -Wall #-fsanitize=address
 LIBC = ar -rcs
 # =============
 

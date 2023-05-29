@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/23 16:26:33 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/25 11:12:36 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ static int	exec_built(int code, char **args, t_mini *mini)
 	if (code == 5)
 		if (exec_export(mini, args[1]))
 			return (1);
+	if (code == 6)
+		if (exec_unset(mini->env, args[1]))
+			return (1);
 	return (0);
 }
 
@@ -44,6 +47,8 @@ static int	is_built_in(char *cmd, int *code)
 		*code = 4;
 	else if (!ft_strncmp(cmd, "export", 0xFF))
 		*code = 5;
+	else if (!ft_strncmp(cmd, "unset", 0xFF))
+		*code = 6;
 	return (*code);
 }
 

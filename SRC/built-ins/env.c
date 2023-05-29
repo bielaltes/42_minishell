@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/23 12:50:55 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/25 10:53:55 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,20 @@ char	**env_to_str(t_env *env)
 	if (!new)
 		return (NULL);
 	i = 0;
-	while(i <= count_env(env))
+	while(env && env->next)
 	{
 		new[i] = ft_strdup(env->data);
 		env = env->next;
 		i++;
 	}
-	new[i] = NULL;
+	new[i] = env->data;
+	new[i + 1] = NULL;
 	return (new);
 }
 
 int	exec_env(t_env *env)
 {
+	search_env(&env, "go back", 2);
 	while (env->next)
 	{
 		printf("%s\n", env->data);

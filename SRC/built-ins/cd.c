@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/05/23 18:52:19 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:51:14 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int	option1(t_mini *mini)
 		printf("cd: OLDPWD not set.\n");
 		return (1);
 	}
-	free(dir);
 	chdir(dir);
 	if (update_oldpwd(mini->env, "PWD="))
 		return (1);
