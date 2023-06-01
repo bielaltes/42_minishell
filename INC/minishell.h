@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/25 11:13:36 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:34:13 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_token
 typedef struct	s_env
 {
 	char			*data;
+	char			*value;
 	struct s_env	*prev;
 	struct s_env	*next;
 }	t_env;
