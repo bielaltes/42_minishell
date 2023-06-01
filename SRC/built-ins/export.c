@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 20:18:26 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:05:36 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	new_env_node(t_env **env)
 
 int	null_val(t_env *env, char *arg)
 {
+	if (search_env(&env, arg, 1))
+		return (0);
 	if (new_env_node(&env))
 		return (1);
 	env->data = ft_strdup(arg);

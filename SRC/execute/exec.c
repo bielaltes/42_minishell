@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/25 11:12:36 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:29:09 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ static int	exec_built(int code, char **args, t_mini *mini)
 
 static int	is_built_in(char *cmd, int *code)
 {
-	if (!ft_strncmp(cmd, "env", 0xFF))
+	if (!ft_strcmp(cmd, "env"))
 		*code = 1;
-	else if (!ft_strncmp(cmd, "cd", 0xFF))
+	else if (!ft_strcmp(cmd, "cd"))
 		*code = 2;
-	else if (!ft_strncmp(cmd, "pwd", 0xFF))
+	else if (!ft_strcmp(cmd, "pwd"))
 		*code = 3;
-	else if (!ft_strncmp(cmd, "exit", 0xFF))
+	else if (!ft_strcmp(cmd, "exit"))
 		*code = 4;
-	else if (!ft_strncmp(cmd, "export", 0xFF))
+	else if (!ft_strcmp(cmd, "export"))
 		*code = 5;
-	else if (!ft_strncmp(cmd, "unset", 0xFF))
+	else if (!ft_strcmp(cmd, "unset"))
 		*code = 6;
 	return (*code);
 }
