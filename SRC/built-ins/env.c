@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 19:35:24 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:22:40 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	search_env(t_env **env, const char *s, int opt)
 {
 	if (opt == 1)
 	{
-		while (ft_strncmp((*env)->data, s, ft_strlen(s)) && (*env)->next)
+		while (ft_strcmp((*env)->data, s) && (*env)->next)
 			(*env) = (*env)->next;
-		if (ft_strncmp((*env)->data, s, ft_strlen(s)) && !(*env)->next)
+		if (ft_strcmp((*env)->data, s) && !(*env)->next)
 			return (1);
 		else
 			return (0);
@@ -92,11 +92,11 @@ int	exec_env(t_env *env)
 	while (env->next)
 	{
 		if (env->value)
-			printf("%s\n", ft_strjoin(env->data, env->value));
+			printf("%s=%s\n", env->data, env->value);
 		env = env->next;
 	}
 	if (env->value)
-		printf("%s\n", ft_strjoin(env->data, env->value));
+		printf("%s=%s\n", env->data, env->value);
 	while (env->prev)
 		env = env->prev;
 	return (0);
@@ -118,7 +118,7 @@ void	init_env(t_mini *mini, char **env)
 		mini->env = malloc(sizeof(t_env));
 		if (!mini->env)
 			return ;
-		mini->env->data = ft_strjoin(splited[0], "=");
+		mini->env->data = ft_strdup(splited[0]);
 		mini->env->value = ft_strdup(splited[1]);
 		if (i >= 1)
 		{

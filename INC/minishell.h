@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/29 18:34:13 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:10:11 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,9 @@ char	*get_path(char **envp, char *exe);
 void	redir_pipes(t_mini *mini, int *p, int i);
 void	redir_files(t_mini *mini, int i);
 
+//UTILS
 
-
+int		ft_strcmp(const char *s1, const char *s2);
 
 //SIGNALS
 

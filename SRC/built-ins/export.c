@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 19:24:21 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:18:26 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static int	print_all_export(t_mini *mini)
 	while (mini->env->next)
 	{
 		if (mini->env->value)
-			printf("declare -x %s\"%s\"\n", mini->env->data, mini->env->value);
+			printf("declare -x %s=\"%s\"\n", mini->env->data, mini->env->value);
 		else
 			printf("declare -x %s\n", mini->env->data);
 		mini->env = mini->env->next;
 	}
 	if (mini->env->value)
-		printf("declare -x %s\"%s\"\n", mini->env->data, mini->env->value);
+		printf("declare -x %s=\"%s\"\n", mini->env->data, mini->env->value);
 	else
 		printf("declare -x %s\n", mini->env->data);
 	return (0);
@@ -41,7 +41,6 @@ int	new_env_node(t_env **env)
 	*env = malloc(sizeof(t_env));
 	if (!*env)
 		return (1);
-	printf("-----------sono qui--------------\n\n");
 	aux->next = *env;
 	(*env)->prev = aux;
 	return (0);
@@ -71,7 +70,7 @@ int	exec_export(t_mini *mini, char *args)
 	if (search_env(&mini->env, tmp[0], 1))
 		if (!new_env_node(&mini->env))
 		{
-			mini->env->data = ft_strjoin(tmp[0], "=");
+			mini->env->data = ft_strdup(tmp[0]);
 			if (!mini->env->data)
 				return (1);
 		}

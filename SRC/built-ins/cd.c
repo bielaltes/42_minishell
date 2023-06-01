@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 19:37:06 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:23:35 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static int	option1(t_mini *mini)
 	if (!dir)
 		return (1);
 	dir = get_env_var(mini->env, "OLDPWD");
-	if (update_oldpwd(mini->env, "OLDPWD="))
+	if (update_oldpwd(mini->env, "OLDPWD"))
 	{
 		printf("cd: OLDPWD not set.\n");
 		return (1);
 	}
 	chdir(dir);
-	if (update_oldpwd(mini->env, "PWD="))
+	if (update_oldpwd(mini->env, "PWD"))
 		return (1);
 	printf("%s\n", dir);
 	return (0);
@@ -53,20 +53,20 @@ static int	option0(t_mini *mini)
 	char	*dir;
 
 	dir = NULL;
-	if (update_oldpwd(mini->env, "OLDPWD="))
+	if (update_oldpwd(mini->env, "OLDPWD"))
 	{
 		dir = getcwd(dir, PATH_MAX);
 		if (exec_export(mini, ft_strjoin("OLDPWD=", dir)) == 1)
 			return (1);
 	}
-	if (search_env(&mini->env, "HOME=", 1))
+	if (search_env(&mini->env, "HOME", 1))
 	{
 		printf("cd: HOME not set.\n");
 		return (1);
 	}
 	chdir(get_env_var(mini->env, "HOME"));
 	search_env(&mini->env, "borrar", 2);
-	if (update_oldpwd(mini->env, "PWD="))
+	if (update_oldpwd(mini->env, "PWD"))
 		return (1);
 	return(0);
 }
@@ -82,16 +82,16 @@ static int	change_path(t_mini *mini, int option, char **args)
 		return (option1(mini));
 	if (option == 2)
 	{
-		if (update_oldpwd(mini->env, "OLDPWD="))
+		if (update_oldpwd(mini->env, "OLDPWD"))
 		{
 			dir = getcwd(dir, PATH_MAX);
-			if (exec_export(mini, ft_strjoin("OLDPWD=", dir)) == 1)
+			if (exec_export(mini, ft_strjoin("OLDPWD", dir)) == 1)
 				return (1);
 			free(dir);
 		}
 		if (chdir(args[1]) == -1)
 			printf("cd: No such file or directory: %s\n", args[1]);
-		if (update_oldpwd(mini->env, "PWD="))
+		if (update_oldpwd(mini->env, "PWD"))
 			return (1);
 		return (0);
 	}
