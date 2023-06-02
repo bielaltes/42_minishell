@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 07:15:41 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:25:22 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int			assing_heredoc(t_token *tokens, int i);
 int			assing_command(t_token *tokens, int i);
 void		syntax(t_mini *mini);
 void		get_args(t_mini *mini, int ini, int fi, int k);	
+void		expand(t_mini *mini);
 
 //EXEC
 void	exec(t_mini *mini);

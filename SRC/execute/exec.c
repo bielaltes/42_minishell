@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 09:00:06 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:40:35 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 			if (mini->tok_lex[i].word && \
 				is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 			{
-				printf("soc el fill\n");
 				exec_built(code, mini->cmds[i].args, mini);
 				exec_exit(mini, "1");
 			}

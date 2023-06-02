@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 11:01:51 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:31:34 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(mini.cmdline);
 		lexer(&mini);
 		syntax(&mini);
-		//expand(cmd_line);
+		expand(&mini);
 		exec(&mini);
 	}
 	return (0);

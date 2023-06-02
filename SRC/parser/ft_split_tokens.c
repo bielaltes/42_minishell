@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 11:43:15 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:10:18 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,23 @@ static int	word_len(char *str, int i, char c)
 	int	len;
 
 	len = 0;
-	while (str[i] && !is_spacer(str[i]))
+	util = is_spacer(str[i]);
+	while (str[i] && is_spacer(str[i]) == util)
 	{
 		++len;
 		++i;
+		if (str[i -1] == '\'')
+		{
+			while (str[i++] != '\'')
+				++len;
+			++len;
+		}
+		else if (str[i] == '"')
+		{
+			while (str[++i] != '"')
+				++len;
+			++len;
+		}
 	}
 	return (len);
 }
@@ -88,7 +101,7 @@ t_token	*ft_split_tokens(char *s, char c)
 			return (malloc_error(new, j));
 		ft_check_escaped(new[j].word);
 		i += word_len(&s[i], 0, c);
-		printf("word: %s|\n", new[j].word);
+		ft_printf("word: %s|\n", new[j].word);
 	}
 	new[j].word = (NULL);
 	return (new);
