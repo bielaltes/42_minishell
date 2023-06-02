@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 01:36:40 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 05:57:00 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int	exec_pwd(t_env *env)
 	printf("%s\n", env->value);
 	while (env->prev)
 		env = env->prev;
+	set_exec(env, "built-ins/pwd");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 01:42:41 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 05:29:47 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	exec_built(int code, char **args, t_mini *mini)
 		if (exec_exit(mini, args[1]))
 			return (1);
 	if (code == 5)
-		if (exec_export(mini, args[1]))
+		if (exec_export(mini->env, args[1]))
 			return (1);
 	if (code == 6)
 		if (exec_unset(mini->env, args[1]))

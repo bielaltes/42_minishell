@@ -6,11 +6,20 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 01:34:05 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 05:29:18 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	set_exec(t_env *env, char *value)
+{
+	search_env(&env, "go back", 2);
+	if (!search_env(&env, "_", 1))
+		env->value = ft_strdup(value);
+	else
+		exec_export(env, ft_strjoin("_=", value));
+}
 
 char	**env_to_str(t_env *env)
 {

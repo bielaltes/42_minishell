@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 01:59:09 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 05:56:22 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	exec_env(t_env *env)
 		printf("%s=%s\n", env->data, env->value);
 	while (env->prev)
 		env = env->prev;
+	set_exec(env, "built-ins/env");
 	return (0);
 }
 
@@ -93,4 +94,11 @@ void	init_env(t_mini *mini, char **env)
 	}
 	while (mini->env->prev)
 		mini->env = mini->env->prev;
+	search_env(&mini->env, "go back", 2);
+	if (!search_env(&mini->env, "OLDPWD", 1))
+	{
+		exec_unset(mini->env, "OLDPWD");
+		search_env(&mini->env, "go back", 2);
+		exec_export(mini->env, "OLDPWD");
+	}
 }

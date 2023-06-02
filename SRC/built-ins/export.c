@@ -6,27 +6,33 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 02:04:20 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 05:56:16 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	print_all_export(t_mini *mini)
+static int	print_all_export(t_env *env)
 {
-	search_env(&mini->env, "go back", 2);
-	while (mini->env->next)
+	search_env(&env, "go back", 2);
+	while (env->next)
 	{
-		if (mini->env->value)
-			printf("declare -x %s=\"%s\"\n", mini->env->data, mini->env->value);
-		else
-			printf("declare -x %s\n", mini->env->data);
-		mini->env = mini->env->next;
+		if (ft_strcmp(env->data, "_"))
+		{
+			if (env->value)
+				printf("declare -x %s=\"%s\"\n", env->data, env->value);
+			else
+				printf("declare -x %s\n", env->data);
+		}
+		env = env->next;
 	}
-	if (mini->env->value)
-		printf("declare -x %s=\"%s\"\n", mini->env->data, mini->env->value);
-	else
-		printf("declare -x %s\n", mini->env->data);
+	if (ft_strcmp(env->data, "_"))
+	{
+		if (env->value)
+			printf("declare -x %s=\"%s\"\n", env->data, env->value);
+		else
+			printf("declare -x %s\n", env->data);
+	}
 	return (0);
 }
 
@@ -49,10 +55,7 @@ int	new_env_node(t_env **env)
 int	null_val(t_env *env, char *arg)
 {
 	if (!search_env(&env, arg, 1))
-	{
-		printf("-------------now here-----------\n\n");
 		return (0);
-	}
 	if (new_env_node(&env))
 		return (1);
 	env->data = ft_strdup(arg);
@@ -61,30 +64,30 @@ int	null_val(t_env *env, char *arg)
 	return (0);
 }
 
-int	exec_export(t_mini *mini, char *args)
+int	exec_export(t_env *env, char *args)
 {
 	char	**tmp;
 	t_env	*aux;
 
 	if (!args)
-		return (print_all_export(mini));
+		return (print_all_export(env));
 	tmp = ft_split(args, '=');
 	if (!tmp[1])
-		return (null_val(mini->env, tmp[0]));
+		return (null_val(env, tmp[0]));
 	aux = NULL;
-	if (search_env(&mini->env, tmp[0], 1))
+	if (search_env(&env, tmp[0], 1))
 	{
-		printf("--------sono qui--------------\n\n");
-		if (!new_env_node(&mini->env))
+		if (!new_env_node(&env))
 		{
-			mini->env->data = ft_strdup(tmp[0]);
-			if (!mini->env->data)
+			env->data = ft_strdup(tmp[0]);
+			if (!env->data)
 				return (1);
 		}
 	}
-	mini->env->value = ft_strdup(tmp[1]);
-	if (!mini->env->value)
+	env->value = ft_strdup(tmp[1]);
+	if (!env->value)
 		return (1);
-	search_env(&mini->env, "go back", 2);
+	search_env(&env, "go back", 2);
+	set_exec(env, "built-ins/export");
 	return (0);
 }
