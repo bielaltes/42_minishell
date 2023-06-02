@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 01:36:59 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 07:06:11 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ char	*get_path(char **envp, char *exe)
 		free(path);
 		paths++;
 	}
-	error_exit(127, "PIPEX", exe, "CNF");
+	error_exit(127, "MINI", exe, "CNF");
 	return (NULL);
 }

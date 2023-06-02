@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 05:31:46 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 07:15:41 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ typedef struct s_mini
 	char			*cmdline;
 	t_simple_cmd	*cmds;
 	int				n_cmds;
-	char			**def_env;
 }	t_mini;
 
 //ENV
