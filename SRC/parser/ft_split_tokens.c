@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 11:23:37 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:43:15 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	is_spacer(char c)
 		|| c == ' ')
 		return (1);
 	else if (c == '|' || c == '<' || c == '>')
-		return (1);
+		return (2);
 	return (0);
 }
 
@@ -28,13 +28,12 @@ static int	word_len(char *str, int i, char c)
 	int	len;
 
 	len = 0;
-	++len;
 	while (str[i] && !is_spacer(str[i]))
 	{
 		++len;
 		++i;
 	}
-	return (len -1);
+	return (len);
 }
 
 static int	count_words(char *s, char c)
@@ -47,7 +46,7 @@ static int	count_words(char *s, char c)
 	sum = 0;
 	while (s[i] != '\0')
 	{
-		while (is_spacer(s[i]))
+		while (is_spacer(s[i]) == 1)
 			++i;
 		if (s[i] == '\0')
 			break ;
@@ -82,15 +81,11 @@ t_token	*ft_split_tokens(char *s, char c)
 	j = -1;
 	while (++j < count_words(s, c))
 	{
-		while (s[i] == c)
+		while (is_spacer(s[i]) == 1)
 			++i;
 		new[j].word = ft_substr(s, i, word_len(&s[i], 0, c));
 		if (!new[j].word)
 			return (malloc_error(new, j));
-		if (new[j].word[0] == 39)
-			new[j].expand = 0;
-		else
-			new[j].expand = 1;
 		ft_check_escaped(new[j].word);
 		i += word_len(&s[i], 0, c);
 		printf("word: %s|\n", new[j].word);
