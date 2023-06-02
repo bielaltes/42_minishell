@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 05:29:18 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 06:23:05 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_exec(t_env *env, char *value)
 	if (!search_env(&env, "_", 1))
 		env->value = ft_strdup(value);
 	else
-		exec_export(env, ft_strjoin("_=", value));
+		exec_export(env, ft_strjoin("_", value));
 }
 
 char	**env_to_str(t_env *env)

@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 05:56:22 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 06:23:20 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,5 @@ void	init_env(t_mini *mini, char **env)
 		search_env(&mini->env, "go back", 2);
 		exec_export(mini->env, "OLDPWD");
 	}
+	set_exec(mini->env, "");
 }
