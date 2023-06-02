@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 20:22:40 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:59:09 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,6 @@ char	*get_env_var(t_env *env, const char *s)
 	var = env->value;
 	search_env(&env, s, 2);
 	return (var);
-}
-
-int	search_env(t_env **env, const char *s, int opt)
-{
-	if (opt == 1)
-	{
-		while (ft_strcmp((*env)->data, s) && (*env)->next)
-			(*env) = (*env)->next;
-		if (ft_strcmp((*env)->data, s) && !(*env)->next)
-			return (1);
-		else
-			return (0);
-	}
-	if (opt == 2)
-	{
-		while ((*env)->prev)
-			(*env) = (*env)->prev;
-		return (0);
-	}
-	return (2);
 }
 
 int	count_env(t_env *env)
@@ -59,33 +39,6 @@ int	count_env(t_env *env)
 	return (n_nodes);
 }
 
-char	**env_to_str(t_env *env)
-{
-	int		i;
-	char	**new;
-
-	search_env(&env, "go back", 2);
-	new = malloc(sizeof(char *) * (count_env(env) + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while(env && env->next)
-	{
-		if (env->value)
-			new[i] = ft_strjoin(env->data, env->value);
-		else
-			new[i] = ft_strdup(env->data);
-		env = env->next;
-		i++;
-	}
-	if (env->value)
-		new[i] = ft_strjoin(env->data, env->value);
-	else
-		new[i] = ft_strdup(env->data);
-	new[i + 1] = NULL;
-	return (new);
-}
-
 int	exec_env(t_env *env)
 {
 	search_env(&env, "go back", 2);
@@ -102,33 +55,40 @@ int	exec_env(t_env *env)
 	return (0);
 }
 
+void	set_env(t_env **env, char **new, char **splited, int *i)
+{
+	static t_env	*aux;
+
+	if (!aux)
+		aux = malloc(sizeof(t_env));
+	if (!aux)
+		return ;
+	(*env)->data = ft_strdup(splited[0]);
+	(*env)->value = ft_strdup(splited[1]);
+	if (*i >= 1)
+	{
+		aux->next = *env;
+		(*env)->prev = aux;
+	}
+	aux = *env;
+	if (new[(*i) + 1])
+		*env = (*env)->next;
+	(*i)++;
+}
+
 void	init_env(t_mini *mini, char **env)
 {
-	t_env	*aux;
 	char	**splited;
 	int		i;
 
 	i = 0;
-	aux = malloc(sizeof(t_env));
-	if (!aux)
-		return ;
 	while (env[i])
 	{
 		splited = ft_split(env[i], '=');
 		mini->env = malloc(sizeof(t_env));
 		if (!mini->env)
 			return ;
-		mini->env->data = ft_strdup(splited[0]);
-		mini->env->value = ft_strdup(splited[1]);
-		if (i >= 1)
-		{
-			aux->next = mini->env;
-			mini->env->prev = aux;
-		}
-		aux = mini->env;
-		if (env[i + 1])
-			mini->env = mini->env->next;
-		i++;
+		set_env(&mini->env, env, splited, &i);
 		free(splited);
 	}
 	while (mini->env->prev)

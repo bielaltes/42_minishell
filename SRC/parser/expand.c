@@ -6,12 +6,11 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/20 03:16:44 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:38:07 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "minishell.h"
-
 
 // static int	should_expand(t_token *tok)
 // {

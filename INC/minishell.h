@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/01 20:10:11 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:43:57 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ enum	e_type
 	END,
 };
 
-typedef struct	s_signal
+typedef struct s_signal
 {
 	unsigned char	exit;
 	int				sigint;
@@ -58,7 +58,7 @@ typedef struct	s_signal
 	pid_t			pid;
 }	t_signal;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	char*			word;
 	int				expand;
@@ -66,7 +66,7 @@ typedef struct	s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*data;
 	char			*value;
@@ -74,7 +74,7 @@ typedef struct	s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct	s_simple_cmd
+typedef struct s_simple_cmd
 {
 	char	**args;
 	int		token_ini;
@@ -83,7 +83,7 @@ typedef struct	s_simple_cmd
 
 }	t_simple_cmd;
 
-typedef struct	s_mini
+typedef struct s_mini
 {
 	t_env			*env;
 	t_token			*tok;
@@ -93,7 +93,6 @@ typedef struct	s_mini
 	int				n_cmds;
 	char			**def_env;
 }	t_mini;
-
 
 //ENV
 int			search_env(t_env **env, const char *s, int opt);
@@ -136,6 +135,7 @@ void	redir_files(t_mini *mini, int i);
 //UTILS
 
 int		ft_strcmp(const char *s1, const char *s2);
+int		count_env(t_env *env);
 
 //SIGNALS
 

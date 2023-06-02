@@ -6,11 +6,58 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 21:01:22 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:34:05 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**env_to_str(t_env *env)
+{
+	int		i;
+	char	**new;
+
+	search_env(&env, "go back", 2);
+	new = malloc(sizeof(char *) * (count_env(env) + 1));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (env && env->next)
+	{
+		if (env->value)
+			new[i] = ft_strjoin(env->data, env->value);
+		else
+			new[i] = ft_strdup(env->data);
+		env = env->next;
+		i++;
+	}
+	if (env->value)
+		new[i] = ft_strjoin(env->data, env->value);
+	else
+		new[i] = ft_strdup(env->data);
+	new[i + 1] = NULL;
+	return (new);
+}
+
+int	search_env(t_env **env, const char *s, int opt)
+{
+	if (opt == 1)
+	{
+		while (ft_strcmp((*env)->data, s) && (*env)->next)
+			(*env) = (*env)->next;
+		if (ft_strcmp((*env)->data, s) && !(*env)->next)
+			return (1);
+		else
+			return (0);
+	}
+	if (opt == 2)
+	{
+		while ((*env)->prev)
+			(*env) = (*env)->prev;
+		return (0);
+	}
+	return (2);
+}
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

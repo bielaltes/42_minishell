@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/01 20:29:09 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:42:41 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static int	is_built_in(char *cmd, int *code)
 	return (*code);
 }
 
-static void	exec_exec(t_mini *mini, int i, int	p[4])
+static void	exec_exec(t_mini *mini, int i, int p[4])
 {
-	int	code;
+	int		code;
 	char	**new_env;
 
 	new_env = NULL;
@@ -63,7 +63,8 @@ static void	exec_exec(t_mini *mini, int i, int	p[4])
 		new_env = env_to_str(mini->env);
 		code = 0;
 		redir_pipes(mini, p, i);
-		if (mini->tok_lex[i].word && is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
+		if (mini->tok_lex[i].word && \
+			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 		{
 			if (exec_built(code, mini->cmds[i].args, mini))
 				return ;
@@ -88,14 +89,17 @@ void	exec(t_mini *mini)
 {
 	int		p[4];
 	int		i;
-	
+	int		flag;
+
 	i = 0;
+	flag = 0;
 	p[2] = dup(0);
 	p[3] = dup(1);
 	exec_exec(mini, i, p);
-	dup2(p[2],0);
-	dup2(p[3],1);
+	dup2(p[2], 0);
+	dup2(p[3], 1);
 	close(p[2]);
 	close(p[3]);
-	while (waitpid(-1, NULL, 0) != -1);
+	while (flag != -1)
+		flag = waitpid(-1, NULL, 0);
 }

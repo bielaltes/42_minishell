@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 20:23:35 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 00:50:15 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	update_oldpwd(t_env *env, const char *s)
 	env->value = ft_strdup(tmp);
 	if (!env->value)
 		return (1);
-	search_env(&env, "go back", 2); 
+	search_env(&env, "go back", 2);
 	return (0);
 }
 
@@ -68,7 +68,7 @@ static int	option0(t_mini *mini)
 	search_env(&mini->env, "borrar", 2);
 	if (update_oldpwd(mini->env, "PWD"))
 		return (1);
-	return(0);
+	return (0);
 }
 
 static int	change_path(t_mini *mini, int option, char **args)

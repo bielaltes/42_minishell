@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/23 16:26:43 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:35:29 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	count_words(char *s, char c)
 		while (*s == c)
 			++s;
 		if (*s == '\0')
-			break;
+			break ;
 		aux = word_len(s, c);
 		s += aux;
 		sum++;

@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/01 21:05:36 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 02:04:20 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ int	new_env_node(t_env **env)
 
 int	null_val(t_env *env, char *arg)
 {
-	if (search_env(&env, arg, 1))
+	if (!search_env(&env, arg, 1))
+	{
+		printf("-------------now here-----------\n\n");
 		return (0);
+	}
 	if (new_env_node(&env))
 		return (1);
 	env->data = ft_strdup(arg);
@@ -67,15 +70,18 @@ int	exec_export(t_mini *mini, char *args)
 		return (print_all_export(mini));
 	tmp = ft_split(args, '=');
 	if (!tmp[1])
-		return (null_val(mini->env, args));
+		return (null_val(mini->env, tmp[0]));
 	aux = NULL;
 	if (search_env(&mini->env, tmp[0], 1))
+	{
+		printf("--------sono qui--------------\n\n");
 		if (!new_env_node(&mini->env))
 		{
 			mini->env->data = ft_strdup(tmp[0]);
 			if (!mini->env->data)
 				return (1);
 		}
+	}
 	mini->env->value = ft_strdup(tmp[1]);
 	if (!mini->env->value)
 		return (1);

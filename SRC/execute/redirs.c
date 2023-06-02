@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/23 13:03:28 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 01:37:08 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,4 @@ void	redir_pipes(t_mini *mini, int *p, int i)
 	pipe(p);
 	dup2(p[1], 1);
 	close(p[1]);
-	
 }
