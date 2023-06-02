@@ -3,54 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 01:35:29 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:23:37 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	word_len(char *str, char c)
+static int	is_spacer(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (1);
+	else if (c == '|' || c == '<' || c == '>')
+		return (1);
+	return (0);
+}
+
+static int	word_len(char *str, int i, char c)
 {
 	int	util;
 	int	len;
 
 	len = 0;
-	util = ft_isquote(str, 34) | ft_isquote(str, 39);
-	if (util)
+	++len;
+	while (str[i] && !is_spacer(str[i]))
 	{
 		++len;
-		while (*++str && !ft_isquote(str, util))
-			++len;
-		if (*str == 34 || *str == 39)
-			len++;
+		++i;
 	}
-	else
-	{
-		++len;
-		while (*++str && *str != c && !ft_isquote(str, 34)
-			&& !ft_isquote(str, 39))
-			++len;
-	}
-	return (len);
+	return (len -1);
 }
 
 static int	count_words(char *s, char c)
 {
 	int	sum;
 	int	aux;
+	int	i;
 
+	i = 0;
 	sum = 0;
-	while (*s != '\0')
+	while (s[i] != '\0')
 	{
-		while (*s == c)
-			++s;
-		if (*s == '\0')
+		while (is_spacer(s[i]))
+			++i;
+		if (s[i] == '\0')
 			break ;
-		aux = word_len(s, c);
-		s += aux;
+		aux = word_len(s, i, c);
+		i += aux;
 		sum++;
 	}
 	return (sum);
@@ -82,17 +84,16 @@ t_token	*ft_split_tokens(char *s, char c)
 	{
 		while (s[i] == c)
 			++i;
-		new[j].word = ft_substr(s, i, word_len(&s[i], c));
+		new[j].word = ft_substr(s, i, word_len(&s[i], 0, c));
 		if (!new[j].word)
 			return (malloc_error(new, j));
 		if (new[j].word[0] == 39)
 			new[j].expand = 0;
 		else
 			new[j].expand = 1;
-		if (new[j].word[0] == 34 || new[j].word[0] == 39)
-			new[j].word = ft_substr(new[j].word, 1, ft_strlen(new[j].word) - 2);
 		ft_check_escaped(new[j].word);
-		i += word_len(&s[i], c);
+		i += word_len(&s[i], 0, c);
+		printf("word: %s|\n", new[j].word);
 	}
 	new[j].word = (NULL);
 	return (new);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 07:49:51 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 09:00:06 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,35 +52,52 @@ static int	is_built_in(char *cmd, int *code)
 	return (*code);
 }
 
+static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
+{
+	char	**new_env;
+
+	new_env = env_to_str(mini->env);
+	redir_pipes(mini, p, 0);
+	if (exec_built(code, mini->cmds[0].args, mini))
+		return (1);
+	free(new_env);
+	return (1);
+}
+
 static void	exec_exec(t_mini *mini, int i, int p[4])
 {
 	int		code;
 	char	**new_env;
 
+	code = 0;
+	if (mini->n_cmds == 1 && mini->tok_lex[i].word && \
+			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
+		if (exec_builtin_alone(mini, p, code))
+			return ;
 	new_env = NULL;
 	while (i < mini->n_cmds)
 	{
 		new_env = env_to_str(mini->env);
 		code = 0;
 		redir_pipes(mini, p, i);
-		if (mini->tok_lex[i].word && \
-			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
+		g_sig.pid = fork();
+		if (g_sig.pid == 0)
 		{
-			if (exec_built(code, mini->cmds[i].args, mini))
-				return ;
-			i++;
-		}
-		else
-		{
-			g_sig.pid = fork();
-			if (g_sig.pid == 0)
+			redir_files(mini, i);
+			if (mini->tok_lex[i].word && \
+				is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 			{
-				redir_files(mini, i);
+				printf("soc el fill\n");
+				exec_built(code, mini->cmds[i].args, mini);
+				exec_exit(mini, "1");
+			}
+			else
+			{
 				execve(get_path(new_env, mini->cmds[i].args[0]), \
 				mini->cmds[i].args, new_env);
 			}
-			++i;
 		}
+		++i;
 		free(new_env);
 	}
 }
