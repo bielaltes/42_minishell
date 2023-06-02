@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/17 00:19:42 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/02 07:15:41 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <termios.h>
+# include <string.h>
 //# include <curses.h>
 //# include <term.h>
 # include <sys/wait.h>
@@ -50,13 +51,14 @@ enum	e_type
 
 typedef struct s_signal
 {
-	int		exit;
-	int		sigint;
-	int		sigout;
-	pid_t	pid;
+	unsigned char	exit;
+	int				sigint;
+	int				sigquit;
+	int				n_nodes;
+	pid_t			pid;
 }	t_signal;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	char*			word;
 	int				expand;
@@ -67,6 +69,7 @@ typedef struct	s_token
 typedef struct s_env
 {
 	char			*data;
+	char			*value;
 	struct s_env	*prev;
 	struct s_env	*next;
 }	t_env;
@@ -80,25 +83,29 @@ typedef struct s_simple_cmd
 
 }	t_simple_cmd;
 
-typedef struct	s_mini
+typedef struct s_mini
 {
 	t_env			*env;
 	t_token			*tok;
-	t_token 		*tok_lex;
+	t_token			*tok_lex;
 	char			*cmdline;
 	t_simple_cmd	*cmds;
 	int				n_cmds;
-	char			**def_env;
 }	t_mini;
 
-
 //ENV
-
+int			search_env(t_env **env, const char *s, int opt);
 void		init_env(t_mini *mini, char **env);
+char		*get_env_var(t_env *env, const char *s);
+char		**env_to_str(t_env *env);
 
 //BUILT-INS
 int			exec_env(t_env *env);
 int			exec_pwd(t_env *env);
+int			exec_cd(t_mini *mini, char **args);
+int			exec_exit(t_mini *mini, char *num);
+int			exec_export(t_env *env, char *args);
+int			exec_unset(t_env *env, char *arg);
 
 //PARSER
 
@@ -108,32 +115,31 @@ void		ft_check_escaped(char *str);
 int			ft_isquote(char *s, char quote);
 int			ft_isscaped(char *s);
 enum e_type	choose_type(char *word);
-void    	assing_type(t_token *tokens);
-int 		reserved(char *str);
-int 		assing_input(t_token *tokens, int i);
-int 		assing_output(t_token *tokens, int i);
-int 		assing_output_append(t_token *tokens, int i);
-int 		assing_heredoc(t_token *tokens, int i);
-int 		assing_command(t_token *tokens, int i);
-void 		syntax(t_mini *mini);
-void   		get_args(t_mini *mini, int ini, int fi, int k);	
+void		assing_type(t_token *tokens);
+int			reserved(char *str);
+int			assing_input(t_token *tokens, int i);
+int			assing_output(t_token *tokens, int i);
+int			assing_output_append(t_token *tokens, int i);
+int			assing_heredoc(t_token *tokens, int i);
+int			assing_command(t_token *tokens, int i);
+void		syntax(t_mini *mini);
+void		get_args(t_mini *mini, int ini, int fi, int k);	
 
 //EXEC
-void    exec(t_mini *mini);
+void	exec(t_mini *mini);
 char	*get_path(char **envp, char *exe);
-void    redir_pipes(t_mini *mini, int *p, int i);
-void    redir_files(t_mini *mini, int i);
+void	redir_pipes(t_mini *mini, int *p, int i);
+void	redir_files(t_mini *mini, int i);
 
+//UTILS
 
-
+int		ft_strcmp(const char *s1, const char *s2);
+int		count_env(t_env *env);
+void	set_exec(t_env *env, char *value);
 
 //SIGNALS
 
 void		set_signals(void);
 
-
-
-
-
-
+extern t_signal	g_sig;
 #endif

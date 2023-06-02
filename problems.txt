@@ -1,2 +1,3 @@
 1- expansions al inici (pipe es tracta cm a string)
 
+2- gestionar codis de sortida dels built-ins
