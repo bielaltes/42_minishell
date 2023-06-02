@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:08:12 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/13 15:15:42 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:43:07 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    syntax(t_mini *mini)
 
     k = 0;
     i = 0;
-    printf("%d\n", n_cmds(mini->tok_lex));
+    // printf("%d\n", n_cmds(mini->tok_lex));
     mini->n_cmds = n_cmds(mini->tok_lex);
     mini->cmds = malloc(sizeof(t_simple_cmd) * mini->n_cmds);
     //expand()
@@ -53,11 +53,11 @@ void    syntax(t_mini *mini)
         i = j;
         k++;
     }
-    for (int i= 0; i < mini->n_cmds; ++i)
-    {
-        printf("INICI CMD:\n");
-        for (int j = 0; NULL != mini->cmds[i].args[j]; ++j)
-            printf("%s \n", mini->cmds[i].args[j]);
-        printf("FI CMD:\n");
-    }
+    // for (int i= 0; i < mini->n_cmds; ++i)
+    // {
+    //     printf("INICI CMD:\n");
+    //     for (int j = 0; NULL != mini->cmds[i].args[j]; ++j)
+    //         printf("%s \n", mini->cmds[i].args[j]);
+    //     printf("FI CMD:\n");
+    // }
 }
