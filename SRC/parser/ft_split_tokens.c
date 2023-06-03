@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 15:10:18 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:20:25 by bielaltes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	is_spacer(char c)
 	return (0);
 }
 
-static int	word_len(char *str, int i, char c)
+static int	word_len(char *str, int i)
 {
 	int	util;
 	int	len;
@@ -49,7 +49,7 @@ static int	word_len(char *str, int i, char c)
 	return (len);
 }
 
-static int	count_words(char *s, char c)
+static int	count_words(char *s)
 {
 	int	sum;
 	int	aux;
@@ -63,7 +63,7 @@ static int	count_words(char *s, char c)
 			++i;
 		if (s[i] == '\0')
 			break ;
-		aux = word_len(s, i, c);
+		aux = word_len(s, i);
 		i += aux;
 		sum++;
 	}
@@ -81,26 +81,26 @@ static t_token	*malloc_error(t_token *new, int j)
 	return (NULL);
 }
 
-t_token	*ft_split_tokens(char *s, char c)
+t_token	*ft_split_tokens(char *s)
 {
 	int		i;
 	int		j;
 	t_token	*new;
 
-	new = malloc(sizeof(t_token) * (count_words(s, c) + 1));
+	new = malloc(sizeof(t_token) * (count_words(s) + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
 	j = -1;
-	while (++j < count_words(s, c))
+	while (++j < count_words(s))
 	{
 		while (is_spacer(s[i]) == 1)
 			++i;
-		new[j].word = ft_substr(s, i, word_len(&s[i], 0, c));
+		new[j].word = ft_substr(s, i, word_len(&s[i], 0));
 		if (!new[j].word)
 			return (malloc_error(new, j));
 		ft_check_escaped(new[j].word);
-		i += word_len(&s[i], 0, c);
+		i += word_len(&s[i], 0);
 		ft_printf("word: %s|\n", new[j].word);
 	}
 	new[j].word = (NULL);

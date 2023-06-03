@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 15:39:35 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:21:29 by bielaltes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	expand_token(t_mini *mini, t_token *tok)
 	int		k;
 
 	word = tok->word;
+	if (!mini)
+		printf("aiai");
 	if (next_dollar(word, 0) == -1)
 		return ;
 	i = next_dollar(word, 0);

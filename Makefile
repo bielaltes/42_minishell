@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/02 15:25:47 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/03 15:26:23 by bielaltes        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIB_M 		= $(INC_DIR)/libft/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS = -g #-Werror -Wextra -Wall #-fsanitize=address
+CFLAGS =  -g -fsanitize=address #-Wall -Wextra -Werror
 LIBC = ar -rcs
 # =============
 

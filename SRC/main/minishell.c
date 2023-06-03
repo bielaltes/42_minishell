@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 15:31:34 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:16:04 by bielaltes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ int	main(int argc, char **argv, char **env)
 	{
 		set_signals();
 		mini.cmdline = readline("😇 Macroshell ~ ");
+		if (!mini.cmdline)
+		{
+			if (isatty(STDIN_FILENO))
+				write(2, "exit\n", 6);	
+			break;
+		}
 		add_history(mini.cmdline);
 		lexer(&mini);
 		syntax(&mini);

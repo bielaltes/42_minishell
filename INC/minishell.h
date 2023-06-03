@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 15:25:22 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:20:18 by bielaltes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int			exec_unset(t_env *env, char *arg);
 //PARSER
 
 void 		lexer(t_mini *mini);
-t_token*	ft_split_tokens(char *s, char c);
+t_token*	ft_split_tokens(char *s);
 void		ft_check_escaped(char *str);
 int			ft_isquote(char *s, char quote);
 int			ft_isscaped(char *s);
