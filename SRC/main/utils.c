@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 16:53:52 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/03 19:44:32 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,58 @@
 
 void	set_exec(t_env *env, char *value)
 {
-	search_env(&env, "go back", 2);
-	if (!search_env(&env, "_", 1))
-		env->value = ft_strdup(value);
+	if (search_env(env, "_"))
+		mod_env(env, "_", value);
 	else
-		exec_export(env, ft_strjoin("_", value));
+		create_env(env, ft_split(ft_strjoin("_=", value), '='));
 }
 
 char	**env_to_str(t_env *env)
 {
-	int		i;
-	char	**new;
+	int			i;
+	char		**new;
+	t_node_env	*aux;
 
-	search_env(&env, "go back", 2);
-	new = malloc(sizeof(char *) * (count_env(env) + 1));
+	aux = env->first;
+	new = malloc(sizeof(char *) * (env->size + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
-	while (env && env->next)
+	while (aux)
 	{
-		if (env->value)
-			new[i] = ft_strjoin(env->data, env->value);
+		if (aux->value)
+			new[i] = ft_strjoin(aux->data, aux->value);
 		else
-			new[i] = ft_strdup(env->data);
-		env = env->next;
+			new[i] = ft_strdup(aux->data);
+		aux = aux->next;
 		i++;
 	}
-	if (env->value)
-		new[i] = ft_strjoin(env->data, env->value);
-	else
-		new[i] = ft_strdup(env->data);
-	new[i + 1] = NULL;
+	new[i] = NULL;
 	return (new);
 }
 
-int	search_env(t_env **env, const char *s, int opt)
-{	
-	if (opt == 1)
-	{
-		while (ft_strcmp((*env)->data, s) && (*env)->next)
-			(*env) = (*env)->next;
-		if (ft_strcmp((*env)->data, s) && !(*env)->next)
-			return (1);
-		else
-			return (0);
-	}
-	if (opt == 2)
-	{
-		while (env && *env && (*env)->prev)
-			(*env) = (*env)->prev;
-		return (0);
-	}
-	return (2);
+char	*search_env(t_env *env, const char *s)
+{
+	t_node_env	*aux;
+
+	aux = env->first;
+	while (ft_strcmp(aux->data, s) && aux->next)
+		aux = (aux->next);
+	if (ft_strcmp(aux->data, s) && aux->next)
+		return (NULL);
+	return (aux->data);
+}
+
+void	mod_env(t_env *env, const char *s, char *m)
+{
+	t_node_env	*aux;
+
+	aux = env->first;
+	while (ft_strcmp(aux->data, s) && aux->next)
+		aux = (aux->next);
+	if (ft_strcmp(aux->data, s) && aux->next)
+		return ;
+	aux->data = m;
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

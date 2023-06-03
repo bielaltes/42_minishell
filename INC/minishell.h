@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/03 15:20:18 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/03 19:40:53 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,19 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_node_env
+{
+	char				*data;
+	char				*value;
+	struct s_node_env	*prev;
+	struct s_node_env	*next;
+}	t_node_env;
+
 typedef struct s_env
 {
-	char			*data;
-	char			*value;
-	struct s_env	*prev;
-	struct s_env	*next;
+	t_node_env	*first;
+	t_node_env	*last;
+	int			size;
 }	t_env;
 
 typedef struct s_simple_cmd
@@ -94,7 +101,9 @@ typedef struct s_mini
 }	t_mini;
 
 //ENV
-int			search_env(t_env **env, const char *s, int opt);
+char		*search_env(t_env *env, const char *s);
+void		create_env(t_env *env, char **splited);
+void		mod_env(t_env *env, const char *s, char *m);
 void		init_env(t_mini *mini, char **env);
 char		*get_env_var(t_env *env, const char *s);
 char		**env_to_str(t_env *env);

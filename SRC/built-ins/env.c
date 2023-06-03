@@ -6,78 +6,49 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 18:28:19 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:43:45 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_var(t_env *env, const char *s)
-{
-	char	*var;
-
-	if (search_env(&env, s, 1))
-		return (NULL);
-	var = env->value;
-	search_env(&env, s, 2);
-	return (var);
-}
-
-int	count_env(t_env *env)
-{
-	int	n_nodes;
-
-	n_nodes = 0;
-	while (env && env->next)
-	{
-		n_nodes++;
-		env = env->next;
-	}
-	if (env)
-		n_nodes++;
-	search_env(&env, "go back", 2);
-	return (n_nodes);
-}
-
 int	exec_env(t_env *env)
 {
-	search_env(&env, "go back", 2);
-	while (env->next)
+	t_node_env	*aux;
+
+	aux = env->first;
+	while (aux)
 	{
-		if (env->value)
-			printf("%s=%s\n", env->data, env->value);
-		env = env->next;
+		if (aux->value)
+			printf("%s=%s\n", aux->data, aux->value);
+		aux = aux->next;
 	}
-	if (env->value)
-		printf("%s=%s\n", env->data, env->value);
-	while (env->prev)
-		env = env->prev;
 	set_exec(env, "built-ins/env");
 	return (0);
 }
 
-void	set_env(t_env **env, char **new, char **splited, int i)
+void	create_env(t_env *env, char **splited)
 {
-	static t_env	*aux;
+	t_node_env	*aux;
 
-	if (!aux)
-		aux = malloc(sizeof(t_env));
-	if (!aux)
-		return ;
-	(*env)->data = ft_strdup(splited[0]);
-	(*env)->value = ft_strdup(splited[1]);
-	if (i >= 1)
+	aux = malloc(sizeof(t_node_env));
+	aux->data = splited[0];
+	aux->value = splited[1];
+	if (env->size == 0)
 	{
-		aux->next = *env;
-		(*env)->prev = aux;
+		env->first = aux;
+		env->last = aux;
+		aux->prev = NULL;
+		aux->next = NULL;
 	}
 	else
-		(*env)->prev = NULL;
-	aux = *env;
-	if (new[i + 1])
-		*env = (*env)->next;
-	else
-		(*env)->next = NULL;
+	{
+		env->last->next = aux;
+		aux->prev = env->last;
+		aux->next = NULL;
+		env->last = aux;
+	}
+	env->size += 1;
 }
 
 void	init_env(t_mini *mini, char **env)
@@ -86,21 +57,18 @@ void	init_env(t_mini *mini, char **env)
 	int		i;
 
 	i = 0;
+	mini->env = malloc(sizeof(t_env));
+	mini->env->size = 0;
 	while (env[i])
 	{
 		splited = ft_split(env[i], '=');
-		mini->env = malloc(sizeof(t_env));
-		if (!mini->env)
-			return ;
-		set_env(&mini->env, env, splited, i);
+		create_env(mini->env, splited);
 		i++;
 		free(splited);
 	}
-	search_env(&mini->env, "go back", 2);
-	if (!search_env(&mini->env, "OLDPWD", 1))
+	if (search_env(mini->env, "OLDPWD"))
 	{
 		exec_unset(mini->env, "OLDPWD");
-		search_env(&mini->env, "go back", 2);
 		exec_export(mini->env, "OLDPWD");
 	}
 	set_exec(mini->env, "");

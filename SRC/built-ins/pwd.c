@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 07:01:11 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:35:35 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 int	exec_pwd(t_env *env)
 {
-	while (ft_strncmp(env->data, "PWD=", 4) && env->next)
-		env = env->next;
-	printf("%s\n", env->value);
-	while (env->prev)
-		env = env->prev;
+	printf("%s\n", search_env(env, "PWD"));
 	set_exec(env, "built-ins/pwd");
 	return (0);
 }

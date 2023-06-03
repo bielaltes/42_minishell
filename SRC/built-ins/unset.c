@@ -3,22 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:43:40 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 07:01:12 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:42:31 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_unset(t_env *env, char *arg)
+int	exec_unset(t_env *env, char *s)
 {
-	if (search_env(&env, arg, 1))
-		return (0);
-	env->prev->next = env->next;
-	if (env->next)
-		env->next->prev = env->prev;
-	set_exec(env, "built-ins/unset");
+	t_node_env	*aux;
+
+	if (env->size == 0)
+		return (1);
+	env->size -= 1;
+	aux = env->first;
+	while (ft_strcmp(aux->data, s) && aux->next)
+		aux = (aux->next);
+	if (ft_strcmp(aux->data, s) && aux->next)
+		return (1);
+	if (aux->prev && env->size != 0)
+		aux->prev->next = aux->next;
+	if (aux->next && env->size != 0)
+		aux->next->prev = aux->prev;
+	free(aux);
 	return (0);
 }
