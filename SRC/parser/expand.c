@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/03 15:21:29 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/03 20:07:25 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	expand_token(t_mini *mini, t_token *tok)
 			while (word[i + k] != '\0' && word[i + k] != '\'' && word[i + k] != '"')
 				++k;
 			//aux2 = search_env(mini->env, ft_substr(word, i+1, k), 1);
-			aux2 = "soc una prova";
+			aux2 = search_env(mini->env, ft_substr(word, i + 1, k));
+			printf("Expanded: %s\n", aux2);
 			aux = ft_strjoin(aux, aux2);
 			i += k;
 			if (word[i] != '\0')
