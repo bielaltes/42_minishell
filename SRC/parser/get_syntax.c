@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_syntax.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 16:22:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 01:35:18 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:25:43 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	get_args(t_mini *mini, int ini, int fi, int k)
 	int	i;
 
 	i = 0;
-	mini->cmds[k].args = malloc(1 + sizeof(char *) * \
-		n_args(mini->tok_lex, ini, fi));
+	mini->cmds[k].args = malloc(sizeof(char *) * \
+		(1 + n_args(mini->tok_lex, ini, fi)));
 	if (!mini->cmds[k].args)
 		return ;
 	while (ini < fi)

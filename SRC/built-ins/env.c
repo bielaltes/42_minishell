@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 16:52:17 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/03 18:28:19 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	exec_env(t_env *env)
 	return (0);
 }
 
-void	set_env(t_env **env, char **new, char **splited, int *i)
+void	set_env(t_env **env, char **new, char **splited, int i)
 {
 	static t_env	*aux;
 
@@ -66,15 +66,18 @@ void	set_env(t_env **env, char **new, char **splited, int *i)
 		return ;
 	(*env)->data = ft_strdup(splited[0]);
 	(*env)->value = ft_strdup(splited[1]);
-	if (*i >= 1)
+	if (i >= 1)
 	{
 		aux->next = *env;
 		(*env)->prev = aux;
 	}
+	else
+		(*env)->prev = NULL;
 	aux = *env;
-	if (new[(*i) + 1])
+	if (new[i + 1])
 		*env = (*env)->next;
-	(*i)++;
+	else
+		(*env)->next = NULL;
 }
 
 void	init_env(t_mini *mini, char **env)
@@ -89,7 +92,8 @@ void	init_env(t_mini *mini, char **env)
 		mini->env = malloc(sizeof(t_env));
 		if (!mini->env)
 			return ;
-		set_env(&mini->env, env, splited, &i);
+		set_env(&mini->env, env, splited, i);
+		i++;
 		free(splited);
 	}
 	search_env(&mini->env, "go back", 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:08:12 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 01:33:52 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:28:24 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	syntax(t_mini *mini)
 	mini->cmds = malloc(sizeof(t_simple_cmd) * mini->n_cmds);
 	if (!mini->cmds)
 		return ;
-	//expand()
 	while (mini->tok_lex[i].word != NULL)
 	{
 		j = i;

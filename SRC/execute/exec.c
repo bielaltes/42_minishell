@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 15:40:35 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:21:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ static int	is_built_in(char *cmd, int *code)
 
 static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
 {
-	char	**new_env;
+	//char	**new_env;
 
-	new_env = env_to_str(mini->env);
+	//new_env = env_to_str(mini->env);
 	redir_pipes(mini, p, 0);
 	if (exec_built(code, mini->cmds[0].args, mini))
 		return (1);
-	free(new_env);
+	//free(new_env);
 	return (1);
 }
 
@@ -77,8 +77,8 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	new_env = NULL;
 	while (i < mini->n_cmds)
 	{
-		new_env = env_to_str(mini->env);
 		code = 0;
+		new_env = env_to_str(mini->env);
 		redir_pipes(mini, p, i);
 		g_sig.pid = fork();
 		if (g_sig.pid == 0)

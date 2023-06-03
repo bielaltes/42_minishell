@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/02 07:01:17 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:34:08 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	update_oldpwd(t_env *env, const char *s)
 
 	tmp = NULL;
 	tmp = getcwd(tmp, PATH_MAX);
-	free(tmp);
 	if (search_env(&env, s, 1))
 		return (1);
 	env->value = ft_strdup(tmp);
