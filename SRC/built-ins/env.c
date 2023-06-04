@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/04 11:43:03 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:26:02 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exec_env(t_env *env)
 {
 	t_node_env	*aux;
 
+	set_exec(env, "built-ins/env");
 	aux = env->first;
 	while (aux)
 	{
@@ -23,7 +24,6 @@ int	exec_env(t_env *env)
 			printf("%s=%s\n", aux->data, aux->value);
 		aux = aux->next;
 	}
-	set_exec(env, "built-ins/env");
 	return (0);
 }
 

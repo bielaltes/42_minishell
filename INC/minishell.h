@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/04 10:59:05 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/04 23:52:14 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	redir_files(t_mini *mini, int i);
 int		ft_strcmp(const char *s1, const char *s2);
 int		count_env(t_env *env);
 void	set_exec(t_env *env, char *value);
+int		count_args(char **args);
 
 //SIGNALS
 

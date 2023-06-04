@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 08:19:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/02 01:39:52 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/04 23:49:40 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	assing_type(t_token *tokens)
 	i = 0;
 	while (tokens[i].word != NULL && tokens[i].word[0])
 	{
-		if (ft_strncmp(tokens[i].word, "<", 0xFF) == 0)
+		if (ft_strcmp(tokens[i].word, "<") == 0)
 			i += assing_input(tokens, i);
-		else if (ft_strncmp(tokens[i].word, ">", 0xFF) == 0)
+		else if (ft_strcmp(tokens[i].word, ">") == 0)
 			i += assing_output(tokens, i);
-		else if (ft_strncmp(tokens[i].word, ">>", 0xFF) == 0)
+		else if (ft_strcmp(tokens[i].word, ">>") == 0)
 			i += assing_output_append(tokens, i);
-		else if (ft_strncmp(tokens[i].word, "<<", 0xFF) == 0)
+		else if (ft_strcmp(tokens[i].word, "<<") == 0)
 			i += assing_heredoc(tokens, i);
-		else if (ft_strncmp(tokens[i].word, "|", 0xFF) == 0)
+		else if (ft_strcmp(tokens[i].word, "|") == 0)
 			i += assing_pipe(tokens, i);
 		else
 			i += assing_command(tokens, i);
@@ -42,11 +42,11 @@ void	assing_type(t_token *tokens)
 
 int	reserved(char *str)
 {
-	if (ft_strncmp(str, "<", 0xFF) == 0 \
-		|| ft_strncmp(str, ">", 0xFF) == 0 \
-		|| ft_strncmp(str, "<<", 0xFF) == 0 \
-		|| ft_strncmp(str, ">>", 0xFF) == 0 \
-		|| ft_strncmp(str, "|", 0xFF) == 0)
+	if (ft_strcmp(str, "<") == 0 \
+		|| ft_strcmp(str, ">") == 0 \
+		|| ft_strcmp(str, "<<") == 0 \
+		|| ft_strcmp(str, ">>") == 0 \
+		|| ft_strcmp(str, "|") == 0)
 		return (1);
 	return (0);
 }
