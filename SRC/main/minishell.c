@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 18:01:05 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/04 12:53:08 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,17 @@ int	main(int argc, char **argv, char **env)
 		if (!mini.cmdline)
 		{
 			if (isatty(STDIN_FILENO))
-				write(2, "exit\n", 6);	
+				write(2, "\nexit\n", 6);	
 			break;
 		}
-		add_history(mini.cmdline);
-		lexer(&mini);
-		expand(&mini);
-		syntax(&mini);
-		exec(&mini);
+		if (ft_strlen(mini.cmdline))
+		{
+			add_history(mini.cmdline);
+			lexer(&mini);
+			expand(&mini);
+			syntax(&mini);
+			exec(&mini);
+		}
 	}
 	return (0);
 }

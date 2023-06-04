@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:43:40 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 19:42:31 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/04 11:33:27 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	exec_unset(t_env *env, char *s)
 		aux->prev->next = aux->next;
 	if (aux->next && env->size != 0)
 		aux->next->prev = aux->prev;
+	env->last = aux->prev;
 	free(aux);
 	return (0);
 }

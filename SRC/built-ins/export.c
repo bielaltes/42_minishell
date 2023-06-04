@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 19:42:44 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/04 11:42:32 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_export(t_env *env, char *args)
 	tmp = ft_split(args, '=');
 	if (search_env(env, tmp[0]) && tmp[1])
 		mod_env(env, tmp[0], tmp[1]);
-	else
+	else if (tmp[1])
 		create_env(env, tmp);
 	set_exec(env, "built-ins/export");
 	return (0);
