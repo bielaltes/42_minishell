@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/03 15:21:29 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/04 12:45:50 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,45 @@
 	tok->sub_tok = malloc(sizeof(t_token) * count_subs(word));
 }*/
 
-static int	next_dollar(char *word, int i)
+int	expandible(char	*word, int i)
+{
+	int	k;
+
+	k = 0;
+	while (word[k] != '\0')
+	{
+		if (k == i)
+			return (1);
+		if (word[k] == '\'')
+		{
+			++k;
+			while (word[k] != '\0' && word[k] != '\'')
+			{
+				if (k == i)
+					return (0);
+				++k;
+			}
+		}
+		if (word[k] == '"')
+		{
+			++k;
+			while (word[k] != '\0' && word[k] != '"')
+			{
+				if (k == i)
+					return (1);
+				++k;
+			}
+		}
+		++k;
+	}
+	return (1);
+}
+
+static int	next_char(char *word, int i, char c)
 {
 	while (word[i] != '\0')
 	{
-		if (word[i] == '$')
+		if (word[i] == c)
 			return (i);
 		++i;
 	}
@@ -49,37 +83,82 @@ void	expand_token(t_mini *mini, t_token *tok)
 	int		k;
 
 	word = tok->word;
-	if (!mini)
-		printf("aiai");
-	if (next_dollar(word, 0) == -1)
+	if (next_char(word, 0, '$') == -1)
 		return ;
-	i = next_dollar(word, 0);
+	i = next_char(word, 0, '$');
 	aux = ft_substr(word, 0, i);
 	while (word[i] != '\0')
 	{
-		if (word[i] == '$')
+		//printf("expandible: %c %d\n", word[i], expandible(word, i));
+		if (word[i] == '$' && expandible(word, i))
 		{
 			k = i;
-			while (word[i + k] != '\0' && word[i + k] != '\'' && word[i + k] != '"')
+			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"')
 				++k;
-			//aux2 = search_env(mini->env, ft_substr(word, i+1, k), 1);
-			aux2 = "soc una prova";
+			aux2 = search_env(mini->env, ft_substr(word, i + 1, k - i -1));
 			aux = ft_strjoin(aux, aux2);
-			i += k;
-			if (word[i] != '\0')
-				i++;
+			i = k;
 		}
 		else
 		{
-			k = next_dollar(word, i);
+			k = next_char(word, i + 1, '$');
 			if (k == -1)
 			{
-				k = 0;
+				k = i;
 				while (word[k] != '\0')
 					++k;
 			}
-			aux = ft_strjoin(aux, ft_substr(aux, i, k -1));
+			aux = ft_strjoin(aux, ft_substr(word, i, k - i));
+			i = k;
 		}
+	}
+	free(word);
+	tok->word = aux;
+}
+
+int next_quote(char *word, int i)
+{
+	int	a;
+	int	b;
+
+	a = next_char(word, i, '\'');
+	b = next_char(word, i, '"');
+	if (a == -1 && b == -1)
+		return (-1);
+	else if (a == -1)
+		return (b);
+	else if (b == -1)
+		return (a);
+	else if (a > b)
+		return (b);
+	else if (b > a)
+		return (a);
+	else
+		return (-1);
+}
+
+void	leave_quotes(t_token *tok)
+{
+	char	*aux;
+	char	*word;
+	int		k;
+	char	lim;
+	int		i;
+
+	i = 0;
+	word = tok->word;
+	i = next_quote(word, 0);
+	if (i == -1)
+		return ;
+	aux = ft_substr(word, 0, i);
+	while (i != -1 && word[i] != '\0')
+	{
+		lim = word[i++];
+		k = i;
+		while (word[k] != lim)
+			++k;
+		aux = ft_strjoin(aux, ft_substr(word, i, k - i));
+		i = next_quote(word, ++k);
 	}
 	free(word);
 	tok->word = aux;
@@ -93,8 +172,8 @@ void	expand(t_mini *mini)
 	while (mini->tok_lex[i].word != NULL)
 	{
 		expand_token(mini, &mini->tok_lex[i]);
-		//divide_token(mini->tok_lex[i]);
-		//*leave_quotes(t_mini->tok_lex[i]);*/
+		/*divide_token(mini->tok_lex[i]);*/
+		leave_quotes(&mini->tok_lex[i]);
 		++i;
 	}
 }

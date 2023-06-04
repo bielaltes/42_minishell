@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/03 19:43:13 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:40:42 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ static int	is_built_in(char *cmd, int *code)
 
 static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
 {
-	//char	**new_env;
-
-	//new_env = env_to_str(mini->env);
 	redir_pipes(mini, p, 0);
 	if (exec_built(code, mini->cmds[0].args, mini))
 		return (1);
@@ -105,10 +102,8 @@ void	exec(t_mini *mini)
 {
 	int		p[4];
 	int		i;
-	int		flag;
 
 	i = 0;
-	flag = 0;
 	p[2] = dup(0);
 	p[3] = dup(1);
 	exec_exec(mini, i, p);
@@ -116,6 +111,6 @@ void	exec(t_mini *mini)
 	dup2(p[3], 1);
 	close(p[2]);
 	close(p[3]);
-	while (flag != -1)
-		flag = waitpid(-1, NULL, 0);
+	while (waitpid(-1, NULL, 0) != -1)
+		;
 }
