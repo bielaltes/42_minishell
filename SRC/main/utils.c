@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/04 23:51:48 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/05 00:09:37 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,6 @@ void	mod_env(t_env *env, const char *s, char *m)
 	if (ft_strcmp(aux->data, s) && aux->next)
 		return ;
 	aux->value = m;
-}
-
-int	count_args(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
