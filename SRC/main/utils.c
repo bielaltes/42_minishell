@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 20:11:39 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:16:40 by bielaltes        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*search_env(t_env *env, const char *s)
 	aux = env->first;
 	while (ft_strcmp(aux->data, s) && aux->next)
 		aux = (aux->next);
-	if (ft_strcmp(aux->data, s) && aux->next)
+	if (ft_strcmp(aux->data, s))
 		return (NULL);
 	return (aux->value);
 }
