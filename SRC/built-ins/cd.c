@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/04 23:50:34 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/05 02:19:46 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	update_oldpwd(t_env *env, char *s)
 	char		*tmp;
 	char		*aux;
 	char		*aux2;
-	char		**split;
 
 	tmp = NULL;
 	aux = ft_strjoin(s, "=");
@@ -25,11 +24,10 @@ static void	update_oldpwd(t_env *env, char *s)
 		return ;
 	tmp = getcwd(tmp, PATH_MAX);
 	aux2 = ft_strjoin(aux, tmp);
-	split = ft_split(aux2, '=');
 	if (search_env(env, s))
 		mod_env(env, s, tmp);
 	else
-		create_env(env, split);
+		create_env(env, ft_split(aux2, '='));
 }
 
 static int	option1(t_env *env)
@@ -77,9 +75,10 @@ static int	change_path(t_mini *mini, int option, char **args)
 	dir = NULL;
 	if (option == 2)
 	{
+		dir = getcwd(dir, PATH_MAX);
+		mod_env(mini->env, "OLDPWD", dir);
 		if (!search_env(mini->env, "OLDPWD"))
 		{
-			dir = getcwd(dir, PATH_MAX);
 			create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir), '='));
 			free(dir);
 		}
