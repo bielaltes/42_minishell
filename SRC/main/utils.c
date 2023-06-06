@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/05 00:09:37 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:26:30 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ char	**env_to_str(t_env *env)
 	while (aux)
 	{
 		if (aux->value)
-			new[i] = ft_strjoin(aux->data, aux->value);
+		{
+			new[i] = ft_strjoin(aux->data, "=");
+			new[i] = ft_strjoin(new[i], aux->value);
+		}
 		else
 			new[i] = ft_strdup(aux->data);
 		aux = aux->next;
@@ -63,7 +66,7 @@ void	mod_env(t_env *env, const char *s, char *m)
 	aux = env->first;
 	while (ft_strcmp(aux->data, s) && aux->next)
 		aux = (aux->next);
-	if (ft_strcmp(aux->data, s) && aux->next)
+	if (!aux || ft_strcmp(aux->data, s))
 		return ;
 	aux->value = m;
 }

@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/04 22:36:01 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:12:23 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
 	redir_pipes(mini, p, 0);
 	if (exec_built(code, mini->cmds[0].args, mini))
 		return (1);
-	//free(new_env);
 	return (1);
 }
 

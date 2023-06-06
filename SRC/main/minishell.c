@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/04 12:53:08 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/06 09:18:15 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	main(int argc, char **argv, char **env)
 		if (!mini.cmdline)
 		{
 			if (isatty(STDIN_FILENO))
-				write(2, "\nexit\n", 6);	
-			break;
+				write(2, "\nexit\n", 6);
+			break ;
 		}
 		if (ft_strlen(mini.cmdline))
 		{

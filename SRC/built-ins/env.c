@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/05 02:17:57 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:32:05 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	init_env(t_mini *mini, char **env)
 		i++;
 		free(splited);
 	}
-	if (!search_env(mini->env, "OLDPWD"))
+	if (exist_env(mini->env, "OLDPWD"))
 		create_env(mini->env, ft_split("OLDPWD=si", '='));
-	mod_env(mini->env, "OLDPWD", (void *) NULL);
+	mod_env(mini->env, "OLDPWD", NULL);
 }
