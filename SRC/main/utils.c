@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/03 23:16:40 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/06 10:14:17 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ char	**env_to_str(t_env *env)
 	while (aux)
 	{
 		if (aux->value)
-			new[i] = ft_strjoin(aux->data, aux->value);
+		{
+			new[i] = ft_strjoin(aux->data, "=");
+			new[i] = ft_strjoin(new[i], aux->value);
+		}
 		else
 			new[i] = ft_strdup(aux->data);
 		aux = aux->next;

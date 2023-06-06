@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/04 12:45:50 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:00:35 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	expand_token(t_mini *mini, t_token *tok)
 			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"')
 				++k;
 			aux2 = search_env(mini->env, ft_substr(word, i + 1, k - i -1));
-			aux = ft_strjoin(aux, aux2);
+			if (aux2)
+				aux = ft_strjoin(aux, aux2);
 			i = k;
 		}
 		else

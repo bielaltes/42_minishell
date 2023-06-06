@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/03 15:20:25 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/06 16:22:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ t_token	*ft_split_tokens(char *s)
 			return (malloc_error(new, j));
 		ft_check_escaped(new[j].word);
 		i += word_len(&s[i], 0);
-		ft_printf("word: %s|\n", new[j].word);
 	}
 	new[j].word = (NULL);
 	return (new);
