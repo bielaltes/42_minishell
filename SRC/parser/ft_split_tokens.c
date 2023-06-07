@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 10:16:05 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:56:08 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static int	word_len(char *str, int i)
 				++len;
 			++len;
 		}
-		else if (str[i] == '"')
+		else if (str[i -1] == '"')
 		{
-			while (str[++i] != '"')
+			while (str[i++] != '"')
 				++len;
 			++len;
 		}
@@ -99,7 +99,6 @@ t_token	*ft_split_tokens(char *s)
 		new[j].word = ft_substr(s, i, word_len(&s[i], 0));
 		if (!new[j].word)
 			return (malloc_error(new, j));
-		ft_check_escaped(new[j].word);
 		i += word_len(&s[i], 0);
 	}
 	new[j].word = (NULL);
