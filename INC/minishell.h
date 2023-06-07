@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 10:13:34 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:31:10 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # include <limits.h>
 # include "libft/libft.h"
 
+# define SUCCESS 0
+# define FAILURE 1
+
 enum	e_type
 {
 	NONE,
@@ -52,9 +55,9 @@ enum	e_type
 typedef struct s_signal
 {
 	unsigned char	exit;
+	unsigned char	ret;
 	int				sigint;
 	int				sigquit;
-	pid_t			pid;
 }	t_signal;
 
 typedef struct s_token
@@ -97,6 +100,7 @@ typedef struct s_mini
 	char			*cmdline;
 	t_simple_cmd	*cmds;
 	int				n_cmds;
+	pid_t			*pids;
 }	t_mini;
 
 //ENV

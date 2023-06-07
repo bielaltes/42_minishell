@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 13:37:56 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/07 14:53:59 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,18 @@
 static int	exec_built(int code, char **args, t_mini *mini)
 {
 	if (code == 1)
-		if (exec_env(mini->env))
-			return (1);
+		return (exec_env(mini->env));
 	if (code == 2)
-		if (exec_cd(mini, args))
-			return (1);
+		return (exec_cd(mini, args));
 	if (code == 3)
-		if (exec_pwd(mini->env))
-			return (1);
+		return (exec_pwd(mini->env));
 	if (code == 4)
-		if (exec_exit(mini, args[1]))
-			return (1);
+		return (exec_exit(mini, args[1]));
 	if (code == 5)
-		if (exec_export(mini->env, args[1]))
-			return (1);
+		return (exec_export(mini->env, args[1]));
 	if (code == 6)
-		if (exec_unset(mini->env, args[1]))
-			return (1);
-	return (0);
+		return (exec_unset(mini->env, args[1]));
+	return (1);
 }
 
 static int	is_built_in(char *cmd, int *code)
@@ -55,9 +49,7 @@ static int	is_built_in(char *cmd, int *code)
 static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
 {
 	redir_pipes(mini, p, 0);
-	if (exec_built(code, mini->cmds[0].args, mini))
-		return (1);
-	return (1);
+	return (exec_built(code, mini->cmds[0].args, mini));
 }
 
 static void	exec_exec(t_mini *mini, int i, int p[4])
@@ -66,25 +58,28 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	char	**new_env;
 
 	code = 0;
+	mini->pids = malloc(sizeof(pid_t) * mini->n_cmds);
 	if (mini->n_cmds == 1 && mini->tok_lex[i].word && \
 			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
-		if (exec_builtin_alone(mini, p, code))
-			return ;
+	{
+		g_sig.ret = exec_builtin_alone(mini, p, code);
+		return ;
+	}
 	new_env = NULL;
 	while (i < mini->n_cmds)
 	{
 		code = 0;
 		new_env = env_to_str(mini->env);
 		redir_pipes(mini, p, i);
-		g_sig.pid = fork();
-		if (g_sig.pid == 0)
+		mini->pids[i] = fork();
+		if (mini->pids[i] == 0)
 		{
 			redir_files(mini, i, p);
 			if (mini->tok_lex[i].word && \
 				is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 			{
-				exec_built(code, mini->cmds[i].args, mini);
-				exec_exit(mini, "1");
+				exec_exit(mini, ft_itoa(exec_built(code, mini->cmds[i].args, \
+						mini)));
 			}
 			else
 			{
@@ -103,6 +98,7 @@ void	exec(t_mini *mini)
 {
 	int		p[4];
 	int		i;
+	int		status;
 
 	i = 0;
 	p[2] = dup(0);
@@ -112,6 +108,11 @@ void	exec(t_mini *mini)
 	dup2(p[3], 1);
 	close(p[2]);
 	close(p[3]);
-	while (waitpid(-1, NULL, 0) != -1)
-		;
+	while (i < mini->n_cmds && waitpid(mini->pids[i], &status, 0) != -1)
+	{
+		if (WIFEXITED(status))
+			g_sig.ret = WEXITSTATUS(status);
+		++i;
+	}
+
 }
