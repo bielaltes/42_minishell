@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 10:13:52 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:37:56 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 			}
 			else
 			{
-				close(p[0]);
+				if (i != 0)
+					close(p[0]);
 				execve(get_path(new_env, mini->cmds[i].args[0]), \
 				mini->cmds[i].args, new_env);
 			}
