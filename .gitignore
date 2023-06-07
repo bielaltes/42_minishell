@@ -1,2 +1,3 @@
-*.dSY
-*.txtM
+*.DS_store
+*.dSYM
+*.txt
