@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/06 10:03:10 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/07 10:16:53 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ LIBC = ar -rcs
 SRC_L	=	main/minishell.c 				\
 			main/signals.c					\
 			main/utils.c					\
+			main/utils2.c					\
 			parser/lexer.c					\
 			parser/ft_split_tokens.c 		\
 			parser/ft_split_tokens_utils.c	\

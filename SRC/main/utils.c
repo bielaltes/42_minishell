@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/06 10:14:17 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:15:45 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	mod_env(t_env *env, const char *s, char *m)
 	aux = env->first;
 	while (ft_strcmp(aux->data, s) && aux->next)
 		aux = (aux->next);
-	if (ft_strcmp(aux->data, s) && aux->next)
+	if (!aux || ft_strcmp(aux->data, s))
 		return ;
 	aux->value = m;
 }

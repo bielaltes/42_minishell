@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/06 16:11:50 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/07 10:13:34 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_signal
 	unsigned char	exit;
 	int				sigint;
 	int				sigquit;
-	int				n_nodes;
 	pid_t			pid;
 }	t_signal;
 
@@ -146,6 +145,8 @@ void	redir_files(t_mini *mini, int i, int p[4]);
 int		ft_strcmp(const char *s1, const char *s2);
 int		count_env(t_env *env);
 void	set_exec(t_env *env, char *value);
+int		count_args(char **args);
+int		exist_env(t_env *env, const char *s);
 
 //SIGNALS
 
