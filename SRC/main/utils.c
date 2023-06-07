@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/06 10:26:30 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:14:17 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	mod_env(t_env *env, const char *s, char *m)
 	aux = env->first;
 	while (ft_strcmp(aux->data, s) && aux->next)
 		aux = (aux->next);
-	if (!aux || ft_strcmp(aux->data, s))
+	if (ft_strcmp(aux->data, s) && aux->next)
 		return ;
 	aux->value = m;
 }

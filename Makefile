@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
+#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/06 10:32:43 by jsebasti         ###   ########.fr        #
+#    Updated: 2023/06/06 10:03:10 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,14 +27,13 @@ LIB_M 		= $(INC_DIR)/libft/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS =  -g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS =  -g -Wall -Wextra -Werror
 LIBC = ar -rcs
 # =============
 
 SRC_L	=	main/minishell.c 				\
 			main/signals.c					\
 			main/utils.c					\
-			main/utils2.c					\
 			parser/lexer.c					\
 			parser/ft_split_tokens.c 		\
 			parser/ft_split_tokens_utils.c	\
