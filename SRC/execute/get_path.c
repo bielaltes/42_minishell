@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 12:55:09 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:12:28 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ char	**get_paths(char **envp, char *exe)
 		++envp;
 	if (!envp || !(*envp))
 	{
-		paths = NULL;
+		paths = malloc(sizeof(char *) * 2);
+		paths[0] = ft_strdup(".");
+		paths[1] = NULL;
 	}
 	else
 	{
