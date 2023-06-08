@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 15:12:28 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:16:52 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ char	*get_path(char **envp, char *exe)
 		free(path);
 		paths++;
 	}
-	error_exit(127, "MINI", exe, "CNF");
+	error_exit(127, "MINI ", exe, " CNF");
 	return (NULL);
 }

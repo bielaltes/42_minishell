@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 14:31:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:33:23 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,13 @@ int		count_env(t_env *env);
 void	set_exec(t_env *env, char *value);
 int		count_args(char **args);
 int		exist_env(t_env *env, const char *s);
+void	new_err(char *s1, char *s2, char *s3);
 
 //SIGNALS
 
-void		set_signals(void);
+void	set_signals(void);
+void	sig_int(int code);
+void	sig_quit(int code);
 
 extern t_signal	g_sig;
 #endif

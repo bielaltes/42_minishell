@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/07 15:19:21 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/08 10:54:06 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	option1(t_env *env)
 	dir = search_env(env, "OLDPWD");
 	if (!dir)
 	{
-		printf("cd: OLDPWD not set.\n");
+		new_err("minishell: cd: ", "OLDPWD", " not set.\n");
 		return (1);
 	}
 	update_oldpwd(env, "OLDPWD");
@@ -55,7 +55,7 @@ static int	option0(t_env *env)
 {
 	if (!search_env(env, "HOME"))
 	{
-		printf("cd: HOME not set.\n");
+		new_err("minishell: cd:", "HOME", "not set.\n");
 		return (1);
 	}
 	update_oldpwd(env, "OLDPWD");
@@ -83,7 +83,7 @@ static int	change_path(t_mini *mini, int option, char *args)
 		}
 		if (chdir(args) == -1)
 		{
-			printf("cd: No such file or directory: %s\n", args);
+			new_err("minishell: cd: ", args, ": No such file or directory.\n");
 			return (1);
 		}
 		mod_env(mini->env, "OLDPWD", dir);

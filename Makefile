@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/07 12:07:17 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/08 10:46:04 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ LIBC = ar -rcs
 
 SRC_L	=	main/minishell.c 				\
 			main/signals.c					\
-			main/utils.c					\
-			main/utils2.c					\
 			parser/lexer.c					\
 			parser/ft_split_tokens.c 		\
 			parser/ft_split_tokens_utils.c	\
@@ -52,6 +50,8 @@ SRC_L	=	main/minishell.c 				\
 			built-ins/echo.c				\
 			built-ins/exit.c				\
 			built-ins/unset.c				\
+			built-ins/utils.c				\
+			built-ins/utils2.c				\
 			built-ins/export.c				\
 
 

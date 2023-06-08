@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:09:50 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/06 10:31:29 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:32:45 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,11 @@ int	count_args(char **args)
 	while (args[i])
 		i++;
 	return (i);
+}
+
+void	new_err(char *s1, char *s2, char *s3)
+{
+	ft_putstr_fd(s1, 2);
+	ft_putstr_fd(s2, 2);
+	ft_putstr_fd(s3, 2);
 }

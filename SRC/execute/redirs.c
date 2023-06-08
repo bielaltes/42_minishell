@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/06 16:20:48 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/08 10:52:51 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	redir_inp(char *file)
 		printf("error");
 	dup2(fd, 0);
 }
+
 static void	redir_out(char *file)
 {
 	int	fd;
@@ -30,6 +31,7 @@ static void	redir_out(char *file)
 		printf("error");
 	dup2(fd, 1);
 }
+
 static void	redir_append(char *file)
 {
 	int	fd;
@@ -39,9 +41,10 @@ static void	redir_append(char *file)
 		printf("error");
 	dup2(fd, 1);
 }
-static void redir_here(char *file, int p[4])
+
+static void	redir_here(char *file, int p[4])
 {
-	int 	fd[2];
+	int		fd[2];
 	int		p_aux;
 	char	*line;
 
@@ -77,15 +80,11 @@ void	redir_files(t_mini *mini, int j, int p[4])
 				redir_out(mini->tok_lex[i + 1].word);
 		}
 		if (mini->tok_lex[i].type == REDIR_HERE)
-		{
 			if (mini->tok_lex[i + 1].type == HERE_DOC)
 				redir_here(mini->tok_lex[i + 1].word, p);
-		}
 		if (mini->tok_lex[i].type == REDIR_APPEND)
-		{
 			if (mini->tok_lex[i + 1].type == FT_FILE)
 				redir_append(mini->tok_lex[i + 1].word);
-		}
 		++i;
 	}
 }
