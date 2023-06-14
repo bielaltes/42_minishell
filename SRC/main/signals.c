@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:34:02 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/08 09:13:12 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:25:56 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	sig_int(int code)
 		g_sig.ret = 130;
 	}
 	g_sig.sigint = 1;
+	exit((unsigned char)g_sig.ret);
 }
 
 void	sig_quit(int code)
@@ -43,6 +44,7 @@ void	sig_quit(int code)
 	else
 		ft_putstr_fd("\b\b	\b\b", STDERR);
 	free(n_code);
+	exit((unsigned char)g_sig.ret);
 }
 
 void	set_signals(void)

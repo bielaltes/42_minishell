@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/08 09:33:23 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:24:29 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			exec_env(t_env *env);
 int			exec_pwd(t_env *env);
 int			exec_cd(t_mini *mini, char **args);
 int			exec_exit(t_mini *mini, char *num);
-int			exec_export(t_env *env, char *args);
+int			exec_export(t_env *env, char **args);
 int			exec_unset(t_env *env, char *arg);
 
 //PARSER

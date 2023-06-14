@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/08 09:16:52 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:33:58 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ char	*get_path(char **envp, char *exe)
 		free(path);
 		paths++;
 	}
-	error_exit(127, "MINI ", exe, " CNF");
+	error_exit(127, "", exe, ": command not found");
 	return (NULL);
 }
