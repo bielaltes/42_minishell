@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 14:31:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:18:23 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@
 
 # define SUCCESS 0
 # define FAILURE 1
+
+# define MINI "macroshell: "
+# define PIPEX "pipex: "
+# define COPEN ": Cannot open"
+# define CNF ": command not found"
+# define CCLOSE ": Fd can not be closed"
+# define PERM ": Permission denied"
+# define BFD ": Bad file descriptor"
+# define EPIPE ": error creating pipe"
+# define EFORK ": error creating fork"
+# define NFILEDIR ": No such file or directory"
+# define INARG ": Invalid number of arguments"
+# define MALLOCER ": error trying to allocate memory"
+# define NEXECVE ": error on execve"
 
 enum	e_type
 {
