@@ -6,17 +6,11 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/15 14:29:04 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:01:57 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void free_split(char **str)
-{
-	if (str)
-		return;
-}
 
 void	error_exit(int status, char *str1, char *str2, char *str3)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 15:18:10 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:16:44 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	exec_built(int code, char **args, t_mini *mini)
 	if (code == 4)
 		return (exec_exit(mini, args[1]));
 	if (code == 5)
-		return (exec_export(mini->env, args[1]));
+		return (exec_export(mini->env, args));
 	if (code == 6)
 		return (exec_unset(mini->env, args[1]));
 	return (1);
@@ -66,6 +66,7 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 		return ;
 	}
 	new_env = NULL;
+	sig_ign(SIGINT);
 	while (i < mini->n_cmds)
 	{
 		code = 0;
@@ -74,13 +75,12 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 		mini->pids[i] = fork();
 		if (mini->pids[i] == 0)
 		{
+			signals_child();
 			redir_files(mini, i, p);
 			if (mini->tok_lex[i].word && \
-				is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
-			{
+			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 				exec_exit(mini, ft_itoa(exec_built(code, mini->cmds[i].args, \
 						mini)));
-			}
 			else
 			{
 				if (i != 0)

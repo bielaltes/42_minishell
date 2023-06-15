@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/07 12:07:17 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/15 15:00:52 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ LIBC = ar -rcs
 
 SRC_L	=	main/minishell.c 				\
 			main/signals.c					\
-			main/utils.c					\
-			main/utils2.c					\
 			parser/lexer.c					\
 			parser/ft_split_tokens.c 		\
 			parser/ft_split_tokens_utils.c	\
@@ -52,6 +50,8 @@ SRC_L	=	main/minishell.c 				\
 			built-ins/echo.c				\
 			built-ins/exit.c				\
 			built-ins/unset.c				\
+			built-ins/utils.c				\
+			built-ins/utils2.c				\
 			built-ins/export.c				\
 
 
@@ -64,14 +64,14 @@ DEP = $(addsuffix .d, $(basename $(OBJ)))
 
 $(OBJ_DIR)%.o: %.c $(MKFL)
 	@$(MP) $(dir $@)
-	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -I/Users/$(USER)/.brew/opt/readline/include -c $< -o $@
 
 all:
 	@$(MAKE) -C $(LIB_M) --no-print-directory
 	@$(MAKE) $(NAME) --no-print-directory
 
 $(NAME):: $(OBJ) $(LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o $(NAME)
 
 $(NAME)::
 	@echo "Hello, Minishell already compiled 😇"

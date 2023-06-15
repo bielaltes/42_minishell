@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/15 14:18:23 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:01:24 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int			exec_env(t_env *env);
 int			exec_pwd(t_env *env);
 int			exec_cd(t_mini *mini, char **args);
 int			exec_exit(t_mini *mini, char *num);
-int			exec_export(t_env *env, char *args);
+int			exec_export(t_env *env, char **args);
 int			exec_unset(t_env *env, char *arg);
 
 //PARSER
@@ -165,10 +165,13 @@ int		count_env(t_env *env);
 void	set_exec(t_env *env, char *value);
 int		count_args(char **args);
 int		exist_env(t_env *env, const char *s);
+void	new_err(char *s1, char *s2, char *s3);
 
 //SIGNALS
 
-void		set_signals(void);
+void	signals_mini(void);
+void	signals_child(void);
+void	sig_ign(int n);
 
 extern t_signal	g_sig;
 #endif

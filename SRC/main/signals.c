@@ -6,47 +6,74 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:34:02 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/07 14:42:49 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:44:10 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sig_int(int code)
+void	father(int sig)
 {
-	(void)code;
-	if (g_sig.ret == 0) //ret = pid
+	if (sig == SIGINT)
 	{
-		ft_putstr_fd("Finished with code 1.\n", STDERR);
-		g_sig.exit = 1;
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_sig.ret = 1;
+		g_sig.sigint = 1;
 	}
-	else
-	{
-		ft_putstr_fd("Finished with code 130\n", STDERR);
-		g_sig.exit = 130;
-	}
-	g_sig.sigint = 1;
 }
 
-void	sig_quit(int code)
+void	child(int sig)
 {
-	char	*n_code;
-
-	n_code = ft_itoa(code);
-	if (g_sig.ret != 0) //ret = pid
+	if (sig == SIGINT)
 	{
-		ft_putstr_fd("Exit code: ", STDERR);
-		ft_putstr_fd(n_code, STDERR);
-		g_sig.exit = 131;
+		printf("\n");
+		rl_on_new_line();
+		g_sig.sigint = 1;
+		exit(130);
+	}
+	else if (sig == SIGQUIT)
+	{
+		printf("Quit\n");
+		rl_on_new_line();
 		g_sig.sigquit = 1;
+		exit(131);
 	}
-	else
-		ft_putstr_fd("\b\b	\b\b", STDERR);
-	free(n_code);
 }
 
-void	set_signals(void)
+void	signals_mini(void)
 {
-	g_sig.sigint = 0;
-	g_sig.sigquit = 0;
+	struct sigaction	signal;
+
+	signal.sa_handler = &father;
+	signal.sa_flags = SA_RESTART;
+	sigemptyset(&signal.sa_mask);
+	if (sigaction(SIGINT, &signal, NULL) < 0)
+		exit(2);
+}
+
+void	signals_child(void)
+{
+	struct sigaction	signal;
+
+	signal.sa_handler = &child;
+	signal.sa_flags = SA_RESTART;
+	sigemptyset(&signal.sa_mask);
+	if (sigaction(SIGINT, &signal, 0) < 0)
+		exit(2);
+	if (sigaction(SIGQUIT, &signal, 0) < 0)
+		exit(2);
+}
+
+void	sig_ign(int n)
+{
+	struct sigaction	signal;
+
+	signal.sa_handler = SIG_IGN;
+	signal.sa_flags = SA_RESTART;
+	sigemptyset(&signal.sa_mask);
+	if (sigaction(n, &signal, NULL) < 0)
+		exit(2);
 }
