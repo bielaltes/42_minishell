@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/15 17:01:57 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:39:00 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*get_path(char **envp, char *exe)
 	char	*path;
 	char	*tmp;
 
+	if (ft_strlen(exe) == 0)
+		error_exit(127, MINI, exe, CNF);
 	paths = get_paths(envp, exe);
 	while (paths && *paths)
 	{
@@ -71,7 +73,8 @@ char	*get_path(char **envp, char *exe)
 			return (path);
 		else if (access(path, F_OK) == 0)
 			error_exit(126, MINI, exe, PERM);
-		free(path);
+		if (ft_strchr(exe, '/') != exe)
+			free(path);
 		paths++;
 	}
 	error_exit(127, MINI, exe, CNF);

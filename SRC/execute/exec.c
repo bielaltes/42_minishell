@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/15 16:16:44 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/15 19:32:15 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static int	is_built_in(char *cmd, int *code)
 
 static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
 {
-	redir_pipes(mini, p, 0);
+	//redir_pipes(mini, p, 0);
+	redir_files(mini, 0, p);
 	return (exec_built(code, mini->cmds[0].args, mini));
 }
 

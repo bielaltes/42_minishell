@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/15 17:36:41 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:58:47 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **env)
 		if (!mini.cmdline)
 		{
 			if (isatty(STDIN_FILENO))
-				printf("%s", "exit\n");
+				write(2, "exit\n", 6);
 			break ;
 		}
 		if (ft_strlen(mini.cmdline))
