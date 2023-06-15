@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/08 18:23:33 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:16:44 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 		return ;
 	}
 	new_env = NULL;
+	sig_ign(SIGINT);
 	while (i < mini->n_cmds)
 	{
 		code = 0;
@@ -74,6 +75,7 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 		mini->pids[i] = fork();
 		if (mini->pids[i] == 0)
 		{
+			signals_child();
 			redir_files(mini, i, p);
 			if (mini->tok_lex[i].word && \
 			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))

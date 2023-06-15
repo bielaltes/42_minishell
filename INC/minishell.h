@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/09 12:24:29 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:45:07 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,9 @@ void	new_err(char *s1, char *s2, char *s3);
 
 //SIGNALS
 
-void	set_signals(void);
-void	sig_int(int code);
-void	sig_quit(int code);
+void	signals_mini(void);
+void	signals_child(void);
+void	sig_ign(int n);
 
 extern t_signal	g_sig;
 #endif
