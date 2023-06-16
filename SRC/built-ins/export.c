@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/12 18:16:20 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:06:32 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_args(char **tmp, char *args)
 		{
 			if (ft_strncmp(&tmp[0][i], "_", 1))
 			{
-				new_err("export: '", args, \
+				new_err("export: `", args, \
 					"': not a valid identifier\n");
 				return (1);
 			}
@@ -58,8 +58,8 @@ int	exec_export(t_env *env, char **args)
 	int		j;
 
 	i = -1;
-	j = 0;
-	if (!args)
+	j = 1;
+	if (!args[1])
 		return (print_all_export(env));
 	while (args[j])
 	{
