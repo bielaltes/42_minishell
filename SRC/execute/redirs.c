@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/08 10:52:51 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:43:06 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	redir_out(char *file)
 {
 	int	fd;
 
-	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC);
+	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 1)
 		printf("error");
 	dup2(fd, 1);
@@ -36,7 +36,7 @@ static void	redir_append(char *file)
 {
 	int	fd;
 
-	fd = open(file, O_WRONLY | O_CREAT | O_APPEND);
+	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 1)
 		printf("error");
 	dup2(fd, 1);

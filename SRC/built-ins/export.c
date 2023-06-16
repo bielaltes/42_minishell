@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/16 12:06:32 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:28:12 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	check_args(char **tmp, char *args)
 			{
 				new_err("export: `", args, \
 					"': not a valid identifier\n");
+				g_sig.ret = 1;
 				return (1);
 			}
 		}
@@ -75,5 +76,5 @@ int	exec_export(t_env *env, char **args)
 		j++;
 	}
 	set_exec(env, "built-ins/export");
-	return (0);
+	return (g_sig.ret);
 }
