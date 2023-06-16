@@ -6,13 +6,13 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/15 18:11:59 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:08:02 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_spacer(char c)
+int	is_spacer(char c)
 {
 	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
 		|| c == ' ')
@@ -99,6 +99,7 @@ t_token	*ft_split_tokens(char *s)
 		new[j].word = ft_substr(s, i, word_len(&s[i], 0));
 		if (!new[j].word)
 			return (malloc_error(new, j));
+		//printf("token:|%s|\n", new[j].word);
 		i += word_len(&s[i], 0);
 	}
 	new[j].word = (NULL);

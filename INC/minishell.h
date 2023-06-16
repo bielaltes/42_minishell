@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 11:23:20 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:02:37 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ int			assing_command(t_token *tokens, int i);
 void		syntax(t_mini *mini);
 void		get_args(t_mini *mini, int ini, int fi, int k);	
 void		expand(t_mini *mini);
+int			is_spacer(char c);
 
 //EXEC
 void	exec(t_mini *mini);

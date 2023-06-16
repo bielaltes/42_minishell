@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 12:12:56 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/16 13:48:48 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	expandible(char	*word, int i)
 	int	k;
 
 	k = 0;
+	if (!word[i+1])
+		return (0);
 	while (word[k] != '\0')
 	{
 		if (k == i)
@@ -54,7 +56,7 @@ int	expandible(char	*word, int i)
 			while (word[k] != '\0' && word[k] != '"')
 			{
 				if (k == i)
-					return (1);
+					return (2);
 				++k;
 			}
 		}
@@ -90,16 +92,19 @@ void	expand_token(t_mini *mini, t_token *tok)
 	while (word[i] != '\0')
 	{
 		//printf("expandible: %c %d\n", word[i], expandible(word, i));
-		if (word[i] == '$' && expandible(word, i) && word[i+1])
+		if (word[i] == '$' && expandible(word, i))
 		{
-			k = i;
-			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"')
+			k = ++i;
+			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"' && word[k] != '$' && !is_spacer(word[k]))
 				++k;
-			aux2 = search_env(mini->env, ft_substr(word, i + 1, k - i -1));
+			//printf("expand: %s\n", ft_substr(word, i, k - i ));
+			aux2 = search_env(mini->env, ft_substr(word, i, k - i ));
 			if (aux2)
 				aux = ft_strjoin(aux, aux2);
-			if (!ft_strcmp(ft_substr(word, i + 1, k - i -1), "?"))
+			if (!ft_strcmp(ft_substr(word, i, k - i), "?"))
 				aux = ft_strjoin(aux, ft_itoa(g_sig.ret));
+			else if (!aux2 && word[k] == '\'' && word[k-2] == '\'')
+				aux = ft_strjoin(aux, "$");
 			i = k;
 		}
 		else
@@ -149,6 +154,7 @@ void	leave_quotes(t_token *tok)
 	int		i;
 
 	i = 0;
+	//printf("pre: %s\n", tok->word);
 	word = tok->word;
 	i = next_quote(word, 0);
 	if (i == -1)
@@ -162,8 +168,13 @@ void	leave_quotes(t_token *tok)
 			++k;
 		aux = ft_strjoin(aux, ft_substr(word, i, k - i));
 		i = next_quote(word, ++k);
+		if (i != -1)
+			aux = ft_strjoin(aux, ft_substr(word, k, i-k));
 	}
+	if (word[k] != '\0')
+		aux = ft_strjoin(aux, &word[k]);
 	free(word);
+	//printf("noq: %s\n", aux);
 	tok->word = aux;
 }
 
