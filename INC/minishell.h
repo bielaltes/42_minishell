@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/15 17:01:24 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:23:20 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@
 
 # define SUCCESS 0
 # define FAILURE 1
+# define NO 0
+# define FIRST 1
+# define SECOND 2
+# define BOTH 3
 
 # define MINI "macroshell: "
 # define PIPEX "pipex: "
@@ -50,6 +54,9 @@
 # define INARG ": Invalid number of arguments"
 # define MALLOCER ": error trying to allocate memory"
 # define NEXECVE ": error on execve"
+# define ISDIR ": is a directory"
+# define EROPEN ": error opening file or directory"
+# define ERCREAT ": error opening or creating file"
 
 enum	e_type
 {
@@ -172,6 +179,9 @@ void	new_err(char *s1, char *s2, char *s3);
 void	signals_mini(void);
 void	signals_child(void);
 void	sig_ign(int n);
+
+//END
+void	end(int status, char *str1, char *str2, char *str3);
 
 extern t_signal	g_sig;
 #endif
