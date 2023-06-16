@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/07 14:30:52 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/16 12:12:56 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	expand_token(t_mini *mini, t_token *tok)
 	while (word[i] != '\0')
 	{
 		//printf("expandible: %c %d\n", word[i], expandible(word, i));
-		if (word[i] == '$' && expandible(word, i))
+		if (word[i] == '$' && expandible(word, i) && word[i+1])
 		{
 			k = i;
 			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"')

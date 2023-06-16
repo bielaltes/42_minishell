@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
+#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:10:25 by baltes-g          #+#    #+#              #
-#    Updated: 2023/05/11 05:48:04 by jsebasti         ###   ########.fr        #
+#    Updated: 2023/06/16 10:25:25 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ SRCS =	ft_bzero.c					\
 		ft_printstr_printf.c		\
 		ft_uitoa_printf.c			\
 		ft_printchar_printf.c		\
-		get_next_line_bonus.c	\
+		get_next_line_bonus.c		\
 		get_next_line_utils_bonus.c	
 
 
@@ -81,10 +81,11 @@ CFLAGS	=	-Wall -Wextra -Werror
 all:	$(NAME)
  
 %.o:%.c $(INC)
-	@echo "Compilant $@" 
+	@printf "        \rCompilant $@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):: $(OBJS) $(INC)
+	@echo
 	@echo "Creant $@"
 	@$(LIB) $(NAME) $(OBJS)
 

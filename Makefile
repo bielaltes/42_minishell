@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/15 15:00:52 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/16 11:58:45 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,13 @@ LIB_M 		= $(INC_DIR)/libft/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS =  -g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS =  -g -Wall -Wextra -Werror
 LIBC = ar -rcs
 # =============
 
 SRC_L	=	main/minishell.c 				\
 			main/signals.c					\
+			main/end.c						\
 			parser/lexer.c					\
 			parser/ft_split_tokens.c 		\
 			parser/ft_split_tokens_utils.c	\
