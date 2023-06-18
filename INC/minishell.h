@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 11:23:20 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/18 09:00:54 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+# include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
@@ -48,7 +49,7 @@
 # define CCLOSE ": Fd can not be closed"
 # define PERM ": Permission denied"
 # define BFD ": Bad file descriptor"
-# define EPIPE ": error creating pipe"
+// # define EPIPE ": error creating pipe"
 # define EFORK ": error creating fork"
 # define NFILEDIR ": No such file or directory"
 # define INARG ": Invalid number of arguments"
@@ -138,7 +139,8 @@ int			exec_pwd(t_env *env);
 int			exec_cd(t_mini *mini, char **args);
 int			exec_exit(t_mini *mini, char *num);
 int			exec_export(t_env *env, char **args);
-int			exec_unset(t_env *env, char *arg);
+int			exec_unset(t_env *env, char **arg);
+int			exec_echo(char **args);
 
 //PARSER
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 11:02:39 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/18 09:01:38 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static int	exec_built(int code, char **args, t_mini *mini)
 	if (code == 5)
 		return (exec_export(mini->env, args));
 	if (code == 6)
-		return (exec_unset(mini->env, args[1]));
+		return (exec_unset(mini->env, args));
+	if (code == 7)
+		return (exec_echo(args));
 	return (1);
 }
 
@@ -43,6 +45,8 @@ static int	is_built_in(char *cmd, int *code)
 		*code = 5;
 	else if (!ft_strcmp(cmd, "unset"))
 		*code = 6;
+	else if (!ft_strcmp(cmd, "echo"))
+		*code = 7;
 	return (*code);
 }
 
