@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/18 09:32:52 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/19 03:04:26 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ static void	write_echo(char **args, int *flag, int flag2)
 
 int	exec_echo(char **args)
 {
-	int	i;
 	int	flag;
 	int	flag2;
 
-	i = 1;
 	flag2 = 0;
 	flag = 0;
-	if (!args[1])
+	if (!args[0])
 	{
 		printf("\n");
 		return (0);

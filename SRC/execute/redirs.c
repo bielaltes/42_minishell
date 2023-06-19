@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 11:51:44 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/19 02:59:54 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static void	redir_append(char *file)
 static void	redir_here(char *file, int p[4])
 {
 	int		fd[2];
-	int		p_aux;
+	// int		p_aux;
 	char	*line;
 
-	p_aux = dup(0);
+	// p_aux = dup(0);
 	dup2(p[2], 0);
 	pipe(fd);
 	line = readline("heredoc>");
