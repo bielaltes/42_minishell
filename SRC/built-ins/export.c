@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/17 18:37:37 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/18 22:50:20 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ static int	check_args(char **tmp, char *args)
 int	exec_export(t_env *env, char **args)
 {
 	char	**tmp;
-	int		i;
 	int		j;
 
-	i = -1;
 	j = 1;
 	if (!args[1])
 		return (print_all_export(env));

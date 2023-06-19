@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/18 09:00:54 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:36:44 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,64 +126,65 @@ typedef struct s_mini
 }	t_mini;
 
 //ENV
-char		*search_env(t_env *env, const char *s);
-void		create_env(t_env *env, char **splited);
-void		mod_env(t_env *env, const char *s, char *m);
-void		init_env(t_mini *mini, char **env);
-char		*get_env_var(t_env *env, const char *s);
-char		**env_to_str(t_env *env);
+char			*search_env(t_env *env, const char *s);
+void			create_env(t_env *env, char **splited);
+void			mod_env(t_env *env, const char *s, char *m);
+void			init_env(t_mini *mini, char **env);
+char			*get_env_var(t_env *env, const char *s);
+char			**env_to_str(t_env *env);
 
 //BUILT-INS
-int			exec_env(t_env *env);
-int			exec_pwd(t_env *env);
-int			exec_cd(t_mini *mini, char **args);
-int			exec_exit(t_mini *mini, char *num);
-int			exec_export(t_env *env, char **args);
-int			exec_unset(t_env *env, char **arg);
-int			exec_echo(char **args);
+int				exec_env(t_env *env);
+int				exec_pwd(t_env *env);
+int				exec_cd(t_mini *mini, char **args);
+int				exec_exit(t_mini *mini, char **num);
+int				exec_export(t_env *env, char **args);
+int				exec_unset(t_env *env, char **arg);
+int				exec_echo(char **args);
 
 //PARSER
 
-void 		lexer(t_mini *mini);
-t_token*	ft_split_tokens(char *s);
-void		ft_check_escaped(char *str);
-int			ft_isquote(char *s, char quote);
-int			ft_isscaped(char *s);
-enum e_type	choose_type(char *word);
-void		assing_type(t_token *tokens);
-int			reserved(char *str);
-int			assing_input(t_token *tokens, int i);
-int			assing_output(t_token *tokens, int i);
-int			assing_output_append(t_token *tokens, int i);
-int			assing_heredoc(t_token *tokens, int i);
-int			assing_command(t_token *tokens, int i);
-void		syntax(t_mini *mini);
-void		get_args(t_mini *mini, int ini, int fi, int k);	
-void		expand(t_mini *mini);
+void 			lexer(t_mini *mini);
+t_token*		ft_split_tokens(char *s);
+void			ft_check_escaped(char *str);
+int				ft_isquote(char *s, char quote);
+int				ft_isscaped(char *s);
+enum e_type		choose_type(char *word);
+void			assing_type(t_token *tokens);
+int				reserved(char *str);
+int				assing_input(t_token *tokens, int i);
+int				assing_output(t_token *tokens, int i);
+int				assing_output_append(t_token *tokens, int i);
+int				assing_heredoc(t_token *tokens, int i);
+int				assing_command(t_token *tokens, int i);
+void			syntax(t_mini *mini);
+void			get_args(t_mini *mini, int ini, int fi, int k);	
+void			expand(t_mini *mini);
 
 //EXEC
-void	exec(t_mini *mini);
-char	*get_path(char **envp, char *exe);
-void	redir_pipes(t_mini *mini, int *p, int i);
-void	redir_files(t_mini *mini, int i, int p[4]);
+void			exec(t_mini *mini);
+char			*get_path(char **envp, char *exe);
+void			redir_pipes(t_mini *mini, int *p, int i);
+void			redir_files(t_mini *mini, int i, int p[4]);
 
 //UTILS
 
-int		ft_strcmp(const char *s1, const char *s2);
-int		count_env(t_env *env);
-void	set_exec(t_env *env, char *value);
-int		count_args(char **args);
-int		exist_env(t_env *env, const char *s);
-void	new_err(char *s1, char *s2, char *s3);
+int				ft_strcmp(const char *s1, const char *s2);
+int				count_env(t_env *env);
+void			set_exec(t_env *env, char *value);
+int				count_args(char **args);
+int				exist_env(t_env *env, const char *s);
+void			new_err(char *s1, char *s2, char *s3);
+long long		ft_atoll(char *str);
 
 //SIGNALS
 
-void	signals_mini(void);
-void	signals_child(void);
-void	sig_ign(int n);
+void			signals_mini(void);
+void			signals_child(void);
+void			sig_ign(int n);
 
 //END
-void	end(int status, char *str1, char *str2, char *str3);
+void			end(int status, char *str1, char *str2, char *str3);
 
 extern t_signal	g_sig;
 #endif
