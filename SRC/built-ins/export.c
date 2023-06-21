@@ -55,10 +55,8 @@ int	check_args(char **tmp, char *args)
 int	exec_export(t_env *env, char **args)
 {
 	char	**tmp;
-	int		i;
 	int		j;
 
-	i = -1;
 	j = 1;
 	if (!args[1])
 		return (print_all_export(env));

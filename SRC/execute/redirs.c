@@ -45,10 +45,8 @@ static void	redir_append(char *file)
 static void	redir_here(char *file, int p[4])
 {
 	int		fd[2];
-	int		p_aux;
 	char	*line;
 
-	p_aux = dup(0);
 	dup2(p[2], 0);
 	pipe(fd);
 	line = readline("heredoc>");
