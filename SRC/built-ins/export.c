@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 13:08:15 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:03:33 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	print_all_export(t_env *env)
 	return (0);
 }
 
-int	check_args(char **tmp, char *args)
+static int	check_args(char **tmp, char *args)
 {
 	int	i;
 
@@ -65,9 +65,9 @@ int	exec_export(t_env *env, char **args)
 		tmp = ft_split(args[j], '=');
 		if (!check_args(tmp, args[j]))
 		{
-			if (search_env(env, tmp[0]) && tmp[1])
+			if (search_env(env, tmp[0]))
 				mod_env(env, tmp[0], tmp[1]);
-			else if (tmp[1])
+			else
 				create_env(env, tmp);
 		}
 		free(tmp);

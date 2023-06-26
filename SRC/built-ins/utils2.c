@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 00:09:50 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/09 12:03:59 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:36:35 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,25 @@ void	new_err(char *s1, char *s2, char *s3)
 	ft_putstr_fd(s1, STDERR);
 	ft_putstr_fd(s2, STDERR);
 	ft_putstr_fd(s3, STDERR);
+}
+
+long long	ft_atoll(char *str)
+{
+	long long	neg;
+	long long	sum;
+
+	neg = 1;
+	sum = 0;
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
+		++str;
+	if (*str == '-')
+		neg = -1;
+	if (*str == '+' || *str == '-')
+		++str;
+	while (*str >= '0' && *str <= '9')
+	{
+		sum = sum * 10 + *str - 48;
+		++str;
+	}
+	return (sum * neg);
 }

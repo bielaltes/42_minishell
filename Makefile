@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/16 11:58:45 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/19 02:59:21 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,16 +63,16 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 DEP = $(addsuffix .d, $(basename $(OBJ)))
 # =============
 
-$(OBJ_DIR)%.o: %.c $(MKFL)
-	@$(MP) $(dir $@)
-	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -I/Users/$(USER)/.brew/opt/readline/include -c $< -o $@
-
 all:
 	@$(MAKE) -C $(LIB_M) --no-print-directory
 	@$(MAKE) $(NAME) --no-print-directory
 
+$(OBJ_DIR)%.o: %.c $(MKFL)
+	@$(MP) $(dir $@)
+	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -I$(HOME)/.brew/opt/readline/include -c $< -o $@
+
 $(NAME):: $(OBJ) $(LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -L$(HOME)/.brew/opt/readline/lib -o $(NAME)
 
 $(NAME)::
 	@echo "Hello, Minishell already compiled 😇"

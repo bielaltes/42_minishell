@@ -6,15 +6,16 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:43:40 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 13:07:36 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:04:49 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_unset(t_env *env, char *s)
+int	exec_unset(t_env *env, char **s)
 {
 	t_node_env	*aux;
+	int			i;
 
 	set_exec(env, ft_strdup("built-ins/unset", NO));
 	if (env->size == 0)

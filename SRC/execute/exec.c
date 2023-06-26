@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 12:16:15 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:04:59 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ static int	exec_built(int code, char **args, t_mini *mini)
 	if (code == 3)
 		return (exec_pwd(mini->env));
 	if (code == 4)
-		return (exec_exit(mini, args[1]));
+		return (exec_exit(mini, args));
 	if (code == 5)
 		return (exec_export(mini->env, args));
 	if (code == 6)
-		return (exec_unset(mini->env, args[1]));
+		return (exec_unset(mini->env, args));
+	if (code == 7)
+		return (exec_echo(args));
 	return (1);
 }
 
@@ -43,6 +45,8 @@ static int	is_built_in(char *cmd, int *code)
 		*code = 5;
 	else if (!ft_strcmp(cmd, "unset"))
 		*code = 6;
+	else if (!ft_strcmp(cmd, "echo"))
+		*code = 7;
 	return (*code);
 }
 
@@ -56,6 +60,7 @@ static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
 static void	exec_exec(t_mini *mini, int i, int p[4])
 {
 	int		code;
+	char	*aux;
 	char	**new_env;
 
 	code = 0;
@@ -79,9 +84,11 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 			signals_child();
 			redir_files(mini, i, p);
 			if (mini->tok_lex[i].word && \
-			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
-				exec_exit(mini, ft_itoa(exec_built(code, mini->cmds[i].args, \
-						mini)));
+					is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
+			{
+				aux = ft_itoa(exec_built(code, mini->cmds[i].args, mini));
+				exec_exit(mini, &aux);
+			}
 			else
 			{
 				if (mini->n_cmds != 1)

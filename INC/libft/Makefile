@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:10:25 by baltes-g          #+#    #+#              #
-#    Updated: 2023/06/16 10:25:25 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/19 02:51:31 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ $(NAME):: $(OBJS) $(INC)
 	@$(LIB) $(NAME) $(OBJS)
 
 $(NAME)::
-	@echo "Biel's Libft it's Up To Date. 🫡"
+	@echo "Biel's Libft it's Up To Date. 😵‍💫"
 
 clean:
 		${RM} ${OBJS}

@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 14:28:49 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:02:10 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	option1(t_env *env)
 
 static int	option0(t_env *env)
 {
-	if (!search_env(env, "HOME"))
+	if (exist_env(env, "HOME"))
 	{
 		new_err("minishell: cd:", "HOME", "not set.\n");
 		return (1);
@@ -77,7 +77,12 @@ static int	change_path(t_mini *mini, int option, char *args)
 	if (option == 2)
 	{
 		dir = getcwd(dir, PATH_MAX);
-		if (!search_env(mini->env, "OLDPWD"))
+		if (!dir)
+		{
+			perror(strerror(errno));
+			return (1);
+		}
+		if (exist_env(mini->env, "OLDPWD"))
 		{
 			create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir, SECOND), '='));
 		}
@@ -98,8 +103,12 @@ int	exec_cd(t_mini *mini, char **args)
 	set_exec(mini->env, ft_strdup("built-ins/cd", NO));
 	if (!args[1])
 		return (change_path(mini, 0, args[1]));
+	if (ft_strlen(args[1]) > PATH_MAX)
+		return (1);
 	if (!ft_strcmp(args[1], "-"))
 		return (change_path(mini, 1, args[1]));
+	if (!ft_strcmp(args[1], ""))
+		update_oldpwd(mini->env, "OLDPWD");
 	else
 		return (change_path(mini, 2, args[1]));
 	return (0);

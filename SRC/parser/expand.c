@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 12:58:20 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:05:37 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	expand_token(t_mini *mini, t_token *tok)
 	tok->word = aux;
 }
 
-int next_quote(char *word, int i)
+int	next_quote(char *word, int i)
 {
 	int	a;
 	int	b;
