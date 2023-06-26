@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 15:05:37 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:18:53 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,11 @@ void	expand_token(t_mini *mini, t_token *tok)
 				++k;
 			aux2 = search_env(mini->env, ft_substr(word, i, k - i, NO));
 			if (aux2)
-				aux = ft_strjoin(aux, aux2, FIRST);
+				aux = ft_strjoin(aux, aux2, NO);
 			if (!ft_strcmp(ft_substr(word, i, k - i, NO), "?"))
-				aux = ft_strjoin(aux, ft_itoa(g_sig.ret), BOTH);
+				aux = ft_strjoin(aux, ft_itoa(g_sig.ret), NO);
 			else if (!aux2 && word[k] == '\'' && word[k -2] == '\'')
-				aux = ft_strjoin(aux, "$", FIRST);
+				aux = ft_strjoin(aux, "$", NO);
 			i = k;
 			free(aux2);
 		}
@@ -115,7 +115,7 @@ void	expand_token(t_mini *mini, t_token *tok)
 				while (word[k] != '\0')
 					++k;
 			}
-			aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), BOTH);
+			aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), NO);
 			i = k;
 		}
 	}

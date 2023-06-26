@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 15:01:58 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:31:47 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define ISDIR ": is a directory"
 # define EROPEN ": error opening file or directory"
 # define ERCREAT ": error opening or creating file"
+# define MISUSE ": this not supported yet"
 
 enum	e_type
 {
@@ -156,10 +157,11 @@ int			assing_output(t_token *tokens, int i);
 int			assing_output_append(t_token *tokens, int i);
 int			assing_heredoc(t_token *tokens, int i);
 int			assing_command(t_token *tokens, int i);
-void		syntax(t_mini *mini);
+int			syntax(t_mini *mini);
 void		get_args(t_mini *mini, int ini, int fi, int k);	
 void		expand(t_mini *mini);
 int			is_spacer(char c);
+int 		misuse(char *cmd);
 
 //EXEC
 void		exec(t_mini *mini);
@@ -175,6 +177,7 @@ void		set_exec(t_env *env, char *value);
 int			count_args(char **args);
 int			exist_env(t_env *env, const char *s);
 void		new_err(char *s1, char *s2, char *s3);
+long long	ft_atoll(char *str);
 
 //SIGNALS
 

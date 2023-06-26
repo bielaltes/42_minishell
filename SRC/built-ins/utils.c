@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 13:13:40 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 15:32:00 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ char	*search_env(t_env *env, const char *s)
 		aux = (aux->next);
 	if (ft_strcmp(aux->data, s))
 		return (NULL);
-	return (aux->value);
+	if (aux->value)
+		return (ft_strdup(aux->value, NO));
+	return (NULL);
 }
 
 void	mod_env(t_env *env, const char *s, char *m)

@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 15:02:49 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:22:10 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_arg(char *num)
 	int	i;
 
 	i = 0;
-	if (num[i] == '-' || num[i] == '+')
+	if (num[i] == '-' || num[i] == '+' || num[i] == ' ')
 		i++;
 	if (num[i] == '\0' || !ft_isdigit(num[i]))
 	{
@@ -28,6 +28,19 @@ static int	check_arg(char *num)
 	{
 		if (ft_isdigit(num[i]))
 			i++;
+		else if (num[i] == ' ')
+		{
+			while (num[i] != '\0')
+			{
+				if (num[i] == ' ')
+					++i;
+				else
+				{
+					new_err("macroshell: exit: ", num, ": numeric argument required\n");
+					exit(255);
+				}
+			}
+		}
 		else
 		{
 			new_err("macroshell: exit: ", num, ": numeric argument required\n");
@@ -54,9 +67,9 @@ int	exec_exit(t_mini *mini, char **num)
 		new_err("macroshell: exit: ", num[1], ": numeric argument required");
 		exit(255);
 	}
+	g_sig.exit = ext;
 	if (num[2])
 		new_err("exit: ", "too many arguments\n", "");
-	g_sig.exit = ext;
 	set_exec(mini->env, "built-ins/exit");
 	exit(g_sig.exit);
 }

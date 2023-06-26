@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 10:26:40 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 13:16:24 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:49:07 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	free_split(char **argv)
 	i = 0;
 	while (argv[i])
 		free(argv[i++]);
-	//free(argv);
 }
 
 void	free_cmd(t_mini *mini)
@@ -75,7 +74,7 @@ void	free_cmd(t_mini *mini)
 		free(tok[i++].word);
 	free(tok);
 	i = 0;
-	while (i < mini->n_cmds)
+	while (i < mini->n_cmds && cmds[i].args)
 	{
 		free_split(cmds[i].args);
 		free(cmds[i].args);

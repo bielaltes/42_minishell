@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 14:42:13 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:31:10 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ int	main(int argc, char **argv, char **env)
 		if (ft_strlen(mini.cmdline))
 		{
 			add_history(mini.cmdline);
-			lexer(&mini);
-			expand(&mini);
-			syntax(&mini);
-			exec(&mini);
-			free_cmd(&mini);
+			if (!misuse(mini.cmdline))
+			{
+				lexer(&mini);
+				expand(&mini);
+				if (syntax(&mini))
+					exec(&mini);
+				free_cmd(&mini);
+			}
 		}
 		free(mini.cmdline);
 	}

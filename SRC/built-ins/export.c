@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 15:03:33 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:00:50 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	print_all_export(t_env *env)
 		if (ft_strcmp(aux->data, "_"))
 		{
 			if (aux->value)
-				printf("declare -x %s=\"%s\"\n", aux->data, aux->value);
+				ft_printf("declare -x %s=\"%s\"\n", aux->data, aux->value);
 			else
-				printf("declare -x %s\n", aux->data);
+				ft_printf("declare -x %s\n", aux->data);
 		}
 		aux = aux->next;
 	}

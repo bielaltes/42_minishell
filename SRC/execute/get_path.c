@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 15:05:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:00:15 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ char	*get_path(char **envp, char *exe)
 		if (access(path, X_OK) == 0)
 			return (path);
 		else if (access(path, F_OK) == 0)
+		{
+			//ft_printf("path:%s\n", path);
 			end(126, MINI, exe, PERM);
+		}
 		if (ft_strchr(exe, '/') != exe)
 			free(path);
 		paths++;

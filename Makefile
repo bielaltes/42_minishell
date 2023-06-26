@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
+#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/19 02:59:21 by jsebasti         ###   ########.fr        #
+#    Updated: 2023/06/26 16:16:15 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC_L	=	main/minishell.c 				\
 			parser/syntax.c					\
 			parser/get_syntax.c				\
 			parser/expand.c					\
+			parser/misuse.c					\
 			execute/exec.c					\
 			execute/get_path.c				\
 			execute/redirs.c 				\
