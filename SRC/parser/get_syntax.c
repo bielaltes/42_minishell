@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 16:22:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/03 18:25:43 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:48:28 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_args(t_mini *mini, int ini, int fi, int k)
 	{
 		if (mini->tok_lex[ini].type == CMD || mini->tok_lex[ini].type == ARG)
 		{
-			mini->cmds[k].args[i] = ft_strdup(mini->tok_lex[ini].word);
+			mini->cmds[k].args[i] = ft_strdup(mini->tok_lex[ini].word, NO);
 			++i;
 		}
 		++ini;

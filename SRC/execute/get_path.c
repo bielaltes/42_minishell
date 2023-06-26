@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 11:33:17 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:00:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ char	**get_paths(char **envp, char *exe)
 	if (!envp || !(*envp))
 	{
 		paths = malloc(sizeof(char *) * 2);
-		paths[0] = ft_strdup(".");
+		paths[0] = ft_strdup(".", NO);
 		paths[1] = NULL;
 	}
 	else
 	{
 		if (ft_strchr(exe, '/'))
 		{
-			*envp = ft_strjoin(*envp, ":.");
+			*envp = ft_strjoin(*envp, ":.", FIRST);
 			if (!envp)
 				end(2, MINI, "malloc", MALLOCER);
 		}
@@ -52,10 +52,10 @@ char	*get_path(char **envp, char *exe)
 	paths = get_paths(envp, exe);
 	while (paths && *paths)
 	{
-		tmp = ft_strjoin(*paths, "/");
+		tmp = ft_strjoin(*paths, "/", NO);
 		if (!tmp)
 			end(2, MINI, "malloc", MALLOCER);
-		path = ft_strjoin(tmp, exe);
+		path = ft_strjoin(tmp, exe, NO);
 		if (!path)
 			end(2, MINI, "malloc", MALLOCER);
 		if (ft_strchr(exe, '/') == exe)

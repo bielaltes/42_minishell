@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 11:02:39 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:16:15 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	while (i < mini->n_cmds)
 	{
 		code = 0;
-		new_env = env_to_str(mini->env);
 		redir_pipes(mini, p, i);
 		mini->pids[i] = fork();
 		if (mini->pids[i] == 0)
 		{
+			new_env = env_to_str(mini->env);
 			signals_child();
 			redir_files(mini, i, p);
 			if (mini->tok_lex[i].word && \
@@ -84,7 +84,7 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 						mini)));
 			else
 			{
-				if (i != 0)
+				if (mini->n_cmds != 1)
 					close(p[0]);
 				execve(get_path(new_env, mini->cmds[i].args[0]), \
 				mini->cmds[i].args, new_env);
@@ -116,4 +116,5 @@ void	exec(t_mini *mini)
 			g_sig.ret = WEXITSTATUS(status);
 		++i;
 	}
+	free(mini->pids);
 }

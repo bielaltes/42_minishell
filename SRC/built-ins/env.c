@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/06 10:32:05 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:07:52 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exec_env(t_env *env)
 {
 	t_node_env	*aux;
 
-	set_exec(env, "built-ins/env");
+	set_exec(env, ft_strdup("built-ins/env", NO));
 	aux = env->first;
 	while (aux)
 	{

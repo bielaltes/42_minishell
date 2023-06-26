@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:21:53 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/09/22 19:12:58 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:41:32 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	count_max(char const *s, unsigned int start, size_t len)
 	return (n);
 }	
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len, int rm)
 {
 	char	*new;
 	size_t	truelen;
@@ -54,5 +54,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		++i;
 	}
 	new[truelen] = '\0';
+	if (rm == FIRST)
+		free(s);
 	return (new);
 }

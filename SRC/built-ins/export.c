@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/15 17:28:12 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:08:15 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ int	exec_export(t_env *env, char **args)
 		free(tmp);
 		j++;
 	}
-	set_exec(env, "built-ins/export");
+	set_exec(env, ft_strdup("built-ins/export", NO));
 	return (g_sig.ret);
 }

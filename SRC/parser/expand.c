@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 13:48:48 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:58:20 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,23 @@ void	expand_token(t_mini *mini, t_token *tok)
 	if (next_char(word, 0, '$') == -1)
 		return ;
 	i = next_char(word, 0, '$');
-	aux = ft_substr(word, 0, i);
+	aux = ft_substr(word, 0, i, NO);
 	while (word[i] != '\0')
 	{
-		//printf("expandible: %c %d\n", word[i], expandible(word, i));
 		if (word[i] == '$' && expandible(word, i))
 		{
 			k = ++i;
 			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"' && word[k] != '$' && !is_spacer(word[k]))
 				++k;
-			//printf("expand: %s\n", ft_substr(word, i, k - i ));
-			aux2 = search_env(mini->env, ft_substr(word, i, k - i ));
+			aux2 = search_env(mini->env, ft_substr(word, i, k - i, NO));
 			if (aux2)
-				aux = ft_strjoin(aux, aux2);
-			if (!ft_strcmp(ft_substr(word, i, k - i), "?"))
-				aux = ft_strjoin(aux, ft_itoa(g_sig.ret));
-			else if (!aux2 && word[k] == '\'' && word[k-2] == '\'')
-				aux = ft_strjoin(aux, "$");
+				aux = ft_strjoin(aux, aux2, FIRST);
+			if (!ft_strcmp(ft_substr(word, i, k - i, NO), "?"))
+				aux = ft_strjoin(aux, ft_itoa(g_sig.ret), BOTH);
+			else if (!aux2 && word[k] == '\'' && word[k -2] == '\'')
+				aux = ft_strjoin(aux, "$", FIRST);
 			i = k;
+			free(aux2);
 		}
 		else
 		{
@@ -116,7 +115,7 @@ void	expand_token(t_mini *mini, t_token *tok)
 				while (word[k] != '\0')
 					++k;
 			}
-			aux = ft_strjoin(aux, ft_substr(word, i, k - i));
+			aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), BOTH);
 			i = k;
 		}
 	}
@@ -154,27 +153,25 @@ void	leave_quotes(t_token *tok)
 	int		i;
 
 	i = 0;
-	//printf("pre: %s\n", tok->word);
 	word = tok->word;
 	i = next_quote(word, 0);
 	if (i == -1)
 		return ;
-	aux = ft_substr(word, 0, i);
+	aux = ft_substr(word, 0, i, NO);
 	while (i != -1 && word[i] != '\0')
 	{
 		lim = word[i++];
 		k = i;
 		while (word[k] != lim)
 			++k;
-		aux = ft_strjoin(aux, ft_substr(word, i, k - i));
+		aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), BOTH);
 		i = next_quote(word, ++k);
 		if (i != -1)
-			aux = ft_strjoin(aux, ft_substr(word, k, i-k));
+			aux = ft_strjoin(aux, ft_substr(word, k, i -k, NO), BOTH);
 	}
 	if (word[k] != '\0')
-		aux = ft_strjoin(aux, &word[k]);
+		aux = ft_strjoin(aux, &word[k], FIRST);
 	free(word);
-	//printf("noq: %s\n", aux);
 	tok->word = aux;
 }
 

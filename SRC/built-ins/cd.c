@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/08 10:54:06 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 14:28:49 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ static void	update_oldpwd(t_env *env, char *s)
 	char		*aux2;
 
 	tmp = NULL;
-	aux = ft_strjoin(s, "=");
+	aux = ft_strjoin(s, "=", NO);
 	if (!aux)
 		return ;
 	tmp = getcwd(tmp, PATH_MAX);
-	aux2 = ft_strjoin(aux, tmp);
+	aux2 = ft_strjoin(aux, tmp, FIRST);
 	if (!exist_env(env, s))
 		mod_env(env, s, tmp);
 	else
 		create_env(env, ft_split(aux2, '='));
+	free(aux2);
 }
 
 static int	option1(t_env *env)
@@ -78,8 +79,7 @@ static int	change_path(t_mini *mini, int option, char *args)
 		dir = getcwd(dir, PATH_MAX);
 		if (!search_env(mini->env, "OLDPWD"))
 		{
-			create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir), '='));
-			free(dir);
+			create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir, SECOND), '='));
 		}
 		if (chdir(args) == -1)
 		{
@@ -95,7 +95,7 @@ static int	change_path(t_mini *mini, int option, char *args)
 
 int	exec_cd(t_mini *mini, char **args)
 {
-	set_exec(mini->env, "built-ins/cd");
+	set_exec(mini->env, ft_strdup("built-ins/cd", NO));
 	if (!args[1])
 		return (change_path(mini, 0, args[1]));
 	if (!ft_strcmp(args[1], "-"))

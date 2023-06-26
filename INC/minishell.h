@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/16 13:02:37 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 14:47:53 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_signal
 
 typedef struct s_token
 {
-	char*			word;
+	char			*word;
 	int				expand;
 	enum e_type		type;
 	struct s_token	*next;
@@ -116,7 +116,6 @@ typedef struct s_simple_cmd
 typedef struct s_mini
 {
 	t_env			*env;
-	t_token			*tok;
 	t_token			*tok_lex;
 	char			*cmdline;
 	t_simple_cmd	*cmds;
@@ -142,8 +141,8 @@ int			exec_unset(t_env *env, char *arg);
 
 //PARSER
 
-void 		lexer(t_mini *mini);
-t_token*	ft_split_tokens(char *s);
+void		lexer(t_mini *mini);
+t_token		*ft_split_tokens(char *s);
 void		ft_check_escaped(char *str);
 int			ft_isquote(char *s, char quote);
 int			ft_isscaped(char *s);
@@ -161,28 +160,30 @@ void		expand(t_mini *mini);
 int			is_spacer(char c);
 
 //EXEC
-void	exec(t_mini *mini);
-char	*get_path(char **envp, char *exe);
-void	redir_pipes(t_mini *mini, int *p, int i);
-void	redir_files(t_mini *mini, int i, int p[4]);
+void		exec(t_mini *mini);
+char		*get_path(char **envp, char *exe);
+void		redir_pipes(t_mini *mini, int *p, int i);
+void		redir_files(t_mini *mini, int i, int p[4]);
 
 //UTILS
 
-int		ft_strcmp(const char *s1, const char *s2);
-int		count_env(t_env *env);
-void	set_exec(t_env *env, char *value);
-int		count_args(char **args);
-int		exist_env(t_env *env, const char *s);
-void	new_err(char *s1, char *s2, char *s3);
+int			ft_strcmp(const char *s1, const char *s2);
+int			count_env(t_env *env);
+void		set_exec(t_env *env, char *value);
+int			count_args(char **args);
+int			exist_env(t_env *env, const char *s);
+void		new_err(char *s1, char *s2, char *s3);
 
 //SIGNALS
 
-void	signals_mini(void);
-void	signals_child(void);
-void	sig_ign(int n);
+void		signals_mini(void);
+void		signals_child(void);
+void		sig_ign(int n);
 
 //END
-void	end(int status, char *str1, char *str2, char *str3);
+void		end(int status, char *str1, char *str2, char *str3);
+void		free_env(t_env *env);
+void		free_cmd(t_mini *mini);
 
 extern t_signal	g_sig;
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/09/26 18:10:41 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:45:13 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	**malloc_error(char **new, int j)
 	return (NULL);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	int		i;
 	int		j;
@@ -72,7 +72,7 @@ char	**ft_split(char const *s, char c)
 	{
 		while (s[i] == c)
 			i++;
-		new[j] = ft_substr(s, i, word_len(s, c, i));
+		new[j] = ft_substr(s, i, word_len(s, c, i), NO);
 		if (!new[j])
 			return (malloc_error(new, j));
 		i += word_len(s, c, i);

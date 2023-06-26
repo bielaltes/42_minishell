@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:57:12 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/09/21 16:10:57 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:38:47 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1, int rm)
 {
 	char	*new;
 	int		i;
@@ -27,5 +27,7 @@ char	*ft_strdup(const char *s1)
 		++i;
 	}
 	new[i] = '\0';
+	if (rm == FIRST)
+		free(s1);
 	return (new);
 }

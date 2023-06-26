@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:45:12 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/05/20 03:54:35 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/26 14:50:01 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
 # endif
+
+# define NO 0
+# define FIRST 1
+# define SECOND 2
+# define BOTH 3
 
 typedef struct s_list
 {
@@ -62,10 +67,10 @@ char			*ft_strnstr(const char *haystack,
 int				ft_atoi(const char *str);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			*ft_calloc(size_t count, size_t size);
-char			*ft_strdup(const char *s1);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
-char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strtrim(char const *s1, char const *set);
+char			*ft_strdup(char *s1, int rm);
+char			*ft_substr(char *s, unsigned int start, size_t len, int rm);
+char			*ft_strjoin(char *s1, char *s2, int rm);
+char			*ft_strtrim(char *s1, char *set);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -74,7 +79,7 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putnbr_fd(int n, int fd);
-char			**ft_split(char const *s, char c);
+char			**ft_split(char *s, char c);
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
@@ -96,12 +101,14 @@ char			*ft_strchr_gnl(char *s, int c);
 char			*ft_strjoin_gnl(char *s1, char *s2);
 char			*ft_strrchr_gnl(const char *s, int c);
 size_t			ft_strlen_gnl(const char *str);
-int				ft_htoa_printf(t_flags flags, unsigned int c, int *error, int maj);
+int				ft_htoa_printf(t_flags flags, unsigned int c,
+					int *error, int maj);
 int				ft_itoa_printf(t_flags flags, int c, int *error);
 int				ft_printchar_printf(t_flags flags, int c, int *error);
 int				ft_printf(char const *str, ...);
 int				ft_printstr_printf(t_flags flags, char *str, int *error);
-int				ft_ptoa_printf(t_flags flags, unsigned long long int c, int *error);
+int				ft_ptoa_printf(t_flags flags,
+					unsigned long long int c, int *error);
 int				ft_uitoa_printf(t_flags flags, unsigned int c, int *error);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:29:16 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/12/14 16:11:39 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:46:10 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*read_from_file(int fd, char *accumulative)
 		}
 		buffer[aux] = '\0';
 		if (aux != 0)
-			accumulative = ft_strjoin(accumulative, buffer);
+			accumulative = ft_strjoin(accumulative, buffer, NO);
 		if (!accumulative)
 			aux = 0;
 	}
@@ -85,7 +85,7 @@ char	*read_from_acc(char *s1)
 	new[i] = '\0';
 	if (*s1 == '\n')
 	{
-		new = ft_strjoin(new, "\n");
+		new = ft_strjoin(new, "\n", NO);
 		if (!new)
 			return (NULL);
 		new[i + 1] = '\0';

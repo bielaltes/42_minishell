@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:50:23 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/09/26 17:49:36 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:43:01 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	count_end(const char *s1, const char *set)
 	return (len - i);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	int		start;
 	int		end;
@@ -59,11 +59,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (s1 == NULL)
 		return (NULL);
 	if (set == NULL)
-		return (ft_strdup(s1));
+		return (ft_strdup(s1, NO));
 	start = count_start(s1, set);
 	end = count_end(s1, set);
 	if (start >= end)
-		return (ft_strdup(""));
+		return (ft_strdup("", NO));
 	new = malloc(sizeof(char) * (end - start + 1));
 	if (new == NULL)
 		return (NULL);

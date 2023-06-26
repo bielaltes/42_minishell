@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bielaltes <bielaltes@student.42.fr>        +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:43:40 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/04 21:00:45 by bielaltes        ###   ########.fr       */
+/*   Updated: 2023/06/26 13:07:36 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exec_unset(t_env *env, char *s)
 {
 	t_node_env	*aux;
 
+	set_exec(env, ft_strdup("built-ins/unset", NO));
 	if (env->size == 0)
 		return (1);
 	env->size -= 1;
@@ -30,6 +31,10 @@ int	exec_unset(t_env *env, char *s)
 		aux->next->prev = aux->prev;
 	if (env->last == aux)
 		env->last = aux->prev;
+	if (env->first == aux)
+		env->first = aux->next;
+	free(aux->data);
+	free(aux->value);
 	free(aux);
 	return (0);
 }

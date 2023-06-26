@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/07 10:15:45 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:13:40 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	set_exec(t_env *env, char *value)
 {
+	char	*aux;
+
+	aux = ft_strjoin("_=", value, NO);
 	if (search_env(env, "_"))
 		mod_env(env, "_", value);
 	else
-		create_env(env, ft_split(ft_strjoin("_=", value), '='));
+		create_env(env, ft_split(aux, '='));
+	free(aux);
 }
 
 char	**env_to_str(t_env *env)
@@ -35,11 +39,11 @@ char	**env_to_str(t_env *env)
 	{
 		if (aux->value)
 		{
-			new[i] = ft_strjoin(aux->data, "=");
-			new[i] = ft_strjoin(new[i], aux->value);
+			new[i] = ft_strjoin(aux->data, "=", NO);
+			new[i] = ft_strjoin(new[i], aux->value, NO);
 		}
 		else
-			new[i] = ft_strdup(aux->data);
+			new[i] = ft_strdup(aux->data, NO);
 		aux = aux->next;
 		i++;
 	}
@@ -68,6 +72,7 @@ void	mod_env(t_env *env, const char *s, char *m)
 		aux = (aux->next);
 	if (!aux || ft_strcmp(aux->data, s))
 		return ;
+	free(aux->value);
 	aux->value = m;
 }
 
