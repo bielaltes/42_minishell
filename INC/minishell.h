@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 17:31:47 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:32:09 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,21 +126,21 @@ typedef struct s_mini
 }	t_mini;
 
 //ENV
-char			*search_env(t_env *env, const char *s);
-void			create_env(t_env *env, char **splited);
-void			mod_env(t_env *env, const char *s, char *m);
-void			init_env(t_mini *mini, char **env);
-char			*get_env_var(t_env *env, const char *s);
-char			**env_to_str(t_env *env);
+char		*search_env(t_env *env, const char *s);
+void		create_env(t_env *env, char **splited);
+void		mod_env(t_env *env, const char *s, char *m);
+void		init_env(t_mini *mini, char **env);
+char		*get_env_var(t_env *env, const char *s);
+char		**env_to_str(t_env *env);
 
 //BUILT-INS
-int				exec_env(t_env *env);
-int				exec_pwd(t_env *env);
-int				exec_cd(t_mini *mini, char **args);
-int				exec_exit(t_mini *mini, char **num);
-int				exec_export(t_env *env, char **args);
-int				exec_unset(t_env *env, char **arg);
-int				exec_echo(char **args);
+int			exec_env(t_env *env);
+int			exec_pwd(t_env *env);
+int			exec_cd(t_mini *mini, char **args);
+int			exec_exit(t_mini *mini, char **num);
+int			exec_export(t_env *env, char **args);
+int			exec_unset(t_env *env, char **arg);
+int			exec_echo(char **args);
 
 //PARSER
 
@@ -161,7 +161,7 @@ int			syntax(t_mini *mini);
 void		get_args(t_mini *mini, int ini, int fi, int k);	
 void		expand(t_mini *mini);
 int			is_spacer(char c);
-int 		misuse(char *cmd);
+int			misuse(char *cmd);
 
 //EXEC
 void		exec(t_mini *mini);

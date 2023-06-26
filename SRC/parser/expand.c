@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 15:18:53 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:35:52 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	expandible(char	*word, int i)
 	int	k;
 
 	k = 0;
-	if (!word[i+1])
+	if (!word[i +1])
 		return (0);
 	while (word[k] != '\0')
 	{
@@ -167,7 +167,7 @@ void	leave_quotes(t_token *tok)
 		aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), BOTH);
 		i = next_quote(word, ++k);
 		if (i != -1)
-			aux = ft_strjoin(aux, ft_substr(word, k, i -k, NO), BOTH);
+			aux = ft_strjoin(aux, ft_substr(word, k, i - k, NO), BOTH);
 	}
 	if (word[k] != '\0')
 		aux = ft_strjoin(aux, &word[k], FIRST);

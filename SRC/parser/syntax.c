@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:08:12 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 18:39:30 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:35:07 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	syn_correct(t_mini *mini)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (i < mini->n_cmds)
 	{
@@ -45,14 +45,14 @@ static int	syn_correct(t_mini *mini)
 		j = mini->cmds[i].token_ini;
 		while (j != mini->cmds[i].token_fi)
 		{
-			if (mini->tok_lex[j].type == REDIR_INP ||
-				mini->tok_lex[j].type == REDIR_OUT ||
-				mini->tok_lex[j].type == REDIR_APPEND||
-				mini->tok_lex[j].type == REDIR_HERE)
+			if (mini->tok_lex[j].type == REDIR_INP
+				|| mini->tok_lex[j].type == REDIR_OUT
+				|| mini->tok_lex[j].type == REDIR_APPEND
+				|| mini->tok_lex[j].type == REDIR_HERE)
 			{
-				if (mini->tok_lex[j + 1].word == NULL ||
-					(mini->tok_lex[j + 1].type != FT_FILE &&
-						mini->tok_lex[j + 1].type != HERE_DOC))
+				if (mini->tok_lex[j + 1].word == NULL
+					|| (mini->tok_lex[j + 1].type != FT_FILE
+						&& mini->tok_lex[j + 1].type != HERE_DOC))
 				{
 					g_sig.ret = 2;
 					write(2, "Minishell: syntax error near unexpected token \n", 47);
