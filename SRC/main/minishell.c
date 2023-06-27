@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 17:31:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:49:49 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		signals_mini();
 		sig_ign(SIGQUIT);
-		mini.cmdline = readline("😇 Macroshell ~ ");
+		mini.cmdline = readline("Macroshell ~ ");
 		if (!mini.cmdline)
 		{
 			if (isatty(STDIN_FILENO))

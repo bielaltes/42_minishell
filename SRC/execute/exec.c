@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/27 12:15:01 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:08:44 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
 static void	exec_exec(t_mini *mini, int i, int p[4])
 {
 	int		code;
-	char	*aux;
+	char	**aux;
 	char	**new_env;
 
 	code = 0;
@@ -84,12 +84,12 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 			new_env = env_to_str(mini->env);
 			signals_child();
 			if (redir_files(mini, i, p) == FAILURE)
-					exit(1);
+				exit(1);
 			if (mini->tok_lex[i].word && \
 					is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 			{
-				aux = ft_itoa(exec_built(code, mini->cmds[i].args, mini));
-				exec_exit(mini, &aux);
+				aux = ft_split(ft_strjoin(ft_itoa(exec_built(code, mini->cmds[i].args, mini)), "|", FIRST), '|');
+				exec_exit(mini, aux);
 			}
 			else
 			{
