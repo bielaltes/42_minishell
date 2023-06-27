@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 19:00:15 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:35:25 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ char	*get_path(char **envp, char *exe)
 			free(path);
 		paths++;
 	}
-	end(127, MINI, exe, CNF);
+	if (ft_strchr(exe, '/') == NULL)
+		end(127, MINI, exe, CNF);
+	else
+		end(127, MINI, exe, NFILEDIR);
 	return (NULL);
 }

@@ -6,43 +6,58 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 15:05:25 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:19:51 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	redir_inp(char *file)
+static int	redir_inp(char *file)
 {
 	int	fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		end(1, MINI, file, EROPEN);
+	{
+		write(2, "Macroshell: ", 12);
+		perror(file);
+		return (FAILURE);
+	}
 	dup2(fd, 0);
+	return (SUCCESS);
 }
 
-static void	redir_out(char *file)
+static int	redir_out(char *file)
 {
 	int	fd;
 
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		end(1, MINI, file, ERCREAT);
+	{
+		write(2, "Macroshell: ", 12);
+		perror(file);
+		return (FAILURE);
+	}
 	dup2(fd, 1);
+	return (SUCCESS);
 }
 
-static void	redir_append(char *file)
+static int redir_append(char *file)
 {
 	int	fd;
 
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
-		end(1, MINI, file, ERCREAT);
+	{
+		write(2, "Macroshell: ", 12);
+		perror(file);
+		return (FAILURE);
+	}
 	dup2(fd, 1);
+	return (SUCCESS);
 }
 
-static void	redir_here(char *file, int p[4])
+static int	redir_here(char *file, int p[4])
 {
 	int		fd[2];
 	char	*line;
@@ -50,7 +65,7 @@ static void	redir_here(char *file, int p[4])
 	dup2(p[2], 0);
 	pipe(fd);
 	line = readline("heredoc>");
-	while (ft_strncmp(line, file, 0xFF))
+	while (line && ft_strncmp(line, file, 0xFF))
 	{
 		write(fd[1], line, ft_strlen(line));
 		write(fd[1], "\n", 1);
@@ -58,33 +73,37 @@ static void	redir_here(char *file, int p[4])
 	}
 	close(fd[1]);
 	dup2(fd[0], 0);
+	return (SUCCESS);
 }
 
-void	redir_files(t_mini *mini, int j, int p[4])
+int	redir_files(t_mini *mini, int j, int p[4])
 {
 	int	i;
+	int	exit;
 
+	exit = SUCCESS;
 	i = mini->cmds[j].token_ini;
 	while (i != mini->cmds[j].token_fi)
 	{
 		if (mini->tok_lex[i].type == REDIR_INP)
 		{
 			if (mini->tok_lex[i + 1].type == FT_FILE)
-				redir_inp(mini->tok_lex[i + 1].word);
+				exit = redir_inp(mini->tok_lex[i + 1].word);
 		}
 		else if (mini->tok_lex[i].type == REDIR_OUT)
 		{
 			if (mini->tok_lex[i + 1].type == FT_FILE)
-				redir_out(mini->tok_lex[i + 1].word);
+				exit = redir_out(mini->tok_lex[i + 1].word);
 		}
 		if (mini->tok_lex[i].type == REDIR_HERE)
 			if (mini->tok_lex[i + 1].type == HERE_DOC)
-				redir_here(mini->tok_lex[i + 1].word, p);
+				exit = redir_here(mini->tok_lex[i + 1].word, p);
 		if (mini->tok_lex[i].type == REDIR_APPEND)
 			if (mini->tok_lex[i + 1].type == FT_FILE)
-				redir_append(mini->tok_lex[i + 1].word);
+				exit = redir_append(mini->tok_lex[i + 1].word);
 		++i;
 	}
+	return (exit);
 }
 
 void	redir_pipes(t_mini *mini, int *p, int i)
