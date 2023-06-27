@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/27 12:14:10 by baltes-g         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/27 12:17:40 by jsebasti         ###   ########.fr       */
+>>>>>>> origin/dev
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +181,7 @@ void		set_exec(t_env *env, char *value);
 int			count_args(char **args);
 int			exist_env(t_env *env, const char *s);
 void		new_err(char *s1, char *s2, char *s3);
-long long	ft_atoll(char *str);
+long int	ft_atoll(char *str);
 
 //SIGNALS
 
