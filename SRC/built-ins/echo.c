@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 15:58:41 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:59:44 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	check_n(char *arg)
 	int	i;
 
 	i = 0;
+	if (arg[i] == '\0')
+		return (0);
 	if (arg[i] == '-')
 		i++;
 	while (arg[i] == 'n' && arg[i] != '\0')
@@ -58,7 +60,7 @@ int	exec_echo(char **args)
 
 	flag2 = 0;
 	flag = 0;
-	if (args[1] == NULL || args[1][0] == '\0')
+	if (args[1] == NULL)
 	{
 		ft_printf("\n");
 		return (0);

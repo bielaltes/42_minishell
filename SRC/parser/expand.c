@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 19:35:52 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:57:57 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ void	expand_token(t_mini *mini, t_token *tok)
 		}
 	}
 	free(word);
-	tok->word = aux;
+	if (aux != NULL)
+		tok->word = aux;
+	else
+		tok->word = ft_strdup("", NO);
 }
 
 int	next_quote(char *word, int i)
