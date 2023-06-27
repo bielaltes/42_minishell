@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 19:22:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:26:26 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static int	check_arg(char *num)
 					++i;
 				else
 				{
-					new_err("macroshell: exit: ", num, ": numeric argument required\n");
+					new_err("macroshell: exit: ", num, \
+						": numeric argument required\n");
 					exit(255);
 				}
 			}
@@ -52,22 +53,26 @@ static int	check_arg(char *num)
 
 int	exec_exit(t_mini *mini, char **num)
 {
-	long long	ext;
+	char	*ext;
 
-	ext = 0;
+	ext = NULL;
 	if (!num[1])
 	{
 		g_sig.exit = g_sig.ret;
 		exit(g_sig.exit);
 	}
 	if (num[1] && !check_arg(num[1]))
-		ext = ft_atoll(num[1]);
-	if (ext > LONG_MAX || ext < LONG_MIN)
+		ext = num[1];
+	while (*ext == '0')
+		ext++;
+	if (ft_strlen(ext) > 20 \
+		|| (ft_strlen(ext) == 19 && ft_strcmp(ext, "9223372036854775807") > 0) \
+		|| (ft_strlen(ext) == 20 && ft_strcmp(ext, "-9223372036854775808") > 0))
 	{
 		new_err("macroshell: exit: ", num[1], ": numeric argument required");
 		exit(255);
 	}
-	g_sig.exit = ext;
+	g_sig.exit = ft_atoi(ext);
 	if (num[2])
 		new_err("exit: ", "too many arguments\n", "");
 	set_exec(mini->env, "built-ins/exit");

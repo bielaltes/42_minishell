@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 16:01:15 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:19:11 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,20 @@ void	create_env(t_env *env, char **splited)
 
 void	check_shlvl(t_env *env)
 {
-	int	lvl;
+	int		lvl;
+	char	*tmp;
 
 	if (exist_env(env, "SHLVL"))
 	{
 		create_env(env, ft_split("SHLVL=1", '='));
 		return ;
 	}
-	if (search_env(env, "SHLVL"))
+	tmp = search_env(env, "SHLVL");
+	if (tmp)
+	{
 		lvl = atoi(search_env(env, "SHLVL"));
+		free(tmp);
+	}
 	else
 		lvl = 0;
 	if (lvl < 0)
@@ -71,7 +76,7 @@ void	check_shlvl(t_env *env)
 	if (lvl >= 1000)
 	{
 		new_err("warning: shell level (", ft_itoa(lvl + 1), \
-				") too high, resetting to 1");
+				") too high, resetting to 1\n");
 		while (lvl >= 999)
 			lvl -= 1000;
 	}
