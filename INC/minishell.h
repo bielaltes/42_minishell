@@ -6,7 +6,7 @@
 /*   By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/27 14:16:45 by jsebasti         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:19:17 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ int			misuse(char *cmd);
 void		exec(t_mini *mini);
 char		*get_path(char **envp, char *exe);
 void		redir_pipes(t_mini *mini, int *p, int i);
-void		redir_files(t_mini *mini, int i, int p[4]);
 int			redir_files(t_mini *mini, int i, int p[4]);
 
 //UTILS
