@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/27 12:19:51 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:18:18 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	redir_files(t_mini *mini, int j, int p[4])
 
 	exit = SUCCESS;
 	i = mini->cmds[j].token_ini;
-	while (i != mini->cmds[j].token_fi)
+	while (i != mini->cmds[j].token_fi && exit == SUCCESS)
 	{
 		if (mini->tok_lex[i].type == REDIR_INP)
 		{

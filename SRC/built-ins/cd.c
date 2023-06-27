@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/26 15:02:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:22:22 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	change_path(t_mini *mini, int option, char *args)
 		}
 		if (exist_env(mini->env, "OLDPWD"))
 		{
-			create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir, SECOND), '='));
+			create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir, NO), '='));
 		}
 		if (chdir(args) == -1)
 		{

@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/27 14:46:27 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:49:05 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	exec_env(t_env *env)
 	while (aux)
 	{
 		if (aux->value)
+		{
 			ft_printf("%s=%s\n", aux->data, aux->value);
+		}
 		aux = aux->next;
 	}
 	return (0);
