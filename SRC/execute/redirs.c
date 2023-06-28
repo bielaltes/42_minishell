@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/27 16:18:18 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:45:00 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int	redir_out(char *file)
 {
 	int	fd;
 
-	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP
+			| S_IROTH);
 	if (fd < 0)
 	{
 		write(2, "Macroshell: ", 12);
@@ -42,11 +43,12 @@ static int	redir_out(char *file)
 	return (SUCCESS);
 }
 
-static int redir_append(char *file)
+static int	redir_append(char *file)
 {
 	int	fd;
 
-	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR
+			| S_IRGRP | S_IROTH);
 	if (fd < 0)
 	{
 		write(2, "Macroshell: ", 12);
@@ -62,7 +64,8 @@ static int	redir_here(char *file, int p[4])
 	int		fd[2];
 	char	*line;
 
-	dup2(p[2], 0);
+	if (dup2(p[2], 0) < 0 || dup2(p[3], 1) < 0)
+		end(2, MINI, "dup2", DUPERR);
 	pipe(fd);
 	line = readline("heredoc>");
 	while (line && ft_strncmp(line, file, 0xFF))
@@ -71,8 +74,10 @@ static int	redir_here(char *file, int p[4])
 		write(fd[1], "\n", 1);
 		line = readline("heredoc>");
 	}
-	close(fd[1]);
-	dup2(fd[0], 0);
+	if (close(fd[1]) < 0)
+		end(2, MINI, "close", CCLOSE);
+	if (dup2(p[0], 0) < 0 || dup2(p[1], 1) < 0)
+		end(2, MINI, "dup2", DUPERR);
 	return (SUCCESS);
 }
 
@@ -110,16 +115,21 @@ void	redir_pipes(t_mini *mini, int *p, int i)
 {
 	if (i != 0)
 	{
-		dup2(p[0], 0);
-		close(p[0]);
+		if (dup2(p[0], 0) < 0)
+			end(2, MINI, "dup2", DUPERR);
+		if (close(p[0]) < 0)
+			end(2, MINI, "close", CCLOSE);
 	}
 	if (i == mini->n_cmds - 1)
 	{
-		dup2(p[3], 1);
-		close(p[3]);
+		if (dup2(p[3], 1) < 0)
+			end(2, MINI, "dup2", DUPERR);
 		return ;
 	}
-	pipe(p);
-	dup2(p[1], 1);
-	close(p[1]);
+	if (pipe(p) < 0)
+		end(2, MINI, "pipe", ERPIPE);
+	if (dup2(p[1], 1) < 0)
+		end(2, MINI, "dup2", DUPERR);
+	if (close(p[1]) < 0)
+		end(2, MINI, "close", CCLOSE);
 }

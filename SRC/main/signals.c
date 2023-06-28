@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:34:02 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/15 16:44:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:44:12 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	signals_mini(void)
 	signal.sa_flags = SA_RESTART;
 	sigemptyset(&signal.sa_mask);
 	if (sigaction(SIGINT, &signal, NULL) < 0)
-		exit(2);
+		end(2, MINI, "sigaction", ESIGACTION);
 }
 
 void	signals_child(void)
@@ -62,9 +62,9 @@ void	signals_child(void)
 	signal.sa_flags = SA_RESTART;
 	sigemptyset(&signal.sa_mask);
 	if (sigaction(SIGINT, &signal, 0) < 0)
-		exit(2);
+		end(2, MINI, "sigaction", ESIGACTION);
 	if (sigaction(SIGQUIT, &signal, 0) < 0)
-		exit(2);
+		end(2, MINI, "sigaction", ESIGACTION);
 }
 
 void	sig_ign(int n)
@@ -75,5 +75,5 @@ void	sig_ign(int n)
 	signal.sa_flags = SA_RESTART;
 	sigemptyset(&signal.sa_mask);
 	if (sigaction(n, &signal, NULL) < 0)
-		exit(2);
+		end(2, MINI, "sigaction", ESIGACTION);
 }

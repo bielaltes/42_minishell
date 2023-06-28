@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/27 15:49:05 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:46:51 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	init_env(t_mini *mini, char **env)
 	i = 0;
 	mini->env = malloc(sizeof(t_env));
 	if (!mini->env)
-		return ;
+		end(2, MINI, "malloc", MALLOCER);
 	mini->env->size = 0;
 	while (env[i])
 	{

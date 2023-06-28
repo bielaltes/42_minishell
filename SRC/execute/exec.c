@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/27 15:08:44 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:44:36 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	int		code;
 	char	**aux;
 	char	**new_env;
+	int		status;
 
 	code = 0;
 	mini->pids = malloc(sizeof(pid_t) * mini->n_cmds);
+	if (!mini->pids)
+		end(2, MINI, "malloc", MALLOCER);
 	if (mini->n_cmds == 1 && mini->tok_lex[i].word && \
 			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 	{
@@ -79,6 +82,8 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 		code = 0;
 		redir_pipes(mini, p, i);
 		mini->pids[i] = fork();
+		if (mini->pids[i] < 0)
+			end(2, MINI, "fork", EFORK);
 		if (mini->pids[i] == 0)
 		{
 			new_env = env_to_str(mini->env);
@@ -88,7 +93,9 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 			if (mini->tok_lex[i].word && \
 					is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 			{
-				aux = ft_split(ft_strjoin(ft_itoa(exec_built(code, mini->cmds[i].args, mini)), "|", FIRST), '|');
+				aux = ft_split(ft_strjoin(ft_itoa(exec_built(code,
+									mini->cmds[i].args, mini)),
+							"|", FIRST), '|');
 				exec_exit(mini, aux);
 			}
 			else
@@ -100,6 +107,9 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 				end(126, MINI, get_path(new_env, mini->cmds[i].args[0]), ISDIR);
 			}
 		}
+		waitpid(mini->pids[i], &status, 0);
+		if (WIFEXITED(status))
+			g_sig.ret = WEXITSTATUS(status);
 		++i;
 		free(new_env);
 	}
@@ -109,21 +119,16 @@ void	exec(t_mini *mini)
 {
 	int		p[4];
 	int		i;
-	int		status;
 
 	i = 0;
 	p[2] = dup(0);
 	p[3] = dup(1);
+	if (p[2] < 0 || p[3] < 0)
+		end(2, MINI, "dup", DUPERR);
 	exec_exec(mini, i, p);
-	dup2(p[2], 0);
-	dup2(p[3], 1);
-	close(p[2]);
-	close(p[3]);
-	while (i < mini->n_cmds && waitpid(mini->pids[i], &status, 0) != -1)
-	{
-		if (WIFEXITED(status))
-			g_sig.ret = WEXITSTATUS(status);
-		++i;
-	}
+	if (dup2(p[2], 0) < 0 || dup2(p[3], 1) < 0)
+		end(2, MINI, "dup2", DUPERR);
+	if (close(p[2]) < 0 || close(p[3]) < 0)
+		end(2, MINI, "close", CCLOSE);
 	free(mini->pids);
 }

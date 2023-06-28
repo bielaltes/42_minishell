@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:08:12 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/27 12:51:53 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:45:52 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static int	syn_correct(t_mini *mini)
 						&& mini->tok_lex[j + 1].type != HERE_DOC))
 				{
 					g_sig.ret = 2;
-					write(2, "Minishell: syntax error near unexpected token \n", 47);
+					write(2, "Minishell: syntax error near unexpected token \n",
+						47);
 					return (0);
 				}
 			}
@@ -77,7 +78,7 @@ int	syntax(t_mini *mini)
 	mini->n_cmds = n_cmds(mini->tok_lex);
 	mini->cmds = malloc(sizeof(t_simple_cmd) * mini->n_cmds);
 	if (!mini->cmds)
-		return (1);
+		end(2, MINI, "malloc", MALLOCER);
 	while (mini->tok_lex[i].word != NULL)
 	{
 		j = i;
