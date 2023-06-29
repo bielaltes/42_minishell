@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:50:10 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 12:48:11 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:38:05 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_token	*ft_split_tokens(char *s)
 
 	new = malloc(sizeof(t_token) * (count_words(s) + 1));
 	if (!new)
-		return (NULL);
+		end(2, MINI, "malloc", MALLOCER);
 	i = 0;
 	j = -1;
 	while (++j < count_words(s))
@@ -98,8 +98,9 @@ t_token	*ft_split_tokens(char *s)
 			++i;
 		new[j].word = ft_substr(s, i, word_len(&s[i], 0), NO);
 		if (!new[j].word)
+			end(2, MINI, "malloc", MALLOCER);
+		if (!new[j].word)
 			return (malloc_error(new, j));
-		//printf("token:|%s|\n", new[j].word);
 		i += word_len(&s[i], 0);
 	}
 	new[j].word = (NULL);

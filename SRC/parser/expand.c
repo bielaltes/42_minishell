@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/27 15:30:34 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:45:33 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,15 @@ void	expand_token(t_mini *mini, t_token *tok)
 		return ;
 	i = next_char(word, 0, '$');
 	aux = ft_substr(word, 0, i, NO);
+	if (!aux)
+		end(2, MINI, "malloc", MALLOCER);
 	while (word[i] != '\0')
 	{
 		if (word[i] == '$' && expandible(word, i))
 		{
 			k = ++i;
-			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"' && word[k] != '$' && !is_spacer(word[k]))
+			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"'
+				&& word[k] != '$' && !is_spacer(word[k]))
 				++k;
 			aux2 = search_env(mini->env, ft_substr(word, i, k - i, NO));
 			if (aux2)
@@ -103,6 +106,8 @@ void	expand_token(t_mini *mini, t_token *tok)
 				aux = ft_strjoin(aux, ft_itoa(g_sig.ret), NO);
 			else if (!aux2 && word[k] == '\'' && k >= 2 && word[k -2] == '\'')
 				aux = ft_strjoin(aux, "$", NO);
+			if (!aux)
+				end(2, MINI, "malloc", MALLOCER);
 			i = k;
 			free(aux2);
 		}
@@ -116,6 +121,8 @@ void	expand_token(t_mini *mini, t_token *tok)
 					++k;
 			}
 			aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), NO);
+			if (!aux)
+				end(2, MINI, "malloc", MALLOCER);
 			i = k;
 		}
 	}
@@ -124,6 +131,8 @@ void	expand_token(t_mini *mini, t_token *tok)
 		tok->word = aux;
 	else
 		tok->word = ft_strdup("", NO);
+	if (!tok->word)
+		end(2, MINI, "malloc", MALLOCER);
 }
 
 int	next_quote(char *word, int i)
@@ -161,6 +170,8 @@ void	leave_quotes(t_token *tok)
 	if (i == -1)
 		return ;
 	aux = ft_substr(word, 0, i, NO);
+	if (!aux)
+		end(2, MINI, "malloc", MALLOCER);
 	while (i != -1 && word[i] != '\0')
 	{
 		lim = word[i++];
@@ -171,9 +182,13 @@ void	leave_quotes(t_token *tok)
 		i = next_quote(word, ++k);
 		if (i != -1)
 			aux = ft_strjoin(aux, ft_substr(word, k, i - k, NO), BOTH);
+		if (!aux)
+			end(2, MINI, "malloc", MALLOCER);
 	}
 	if (word[k] != '\0')
 		aux = ft_strjoin(aux, &word[k], FIRST);
+	if (!aux)
+		end(2, MINI, "malloc", MALLOCER);
 	free(word);
 	tok->word = aux;
 }
@@ -186,7 +201,6 @@ void	expand(t_mini *mini)
 	while (mini->tok_lex[i].word != NULL)
 	{
 		expand_token(mini, &mini->tok_lex[i]);
-		/*divide_token(mini->tok_lex[i]);*/
 		leave_quotes(&mini->tok_lex[i]);
 		++i;
 	}
