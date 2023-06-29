@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/06/27 14:57:34 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/06/29 16:42:56 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIB_M 		= $(INC_DIR)/libft/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS =  -g -Wall -Wextra -Werror
 LIBC = ar -rcs
 # =============
 

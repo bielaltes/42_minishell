@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/28 11:53:27 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/29 17:54:32 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_token
 	int				expand;
 	enum e_type		type;
 	struct s_token	*next;
+	int				fd_here;
 }	t_token;
 
 typedef struct s_node_env
@@ -167,9 +168,11 @@ int			misuse(char *cmd);
 
 //EXEC
 void		exec(t_mini *mini);
-char		*get_path(char **envp, char *exe);
+char		*get_path(char **envp, char *exe, char **envstr);
 void		redir_pipes(t_mini *mini, int *p, int i);
-int			redir_files(t_mini *mini, int i, int p[4]);
+int			redir_files(t_mini *mini, int i);
+void		do_heres(t_mini *mini);
+void		close_heres(t_mini *mini, int j);
 
 //UTILS
 
@@ -186,6 +189,7 @@ long int	ft_atoll(char *str);
 void		signals_mini(void);
 void		signals_child(void);
 void		sig_ign(int n);
+void		signals_here(void);
 
 //END
 void		end(int status, char *str1, char *str2, char *str3);

@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/27 12:59:44 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:11:35 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	write_echo(char **args, int *flag, int flag2)
 		else
 		{
 			flag2 = 1;
-			ft_printf("%s", args[i]);
+			ft_printf("%s", args[i], " ");
 			if (args[i + 1])
 				ft_printf(" ");
 			i++;

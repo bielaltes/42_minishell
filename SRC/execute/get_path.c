@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/28 11:48:14 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/29 17:57:13 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,29 @@ char	**get_paths(char **envp, char *exe)
 	return (paths);
 }
 
-char	*get_path(char **envp, char *exe)
+void	free_cnf(char **argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+		free(argv[i++]);
+	free(argv);
+}
+
+char	*get_path(char **envp, char *exe, char **envstr)
 {
 	char	**paths;
 	char	*path;
 	char	*tmp;
+	char	**free_aux;
 
 	if (!exe)
 		exit(0);
 	if (ft_strlen(exe) == 0)
 		end(127, MINI, exe, CNF);
 	paths = get_paths(envp, exe);
+	free_aux = paths;
 	while (paths && *paths)
 	{
 		tmp = ft_strjoin(*paths, "/", NO);
@@ -72,7 +84,11 @@ char	*get_path(char **envp, char *exe)
 		paths++;
 	}
 	if (ft_strchr(exe, '/') == NULL)
+	{
+		free_cnf(free_aux);
+		free_cnf(envstr);
 		end(127, MINI, exe, CNF);
+	}
 	else
 		end(127, MINI, exe, NFILEDIR);
 	return (NULL);

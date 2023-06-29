@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/29 14:17:43 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/29 17:55:00 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static int	is_built_in(char *cmd, int *code)
 	return (*code);
 }
 
-static int	exec_builtin_alone(t_mini *mini, int p[4], int code)
+static int	exec_builtin_alone(t_mini *mini, int code)
 {
-	if (redir_files(mini, 0, p) == SUCCESS)
+	if (redir_files(mini, 0) == SUCCESS)
 		return (exec_built(code, mini->cmds[0].args, mini));
 	else
 		return (1);
@@ -68,10 +68,11 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	mini->pids = malloc(sizeof(pid_t) * mini->n_cmds);
 	if (!mini->pids)
 		end(2, MINI, "malloc", MALLOCER);
+	do_heres(mini);
 	if (mini->n_cmds == 1 && mini->tok_lex[i].word && \
 			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 	{
-		g_sig.ret = exec_builtin_alone(mini, p, code);
+		g_sig.ret = exec_builtin_alone(mini, code);
 		return ;
 	}
 	new_env = NULL;
@@ -87,7 +88,7 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 		{
 			new_env = env_to_str(mini->env);
 			signals_child();
-			if (redir_files(mini, i, p) == FAILURE)
+			if (redir_files(mini, i) == FAILURE)
 				exit(1);
 			if (mini->tok_lex[i].word && \
 					is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
@@ -101,11 +102,12 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 			{
 				if (mini->n_cmds != 1)
 					close(p[0]);
-				execve(get_path(new_env, mini->cmds[i].args[0]), \
+				execve(get_path(new_env, mini->cmds[i].args[0], new_env), \
 				mini->cmds[i].args, new_env);
-				end(126, MINI, get_path(new_env, mini->cmds[i].args[0]), ISDIR);
+				end(126, MINI, get_path(new_env, mini->cmds[i].args[0], new_env), ISDIR);
 			}
 		}
+		close_heres(mini, i);
 		++i;
 		free(new_env);
 	}

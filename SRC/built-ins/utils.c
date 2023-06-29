@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/27 14:55:30 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/29 17:58:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**env_to_str(t_env *env)
 		if (aux->value)
 		{
 			new[i] = ft_strjoin(aux->data, "=", NO);
-			new[i] = ft_strjoin(new[i], aux->value, NO);
+			new[i] = ft_strjoin(new[i], aux->value, FIRST);
 		}
 		else
 			new[i] = ft_strdup(aux->data, NO);
