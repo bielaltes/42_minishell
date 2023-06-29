@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/28 12:43:13 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/29 12:54:23 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static int	change_path(t_mini *mini, int option, char *args)
 		}
 		if (chdir(args) == -1)
 		{
-			new_err("minishell: cd: ", args, ": No such file or directory.\n");
+			write(2, "Macroshell: cd: ", 16);
+			perror(args);
 			return (1);
 		}
 		mod_env(mini->env, "OLDPWD", dir);

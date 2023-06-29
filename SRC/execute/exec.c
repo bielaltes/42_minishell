@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/28 12:44:36 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:17:43 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	int		code;
 	char	**aux;
 	char	**new_env;
-	int		status;
 
 	code = 0;
 	mini->pids = malloc(sizeof(pid_t) * mini->n_cmds);
@@ -107,9 +106,6 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 				end(126, MINI, get_path(new_env, mini->cmds[i].args[0]), ISDIR);
 			}
 		}
-		waitpid(mini->pids[i], &status, 0);
-		if (WIFEXITED(status))
-			g_sig.ret = WEXITSTATUS(status);
 		++i;
 		free(new_env);
 	}
@@ -119,6 +115,7 @@ void	exec(t_mini *mini)
 {
 	int		p[4];
 	int		i;
+	int		status;
 
 	i = 0;
 	p[2] = dup(0);
@@ -130,5 +127,11 @@ void	exec(t_mini *mini)
 		end(2, MINI, "dup2", DUPERR);
 	if (close(p[2]) < 0 || close(p[3]) < 0)
 		end(2, MINI, "close", CCLOSE);
+	while (i < mini->n_cmds && waitpid(mini->pids[i], &status, 0) > 0)
+	{
+		if (WIFEXITED(status))
+			g_sig.ret = WEXITSTATUS(status);
+		++i;
+	}
 	free(mini->pids);
 }
