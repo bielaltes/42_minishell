@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 18:34:02 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/29 16:49:55 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 09:31:02 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	child(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_printf("\n");
 		rl_on_new_line();
 		g_sig.sigint = 1;
 		exit(130);
@@ -47,7 +47,7 @@ void	here(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_printf("\n");
 		g_sig.ret = 1;
 		g_sig.sigint = 1;
 	}
@@ -87,7 +87,6 @@ void	signals_child(void)
 	if (sigaction(SIGQUIT, &signal, 0) < 0)
 		end(2, MINI, "sigaction", ESIGACTION);
 }
-
 
 void	sig_ign(int n)
 {

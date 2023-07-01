@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/29 17:54:32 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 09:37:10 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void		exec(t_mini *mini);
 char		*get_path(char **envp, char *exe, char **envstr);
 void		redir_pipes(t_mini *mini, int *p, int i);
 int			redir_files(t_mini *mini, int i);
-void		do_heres(t_mini *mini);
+int			do_heres(t_mini *mini);
 void		close_heres(t_mini *mini, int j);
 
 //UTILS

@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/29 17:55:00 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 09:51:54 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	mini->pids = malloc(sizeof(pid_t) * mini->n_cmds);
 	if (!mini->pids)
 		end(2, MINI, "malloc", MALLOCER);
-	do_heres(mini);
+	if (do_heres(mini) == FAILURE)
+		return ;
 	if (mini->n_cmds == 1 && mini->tok_lex[i].word && \
 			is_built_in(ft_tolower(mini->tok_lex[i].word), &code))
 	{
@@ -104,13 +105,36 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 					close(p[0]);
 				execve(get_path(new_env, mini->cmds[i].args[0], new_env), \
 				mini->cmds[i].args, new_env);
-				end(126, MINI, get_path(new_env, mini->cmds[i].args[0], new_env), ISDIR);
+				end(126, MINI, get_path(new_env, mini->cmds[i].args[0],
+						new_env), ISDIR);
 			}
 		}
 		close_heres(mini, i);
 		++i;
 		free(new_env);
 	}
+}
+
+static int	handle_exit(int exit_status)
+{
+	if (WIFEXITED(exit_status))
+		return (WEXITSTATUS(exit_status));
+	if (WIFSIGNALED(exit_status))
+	{
+		if (WCOREDUMP(exit_status))
+			end(SUCCESS, MINI, ": core dumped in child", NULL);
+		if (WTERMSIG(exit_status) == SIGINT)
+		{
+			ft_printf("\n");
+			return (130);
+		}
+		if (WTERMSIG(exit_status) == SIGQUIT)
+		{
+			ft_printf("Quit: 3\n");
+			return (131);
+		}
+	}
+	return (1);
 }
 
 void	exec(t_mini *mini)
@@ -131,8 +155,7 @@ void	exec(t_mini *mini)
 		end(2, MINI, "close", CCLOSE);
 	while (i < mini->n_cmds && waitpid(mini->pids[i], &status, 0) > 0)
 	{
-		if (WIFEXITED(status))
-			g_sig.ret = WEXITSTATUS(status);
+			g_sig.ret = handle_exit(status);
 		++i;
 	}
 	free(mini->pids);

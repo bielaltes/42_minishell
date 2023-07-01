@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:15:06 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 19:33:35 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:09:28 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	misuse(char *cmd)
 {
 	int	i;
 
-	i = 0;
-	while (cmd[i])
+	i = -1;
+	while (cmd[++i])
 	{
 		if (unsuported(&cmd[i]))
 			return (is_error(cmd[i], "still not implemented"));
@@ -55,7 +55,6 @@ int	misuse(char *cmd)
 			if (!cmd[i])
 				return (is_error(cmd[i], "dquote not implemented"));
 		}
-		++i;
 	}
 	return (0);
 }

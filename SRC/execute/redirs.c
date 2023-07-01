@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/29 18:01:00 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 09:53:36 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	redir_inp(char *file)
 		perror(file);
 		return (FAILURE);
 	}
-	dup2(fd, 0);
+	if (dup2(fd, 0) < 0)
+		end(2, MINI, dup2, DUPERR);
 	return (SUCCESS);
 }
 
@@ -39,7 +40,8 @@ static int	redir_out(char *file)
 		perror(file);
 		return (FAILURE);
 	}
-	dup2(fd, 1);
+	if (dup2(fd, 1) < 0)
+		end(2, MINI, dup2, DUPERR);
 	return (SUCCESS);
 }
 
@@ -55,7 +57,8 @@ static int	redir_append(char *file)
 		perror(file);
 		return (FAILURE);
 	}
-	dup2(fd, 1);
+	if (dup2(fd, 1) < 0)
+		end(2, MINI, dup2, DUPERR);
 	return (SUCCESS);
 }
 
@@ -119,12 +122,13 @@ void	redir_pipes(t_mini *mini, int *p, int i)
 		end(2, MINI, "close", CCLOSE);
 }
 
-void	do_heres(t_mini *mini)
+int	do_heres(t_mini *mini)
 {
 	int		fd[2];
 	char	*line;
 	int		i;
 	int		pid;
+	int		status;
 
 	i = 0;
 	while (mini->tok_lex[i].word != NULL)
@@ -148,13 +152,16 @@ void	do_heres(t_mini *mini)
 				}
 				exit(0);
 			}
-			waitpid(-1, NULL, 0);
+			waitpid(-1, &status, 0);
+			if (WIFSIGNALED(status))
+				return (FAILURE);
 			signals_mini();
 			if (close(fd[1]) < 0)
 				end(2, MINI, "close", CCLOSE);
 		}
 		++i;
 	}
+	return (SUCCESS);
 }
 
 void	close_heres(t_mini *mini, int j)
