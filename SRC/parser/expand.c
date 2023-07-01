@@ -6,83 +6,62 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/28 12:45:33 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 12:22:16 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*void	divide_token(t_token *tok)
-{
-	char	*word;
-	int		i;
-
-	i = 0;
-	word = tok->word;
-	if (word[i + word_len(word)] == '\0')
-	{
-		tok->expand = 0;
-		return ;
-	}
-	else
-		tok->expand = 1;
-	tok->sub_tok = malloc(sizeof(t_token) * count_subs(word));
-}*/
-
-int	expandible(char	*word, int i)
+static int	expand_token_while_if(char *word, int i, char **aux)
 {
 	int	k;
 
-	k = 0;
-	if (!word[i +1])
-		return (0);
-	while (word[k] != '\0')
+	k = next_char(word, i + 1, '$');
+	if (k == -1)
 	{
-		if (k == i)
-			return (1);
-		if (word[k] == '\'')
-		{
+		k = i;
+		while (word[k] != '\0')
 			++k;
-			while (word[k] != '\0' && word[k] != '\'')
-			{
-				if (k == i)
-					return (0);
-				++k;
-			}
-		}
-		if (word[k] == '"')
-		{
-			++k;
-			while (word[k] != '\0' && word[k] != '"')
-			{
-				if (k == i)
-					return (2);
-				++k;
-			}
-		}
-		++k;
 	}
-	return (1);
+	*aux = ft_strjoin(*aux, ft_substr(word, i, k - i, NO), NO);
+	if (!*aux)
+		end(2, MINI, "malloc", MALLOCER);
+	return (k);
 }
 
-static int	next_char(char *word, int i, char c)
+static int	expand_token_while(t_mini *mini, char *word, int i, char **aux)
 {
-	while (word[i] != '\0')
+	int		k;
+	char	*aux2;
+
+	if (word[i] == '$' && expandible(word, i))
 	{
-		if (word[i] == c)
-			return (i);
-		++i;
+		k = ++i;
+		while (word[k] != '\0' && word[k] != '\'' && word[k] != '"'
+			&& word[k] != '$' && !is_spacer(word[k]))
+			++k;
+		aux2 = search_env(mini->env, ft_substr(word, i, k - i, NO));
+		if (aux2)
+			*aux = ft_strjoin(*aux, aux2, NO);
+		if (!ft_strcmp(ft_substr(word, i, k - i, NO), "?"))
+			*aux = ft_strjoin(*aux, ft_itoa(g_sig.ret), NO);
+		else if (!aux2 && word[k] == '\'' && k >= 2 && word[k -2] == '\'')
+			*aux = ft_strjoin(*aux, "$", NO);
+		if (!*aux)
+			end(2, MINI, "malloc", MALLOCER);
+		i = k;
+		free(aux2);
 	}
-	return (-1);
+	else
+		i = expand_token_while_if(word, i, aux);
+	return (i);
 }
 
 void	expand_token(t_mini *mini, t_token *tok)
 {
 	char	*word;
 	char	*aux;
-	char	*aux2;
 	int		i;
-	int		k;
 
 	word = tok->word;
 	if (next_char(word, 0, '$') == -1)
@@ -93,38 +72,7 @@ void	expand_token(t_mini *mini, t_token *tok)
 		end(2, MINI, "malloc", MALLOCER);
 	while (word[i] != '\0')
 	{
-		if (word[i] == '$' && expandible(word, i))
-		{
-			k = ++i;
-			while (word[k] != '\0' && word[k] != '\'' && word[k] != '"'
-				&& word[k] != '$' && !is_spacer(word[k]))
-				++k;
-			aux2 = search_env(mini->env, ft_substr(word, i, k - i, NO));
-			if (aux2)
-				aux = ft_strjoin(aux, aux2, NO);
-			if (!ft_strcmp(ft_substr(word, i, k - i, NO), "?"))
-				aux = ft_strjoin(aux, ft_itoa(g_sig.ret), NO);
-			else if (!aux2 && word[k] == '\'' && k >= 2 && word[k -2] == '\'')
-				aux = ft_strjoin(aux, "$", NO);
-			if (!aux)
-				end(2, MINI, "malloc", MALLOCER);
-			i = k;
-			free(aux2);
-		}
-		else
-		{
-			k = next_char(word, i + 1, '$');
-			if (k == -1)
-			{
-				k = i;
-				while (word[k] != '\0')
-					++k;
-			}
-			aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), NO);
-			if (!aux)
-				end(2, MINI, "malloc", MALLOCER);
-			i = k;
-		}
+		i = expand_token_while(mini, word, i, &aux);
 	}
 	free(word);
 	if (aux != NULL)
@@ -133,64 +81,6 @@ void	expand_token(t_mini *mini, t_token *tok)
 		tok->word = ft_strdup("", NO);
 	if (!tok->word)
 		end(2, MINI, "malloc", MALLOCER);
-}
-
-int	next_quote(char *word, int i)
-{
-	int	a;
-	int	b;
-
-	a = next_char(word, i, '\'');
-	b = next_char(word, i, '"');
-	if (a == -1 && b == -1)
-		return (-1);
-	else if (a == -1)
-		return (b);
-	else if (b == -1)
-		return (a);
-	else if (a > b)
-		return (b);
-	else if (b > a)
-		return (a);
-	else
-		return (-1);
-}
-
-void	leave_quotes(t_token *tok)
-{
-	char	*aux;
-	char	*word;
-	int		k;
-	char	lim;
-	int		i;
-
-	i = 0;
-	word = tok->word;
-	i = next_quote(word, 0);
-	if (i == -1)
-		return ;
-	aux = ft_substr(word, 0, i, NO);
-	if (!aux)
-		end(2, MINI, "malloc", MALLOCER);
-	while (i != -1 && word[i] != '\0')
-	{
-		lim = word[i++];
-		k = i;
-		while (word[k] != lim)
-			++k;
-		aux = ft_strjoin(aux, ft_substr(word, i, k - i, NO), BOTH);
-		i = next_quote(word, ++k);
-		if (i != -1)
-			aux = ft_strjoin(aux, ft_substr(word, k, i - k, NO), BOTH);
-		if (!aux)
-			end(2, MINI, "malloc", MALLOCER);
-	}
-	if (word[k] != '\0')
-		aux = ft_strjoin(aux, &word[k], FIRST);
-	if (!aux)
-		end(2, MINI, "malloc", MALLOCER);
-	free(word);
-	tok->word = aux;
 }
 
 void	expand(t_mini *mini)

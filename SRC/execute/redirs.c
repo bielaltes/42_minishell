@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:50:17 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/07/01 09:53:36 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:11:14 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	redir_inp(char *file)
 		return (FAILURE);
 	}
 	if (dup2(fd, 0) < 0)
-		end(2, MINI, dup2, DUPERR);
+		end(2, MINI, "dup2", DUPERR);
 	return (SUCCESS);
 }
 
@@ -41,7 +41,7 @@ static int	redir_out(char *file)
 		return (FAILURE);
 	}
 	if (dup2(fd, 1) < 0)
-		end(2, MINI, dup2, DUPERR);
+		end(2, MINI, "dup2", DUPERR);
 	return (SUCCESS);
 }
 
@@ -58,14 +58,7 @@ static int	redir_append(char *file)
 		return (FAILURE);
 	}
 	if (dup2(fd, 1) < 0)
-		end(2, MINI, dup2, DUPERR);
-	return (SUCCESS);
-}
-
-static int	redir_here(int fd)
-{
-	if (dup2(fd, 0) < 0)
-		return (FAILURE);
+		end(2, MINI, "dup2", DUPERR);
 	return (SUCCESS);
 }
 
@@ -83,11 +76,9 @@ int	redir_files(t_mini *mini, int j)
 			if (mini->tok_lex[i + 1].type == FT_FILE)
 				exit = redir_inp(mini->tok_lex[i + 1].word);
 		}
-		else if (mini->tok_lex[i].type == REDIR_OUT)
-		{
+		if (mini->tok_lex[i].type == REDIR_OUT)
 			if (mini->tok_lex[i + 1].type == FT_FILE)
 				exit = redir_out(mini->tok_lex[i + 1].word);
-		}
 		if (mini->tok_lex[i].type == REDIR_HERE)
 			if (mini->tok_lex[i + 1].type == HERE_DOC)
 				exit = redir_here(mini->tok_lex[i + 1].fd_here);
@@ -120,64 +111,4 @@ void	redir_pipes(t_mini *mini, int *p, int i)
 		end(2, MINI, "dup2", DUPERR);
 	if (close(p[1]) < 0)
 		end(2, MINI, "close", CCLOSE);
-}
-
-int	do_heres(t_mini *mini)
-{
-	int		fd[2];
-	char	*line;
-	int		i;
-	int		pid;
-	int		status;
-
-	i = 0;
-	while (mini->tok_lex[i].word != NULL)
-	{
-		if (mini->tok_lex[i].type == HERE_DOC)
-		{
-			pipe(fd);
-			mini->tok_lex[i].fd_here = fd[0];
-			signals_here();
-			pid = fork();
-			if (pid == 0)
-			{
-				signal(SIGINT, SIG_DFL);
-				line = readline(">");
-				while (line && ft_strncmp(line, mini->tok_lex[i].word, 0xFF))
-				{
-					write(fd[1], line, ft_strlen(line));
-					write(fd[1], "\n", 1);
-					free(line);
-					line = readline(">");
-				}
-				exit(0);
-			}
-			waitpid(-1, &status, 0);
-			if (WIFSIGNALED(status))
-				return (FAILURE);
-			signals_mini();
-			if (close(fd[1]) < 0)
-				end(2, MINI, "close", CCLOSE);
-		}
-		++i;
-	}
-	return (SUCCESS);
-}
-
-void	close_heres(t_mini *mini, int j)
-{
-	int	i;
-	int	exit;
-
-	exit = SUCCESS;
-	i = mini->cmds[j].token_ini;
-	while (i != mini->cmds[j].token_fi && exit == SUCCESS)
-	{
-		if (mini->tok_lex[i].type == PIPE)
-		{
-			if (close(mini->tok_lex[i].fd_here) < 0)
-				end(2, MINI, "close", CCLOSE);
-		}
-		++i;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 16:17:21 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/29 17:49:14 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 10:12:31 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ void	check_shlvl(t_env *env)
 	}
 	tmp = search_env(env, "SHLVL");
 	if (tmp)
-	{
-		lvl = atoi(tmp);
-		free(tmp);
-	}
+		lvl = ft_atoi(tmp, FIRST);
 	else
 		lvl = 0;
 	if (lvl < 0)

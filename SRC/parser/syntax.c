@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:08:12 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/28 12:45:52 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:23:35 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,27 @@ int	n_cmds(t_token *tokens)
 	return (sum);
 }
 
+static int	syn_correct_while(t_mini *mini, int j)
+{
+	if (mini->tok_lex[j].type == REDIR_INP
+		|| mini->tok_lex[j].type == REDIR_OUT
+		|| mini->tok_lex[j].type == REDIR_APPEND
+		|| mini->tok_lex[j].type == REDIR_HERE)
+	{
+		if (mini->tok_lex[j + 1].word == NULL
+			|| (mini->tok_lex[j + 1].type != FT_FILE
+				&& mini->tok_lex[j + 1].type != HERE_DOC))
+		{
+			g_sig.ret = 2;
+			write(2, "Minishell: syntax error near unexpected token \n",
+				47);
+			return (0);
+		}
+	}
+	++j;
+	return (1);
+}
+
 static int	syn_correct(t_mini *mini)
 {
 	int	i;
@@ -45,21 +66,8 @@ static int	syn_correct(t_mini *mini)
 		j = mini->cmds[i].token_ini;
 		while (j != mini->cmds[i].token_fi)
 		{
-			if (mini->tok_lex[j].type == REDIR_INP
-				|| mini->tok_lex[j].type == REDIR_OUT
-				|| mini->tok_lex[j].type == REDIR_APPEND
-				|| mini->tok_lex[j].type == REDIR_HERE)
-			{
-				if (mini->tok_lex[j + 1].word == NULL
-					|| (mini->tok_lex[j + 1].type != FT_FILE
-						&& mini->tok_lex[j + 1].type != HERE_DOC))
-				{
-					g_sig.ret = 2;
-					write(2, "Minishell: syntax error near unexpected token \n",
-						47);
-					return (0);
-				}
-			}
+			if (!syn_correct_while(mini, j))
+				return (0);
 			++j;
 		}
 		++i;

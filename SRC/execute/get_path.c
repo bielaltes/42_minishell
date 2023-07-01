@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:45:56 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/29 17:57:13 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 11:01:01 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,32 @@ void	free_cnf(char **argv)
 	free(argv);
 }
 
+static char	*get_path_while(char **paths, char *exe)
+{
+	char	*tmp;
+	char	*path;
+
+	tmp = ft_strjoin(*paths, "/", NO);
+	if (!tmp)
+		end(2, MINI, "malloc", MALLOCER);
+	path = ft_strjoin(tmp, exe, NO);
+	if (!path)
+		end(2, MINI, "malloc", MALLOCER);
+	if (ft_strchr(exe, '/') == exe)
+		path = exe;
+	free(tmp);
+	if (access(path, X_OK) == 0)
+		return (path);
+	else if (access(path, F_OK) == 0)
+		end(126, MINI, exe, PERM);
+	if (ft_strchr(exe, '/') != exe)
+		free(path);
+	return (NULL);
+}
+
 char	*get_path(char **envp, char *exe, char **envstr)
 {
 	char	**paths;
-	char	*path;
-	char	*tmp;
 	char	**free_aux;
 
 	if (!exe)
@@ -66,21 +87,8 @@ char	*get_path(char **envp, char *exe, char **envstr)
 	free_aux = paths;
 	while (paths && *paths)
 	{
-		tmp = ft_strjoin(*paths, "/", NO);
-		if (!tmp)
-			end(2, MINI, "malloc", MALLOCER);
-		path = ft_strjoin(tmp, exe, NO);
-		if (!path)
-			end(2, MINI, "malloc", MALLOCER);
-		if (ft_strchr(exe, '/') == exe)
-			path = exe;
-		free(tmp);
-		if (access(path, X_OK) == 0)
-			return (path);
-		else if (access(path, F_OK) == 0)
-			end(126, MINI, exe, PERM);
-		if (ft_strchr(exe, '/') != exe)
-			free(path);
+		if (get_path_while(paths, exe))
+			return (get_path_while(paths, exe));
 		paths++;
 	}
 	if (ft_strchr(exe, '/') == NULL)

@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:46:12 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/29 12:54:23 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 10:08:59 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,50 +52,53 @@ static int	option1(t_env *env)
 	return (0);
 }
 
-static int	option0(t_env *env)
+static int	change_path_o2(t_mini *mini, char *args)
 {
-	if (exist_env(env, "HOME"))
+	char	*dir;
+
+	dir = NULL;
+	dir = getcwd(dir, PATH_MAX);
+	if (!dir)
 	{
-		new_err("minishell: cd:", "HOME", "not set.\n");
+		write(2, "Macroshell: cd: ", 16);
+		perror(args);
 		return (1);
 	}
-	update_oldpwd(env, "OLDPWD");
-	chdir(search_env(env, "HOME"));
-	update_oldpwd(env, "PWD");
+	if (exist_env(mini->env, "OLDPWD"))
+	{
+		create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir, NO),
+				'='));
+	}
+	if (chdir(args) == -1)
+	{
+		write(2, "Macroshell: cd: ", 16);
+		perror(args);
+		return (1);
+	}
+	mod_env(mini->env, "OLDPWD", dir);
+	update_oldpwd(mini->env, "PWD");
 	return (0);
 }
 
 static int	change_path(t_mini *mini, int option, char *args)
 {
-	char	*dir;
-
 	if (option == 0)
-		return (option0(mini->env));
-	if (option == 1)
-		return (option1(mini->env));
-	dir = NULL;
-	if (option == 2)
 	{
-		dir = getcwd(dir, PATH_MAX);
-		if (!dir)
+		if (exist_env(mini->env, "HOME"))
 		{
-			perror(strerror(errno));
+			new_err("minishell: cd:", "HOME", "not set.\n");
 			return (1);
 		}
-		if (exist_env(mini->env, "OLDPWD"))
-		{
-			create_env(mini->env, ft_split(ft_strjoin("OLDPWD=", dir, NO),
-					'='));
-		}
-		if (chdir(args) == -1)
-		{
-			write(2, "Macroshell: cd: ", 16);
-			perror(args);
-			return (1);
-		}
-		mod_env(mini->env, "OLDPWD", dir);
+		update_oldpwd(mini->env, "OLDPWD");
+		chdir(search_env(mini->env, "HOME"));
 		update_oldpwd(mini->env, "PWD");
 		return (0);
+	}
+	if (option == 1)
+		return (option1(mini->env));
+	if (option == 2)
+	{
+		return (change_path_o2(mini, args));
 	}
 	return (1);
 }
