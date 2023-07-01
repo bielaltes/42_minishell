@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jsebasti <jsebasti@student.42.fr>          +#+  +:+       +#+         #
+#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 17:10:25 by baltes-g          #+#    #+#              #
-#    Updated: 2023/06/19 02:51:31 by jsebasti         ###   ########.fr        #
+#    Updated: 2023/07/01 12:44:52 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 all:	$(NAME)
  
 %.o:%.c $(INC)
-	@printf "        \rCompilant $@"
+	@printf "        \rCompilant $<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):: $(OBJS) $(INC)

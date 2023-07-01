@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/07/01 12:23:13 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/07/01 12:55:21 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIB_M 		= $(INC_DIR)/libft/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS =  -g -Wall -Wextra -Werror
 LIBC = ar -rcs
 # =============
 
@@ -75,10 +75,12 @@ all:
 
 $(OBJ_DIR)%.o: %.c $(MKFL)
 	@$(MP) $(dir $@)
+	@printf "                       \rCompiling $<"
 	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -I$(HOME)/.brew/opt/readline/include -c $< -o $@
 
 $(NAME):: $(OBJ) $(LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -L$(HOME)/.brew/opt/readline/lib -o $(NAME)
+	@printf "\nLinking minishell\n"
+	@$(CC) $(CFLAGS) $(OBJ) $(LIB) -lreadline -L$(HOME)/.brew/opt/readline/lib -o $(NAME)
 
 $(NAME)::
 	@echo "Hello, Minishell already compiled 😇"
