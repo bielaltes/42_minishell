@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:01:03 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/07/01 11:11:23 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:52:42 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	exec_exec(t_mini *mini, int i, int p[4])
 	}
 }
 
-static int	handle_exit(int exit_status)
+static int	handle_exit(int exit_status, int flag)
 {
 	if (WIFEXITED(exit_status))
 		return (WEXITSTATUS(exit_status));
@@ -88,12 +88,14 @@ static int	handle_exit(int exit_status)
 			end(SUCCESS, MINI, ": core dumped in child", NULL);
 		if (WTERMSIG(exit_status) == SIGINT)
 		{
-			ft_printf("\n");
+			if (flag)
+				ft_printf("\n");
 			return (130);
 		}
 		if (WTERMSIG(exit_status) == SIGQUIT)
 		{
-			ft_printf("Quit: 3\n");
+			if (flag)
+				ft_printf("Quit: 3\n");
 			return (131);
 		}
 	}
@@ -118,7 +120,10 @@ void	exec(t_mini *mini)
 		end(2, MINI, "close", CCLOSE);
 	while (i < mini->n_cmds && waitpid(mini->pids[i], &status, 0) > 0)
 	{
-			g_sig.ret = handle_exit(status);
+		if (i == mini->n_cmds -1)
+			g_sig.ret = handle_exit(status, 1);
+		else
+			g_sig.ret = handle_exit(status, 0);
 		++i;
 	}
 	free(mini->pids);
