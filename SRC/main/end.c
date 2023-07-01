@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 10:26:40 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/28 11:54:13 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:10:46 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	free_split(char **argv)
 	int	i;
 
 	i = 0;
-	while (argv[i])
+	while (argv && argv[i])
 		free(argv[i++]);
 }
 

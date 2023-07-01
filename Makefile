@@ -6,13 +6,13 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/07/01 16:02:17 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/07/01 17:14:47 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME		= minishell
-INC_DIR		= INC/
+INC_DIR		= INC
 MKFL		= Makefile
 SRC_DIR		= SRC/
 OBJ_DIR		= OBJ/
@@ -27,7 +27,7 @@ LIB_M 		= $(INC_DIR)/libft/
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS =  -g -Wall -Wextra -Werror
+CFLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
 LIBC = ar -rcs
 # =============
 

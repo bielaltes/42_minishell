@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:07:05 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/06/29 17:58:03 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:19:27 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	**env_to_str(t_env *env)
 	t_node_env	*aux;
 
 	aux = env->first;
+	if (!aux)
+		return (NULL);
 	new = malloc(sizeof(char *) * (env->size + 1));
 	if (!new)
 		return (NULL);
@@ -56,6 +58,8 @@ char	*search_env(t_env *env, const char *s)
 	t_node_env	*aux;
 
 	aux = env->first;
+	if (!aux)
+		return (NULL);
 	while (ft_strcmp(aux->data, s) && aux->next)
 		aux = (aux->next);
 	if (ft_strcmp(aux->data, s))
@@ -70,6 +74,8 @@ void	mod_env(t_env *env, const char *s, char *m)
 	t_node_env	*aux;
 
 	aux = env->first;
+	if (!aux)
+		return ;
 	while (ft_strcmp(aux->data, s) && aux->next)
 		aux = (aux->next);
 	if (!aux || ft_strcmp(aux->data, s))

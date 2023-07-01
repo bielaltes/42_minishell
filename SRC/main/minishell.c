@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:29:36 by jsebasti          #+#    #+#             */
-/*   Updated: 2023/07/01 11:22:39 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:22:35 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	minishell(t_mini *mini)
 		g_sig.exit = 1;
 		return ;
 	}
-	if (ft_strlen(mini->cmdline))
+	if (ft_strlen_mini(mini->cmdline))
 	{
 		add_history(mini->cmdline);
 		if (!misuse(mini->cmdline))

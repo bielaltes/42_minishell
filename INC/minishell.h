@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:20:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/07/01 12:22:53 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:21:18 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int			next_char(char *word, int i, char c);
 int			next_quote(char *word, int i);
 void		leave_quotes(t_token *tok);
 int			leave_quotes_while(char *word, char **aux, int i);
+int			ft_strlen_mini(char *str);
 
 //EXEC
 void		exec(t_mini *mini);
